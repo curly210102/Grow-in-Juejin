@@ -1,0 +1,13 @@
+{
+  "name": "grow-in-juejin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Curly Brackets",
+  "license": "MIT",
+  "packageManager": "pnpm@7.27.0"
+}
