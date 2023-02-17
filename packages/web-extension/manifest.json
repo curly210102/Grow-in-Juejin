@@ -1,0 +1,7 @@
+{
+    "manifest_version": 3,
+    "name": "我的掘金",
+    "version": "1.0.0",
+    "action": { "default_popup": "index.html" },
+    "options_page": "index.html"
+  }
