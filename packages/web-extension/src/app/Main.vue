@@ -25,15 +25,11 @@ const currentView = computed(() => {
   return (currentRoute.value in routes) ? routes[currentRoute.value as keyof typeof routes] : NotFound;
 })
 
-console.log(currentView)
-
 </script>
 
 <template>
-  <div>
-    <UserProfile :msg="user.userName" />
-    <component :is="currentView" />
-  </div>
+  <UserProfile :user="user" />
+  <component :is="currentView" />
 </template>
 
 <style></style>

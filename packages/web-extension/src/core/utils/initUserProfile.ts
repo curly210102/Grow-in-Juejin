@@ -1,3 +1,4 @@
+import { IUser } from "@/types";
 import { fetchUserProfile } from "./api";
 
 
@@ -13,7 +14,7 @@ export default async function initUserProfile() {
 
     const { user_id, user_name, avatar_large, description, follower_count, post_article_count, got_digg_count } = remoteUserData;
 
-    const currentUserProfile = {
+    const currentUserProfile: IUser = {
         userId: user_id,
         userName: user_name,
         avatar: avatar_large,

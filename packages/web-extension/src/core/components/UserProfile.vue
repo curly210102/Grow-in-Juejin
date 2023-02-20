@@ -1,36 +1,41 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { IUser } from '@/types';
+import { computed } from 'vue';
 
-defineProps<{ msg: string }>()
+const { user } = defineProps<{ user: IUser }>();
 
-const count = ref(0)
+const summary = computed(() => ([
+  {
+    "title": "文章",
+    "count": user.postCount
+  },
+  {
+    "title": "点赞",
+    "count": user.likeCount
+  }, {
+    title: "关注",
+    "count": user.followerCount
+  }
+]))
+
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
-
-  <p>See <code>README.md</code> for more information.</p>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Docs
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
-  </p>
-
-  <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
+  <div class="flex justify-between items-stretch py-4 gap-4 flex-wrap">
+    <div class="flex items-center gap-4">
+      <img :src="user.avatar" class="rounded-full w-24 h-24" :alt="user.userName" :title="user.userName" />
+      <div class="py-2">
+        <strong class="text-2xl tracking-wide mb-3 block">{{ user.userName }}</strong>
+        <p class="text-sm font-light text-stone-600 before:content-['「'] after:content-['」']">{{ user.description }}</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-6 text-center pt-2">
+      <div v-for="{ title, count } in summary">
+        <strong class="text-2xl font-mono tracking-wide mb-1 block">{{ count }}</strong>
+        <div class="text-sm font-light text-stone-600">{{ title }}</div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
