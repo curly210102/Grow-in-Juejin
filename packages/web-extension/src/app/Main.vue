@@ -37,7 +37,7 @@ const currentView = computed(() => {
 <template>
   <UserProfile :user="user" />
   <div class="mt-4 relative">
-    <div class="inline-block relative left-2/4 -translate-x-2/4 lg:absolute lg:left-0 lg:-translate-x-full lg:-ml-6">
+    <div class="inline-block relative left-2/4 -translate-x-2/4 lg:absolute lg:left-0 lg:-translate-x-full lg:-ml-6 mb-4">
       <div class="flex space-x-1 p-1 text-center rounded-xl bg-blue-200/20 text-xs md:text-sm lg:flex-col">
         <a v-for="({ category }, path) in routes" :href="`#${path}`"
           :class="['rounded-xl px-6 py-2', path === currentRoute ? 'bg-white shadow' : 'text-slate-300 hover:bg-white/[0.12] hover:text-slate-400']">

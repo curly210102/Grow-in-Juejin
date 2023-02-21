@@ -6,17 +6,16 @@
   body {
     @apply text-base;
     @apply font-sans;
-    @apply antialiased;
-    @apply text-stone-700;
+    @apply text-slate-700;
   }
 }
 
 @layer components {
   .card {
-    background-color: theme("colors.white");
-    border-radius: theme("borderRadius.lg");
-    padding: theme("spacing.6");
-    box-shadow: theme("boxShadow.xl");
+    @apply bg-white rounded-lg p-6 shadow-card;
+  }
+  .describe {
+    @apply text-xs font-light text-slate-500 sm:text-sm;
   }
   /* ... */
 }
