@@ -21,18 +21,19 @@ const summary = computed(() => ([
 </script>
 
 <template>
-  <div class="flex justify-between items-stretch py-4 gap-4 flex-wrap">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex items-center gap-4">
-      <img :src="user.avatar" class="rounded-full w-24 h-24" :alt="user.userName" :title="user.userName" />
+      <img :src="user.avatar" class="rounded-full w-14 h-14 outline sm:w-16 sm:h-16" :alt="user.userName"
+        :title="user.userName" />
       <div class="py-2">
-        <strong class="text-2xl tracking-wide mb-3 block">{{ user.userName }}</strong>
-        <p class="text-sm font-light text-stone-600 before:content-['「'] after:content-['」']">{{ user.description }}</p>
+        <strong class="text-xl tracking-wide mb-2 block sm:mb-3">{{ user.userName }}</strong>
+        <p class="describe before:content-['「'] after:content-['」']">{{ user.description }}</p>
       </div>
     </div>
-    <div class="flex items-center gap-6 text-center pt-2">
+    <div class="flex px-2 justify-between text-center gap-6">
       <div v-for="{ title, count } in summary">
-        <strong class="text-2xl font-mono tracking-wide mb-1 block">{{ count }}</strong>
-        <div class="text-sm font-light text-stone-600">{{ title }}</div>
+        <strong class="text-xl font-mono tracking-wide sm:mb-1 sm:text-2xl">{{ count }}</strong>
+        <div class="describe">{{ title }}</div>
       </div>
     </div>
   </div>

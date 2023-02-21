@@ -8,28 +8,45 @@ import NotFound from '@/core/components/NotFound.vue';
 import UserProfile from "@/core/components/UserProfile.vue"
 
 const routes = {
-  '/': GrowthTab,
-  '/activity': ActivityTab
+  '/': {
+    category: "统计",
+    component: GrowthTab
+  },
+  '/activity': {
+    category: "活动",
+    component: ActivityTab
+  }
 }
 
 const user = await initUserProfile();
 
-const currentRoute = ref("#");
+const currentRoute = ref("/");
 onMounted(() => {
   window.addEventListener('hashchange', () => {
     currentRoute.value = window.location.hash.slice(1) || "/";
   })
+  currentRoute.value = window.location.hash.slice(1) || "/";
 })
 
 const currentView = computed(() => {
-  return (currentRoute.value in routes) ? routes[currentRoute.value as keyof typeof routes] : NotFound;
+  return routes[currentRoute.value as keyof typeof routes]?.component ?? NotFound;
 })
 
 </script>
 
 <template>
   <UserProfile :user="user" />
-  <component :is="currentView" />
+  <div class="mt-4 relative">
+    <div class="inline-block relative left-2/4 -translate-x-2/4 lg:absolute lg:left-0 lg:-translate-x-full lg:-ml-6">
+      <div class="flex space-x-1 p-1 text-center rounded-xl bg-blue-200/20 text-xs md:text-sm lg:flex-col">
+        <a v-for="({ category }, path) in routes" :href="`#${path}`"
+          :class="['rounded-xl px-6 py-2', path === currentRoute ? 'bg-white shadow' : 'text-slate-300 hover:bg-white/[0.12] hover:text-slate-400']">
+          {{ category }}
+        </a>
+      </div>
+    </div>
+    <component :is="currentView" />
+  </div>
 </template>
 
 <style></style>
