@@ -14,5 +14,6 @@ export default function (userActions: UserActions) {
     score += 10 * userActions[ActionType.PIN];
     score += 5 * userActions[ActionType.LKPIN];
 
-    return Math.max(score, 100);
+
+    return Math.min(score, 100);
 }

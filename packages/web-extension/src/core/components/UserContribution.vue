@@ -7,42 +7,26 @@ import {
     LegendComponent,
     TitleComponent
 } from "echarts/components";
-import { computed, ref, unref } from "vue";
+import { computed, ref, toRefs, unref, watch, watchEffect } from "vue";
 import colors from 'tailwindcss/colors'
 import VChart from "vue-echarts";
-import { IDailyActions } from "@/types";
+import { ActionType, IDailyActions } from "@/types";
 import calculateContribution from "../utils/calculateContribution";
+import { MS_OF_YEAR } from "../utils/date";
 
 type Option = EChartsOption & {
     series: HeatmapSeriesOption
 };
 
-const { actions } = defineProps<{
-    "actions": IDailyActions
+const props = defineProps<{
+    actions: IDailyActions
 }>();
-
-function getVirtualData(start: string, end: string) {
-    const date = +chartTime.parse(start);
-    const endDate = +chartTime.parse(end);
-    const dayTime = 3600 * 24 * 1000;
-    const data: [string, number][] = [];
-    for (let time = date; time < endDate; time += dayTime) {
-        data.push([
-            chartTime.format(time, '{yyyy}-{MM}-{dd}', false),
-            Math.floor(Math.random() * 100)
-        ]);
-    }
-    return data;
-}
+const { actions } = toRefs(props);
 
 
-const dailyContributions = computed(() => {
-    return Object.keys(unref(actions)).map(time => [chartTime.format(time, '{yyyy}-{MM}-{dd}', false), calculateContribution(actions[+time])]);
-})
-
-const MS_OF_YEAR = 366 * 24 * 3600 * 1000;
 const current = new Date();
 const lastYear = [chartTime.format(current.valueOf() - MS_OF_YEAR, "{yyyy}-{MM}-{dd}", false), chartTime.format(current, "{yyyy}-{MM}-{dd}", false)]
+
 
 use(() => [
     CanvasRenderer,
@@ -71,7 +55,7 @@ const option = ref<Option>({
 
         },
         formatter(params: any) {
-            return `${params.marker} 参与度 <strong>${params.data[1]}</strong> <br/>${chartTime.format(params.data[0], "{yyyy}年{MM}月{dd}日, {eeee}", false, "ZH")}`
+            return `${params.marker} 参与度 <strong>${params.data[1]}</strong>｜${chartTime.format(params.data[0], "{yyyy}年{MM}月{dd}日, {eeee}", false, "ZH")}`
         }
     },
     visualMap: {
@@ -146,7 +130,7 @@ const option = ref<Option>({
     series: {
         type: 'heatmap',
         coordinateSystem: 'calendar',
-        data: getVirtualData(lastYear[0], lastYear[1]),
+        data: [],
         emphasis: {
             itemStyle: {
                 borderColor: colors.sky[200],
@@ -174,28 +158,67 @@ const handleSelectChanged = (change: any) => {
     }
 }
 
+const dailyContribution = computed(() => {
+    const date = +chartTime.parse(lastYear[0]);
+    const endDate = +chartTime.parse(lastYear[1]);
+
+    const dailyActions = unref(actions);
+    const dayTime = 3600 * 24 * 1000;
+    const data: [string, number][] = [];
+    for (let time = date; time <= endDate; time += dayTime) {
+        if (dailyActions[time]) {
+            data.push([
+                chartTime.format(time, '{yyyy}-{MM}-{dd}', false),
+                calculateContribution(dailyActions[time])
+            ]);
+        } else {
+            data.push([chartTime.format(time, '{yyyy}-{MM}-{dd}', false), 0]);
+        }
+    }
+    return data;
+})
+const selectedDailyAction = computed(() => {
+    const selectedItem = dailyContribution.value[selectedIndex.value];
+    if (selectedItem) {
+        const time = chartTime.parse(selectedItem[0]).valueOf();
+        const actionOfDay = actions.value;
+        return {
+            date: chartTime.format(time, "{yyyy}-{MM}-{dd}，{eeee}", false, "ZH"),
+            actions: actionOfDay[time] ?? {},
+            total: Object.values(actionOfDay[time] ?? {}).reduce((sum, num) => sum + num, 0),
+            score: selectedItem[1]
+        };
+    }
+    return null;
+})
+
+watch(dailyContribution, (value) => {
+    option.value.series.data = value;
+})
+
 </script>
 <template>
     <div class="p-3">
         <v-chart class="h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize />
     </div>
-    <div class="bg-gray-100 border border-t-0 rounded-b-lg p-5 shadow-inner ">
-        <p></p>
-        <div class="grid grid-cols-3 gap-x-4 gap-y-2 px-8 text-sm">
+    <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8" v-if="selectedDailyAction">
+        <p class="text-sm text-slate-500">
+            {{ selectedDailyAction.date }}，有 {{ selectedDailyAction.total }} 个贡献，参与度 {{ selectedDailyAction.score }}
+        </p>
+        <hr class="divider mt-2 mb-3" />
+        <div class="grid grid-cols-3 gap-x-4 gap-y-2 text-sm">
             <div>
-                🚀 发布 <strong>1</strong> 篇文章
+                🚀 发布 <strong>{{ selectedDailyAction.actions[ActionType.POST] ?? 0 }}</strong> 篇文章
             </div>
             <div>
-                👀 阅读 <strong>1</strong> 篇文章
+                👍 送出 <strong>{{ (selectedDailyAction.actions[ActionType.LKPOST] ?? 0) +
+                    (selectedDailyAction.actions[ActionType.LKPIN] ?? 0) }}</strong> 个赞
             </div>
             <div>
-                👍 送出 <strong>2</strong> 个赞
+                📣 发布 <strong>{{ selectedDailyAction.actions[ActionType.PIN] ?? 0 }}</strong> 条沸点
             </div>
             <div>
-                📣 发布 <strong>3</strong> 条沸点
-            </div>
-            <div>
-                😀 关注 <strong>3</strong> 个掘友
+                😀 关注 <strong>{{ selectedDailyAction.actions[ActionType.FOLLOW] ?? 0 }}</strong> 个掘友
             </div>
         </div>
     </div>

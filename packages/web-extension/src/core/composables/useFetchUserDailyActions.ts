@@ -1,22 +1,26 @@
-import { ActionType, IDailyActions } from "@/types";
-import { inject, ref, unref, watchEffect } from "vue";
+import { ActionType, IDailyActions, StorageKey } from "@/types";
+import { inject, ref, watch, watchEffect } from "vue";
 import { fetchUserDynamic } from "../utils/api";
 import { userInjectionKey } from "../utils/injectionKeys";
-
-const SECOND_OF_DAY = 3600 * 24;
+import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 
 export default function useFetchUserDailyActions() {
     const dailyActions = ref<IDailyActions>({});
     const userId = inject<string>(userInjectionKey);
     const cursor = ref("0");
 
+    loadLocalStorage(StorageKey.DYNAMIC).then(data => {
+        dailyActions.value = data;
+    })
+
     function doFetch() {
+        const actions: IDailyActions = {};
         if (userId) {
             fetchUserDynamic(userId, cursor.value).then(remote => {
                 remote.list.forEach(({ action, time }) => {
-                    const date = (time - time % SECOND_OF_DAY) * 1000;
-                    if (!dailyActions.value[date]) {
-                        dailyActions.value[date] = {
+                    const date = new Date(time * 1000).setHours(0, 0, 0, 0).valueOf();
+                    if (!actions[date]) {
+                        actions[date] = {
                             [ActionType.POST]: 0,
                             [ActionType.LKPOST]: 0,
                             [ActionType.PIN]: 0,
@@ -25,14 +29,19 @@ export default function useFetchUserDailyActions() {
                         }
                     }
 
-                    dailyActions.value[date][action]++;
+                    actions[date][action]++;
                 });
-                cursor.value = remote.cursor;
+                dailyActions.value = actions;
+                // cursor.value = remote.cursor;
             })
         }
     }
 
     // watchEffect(doFetch);
 
-    return { dailyActions };
+    watch(dailyActions, (value) => {
+        saveLocalStorage(StorageKey.DYNAMIC, value);
+    })
+
+    return dailyActions;
 }

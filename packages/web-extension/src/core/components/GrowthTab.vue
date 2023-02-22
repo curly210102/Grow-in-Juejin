@@ -2,7 +2,8 @@
 import useFetchUserDailyActions from '../composables/useFetchUserDailyActions';
 import UserContribution from './UserContribution.vue';
 
-const { dailyActions } = useFetchUserDailyActions();
+const dailyActions = useFetchUserDailyActions();
+
 </script>
 
 <template>
