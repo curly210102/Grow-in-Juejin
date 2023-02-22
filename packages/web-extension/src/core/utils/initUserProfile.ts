@@ -1,10 +1,11 @@
-import { IUser } from "@/types";
+import { IUser, StorageKey } from "@/types";
 import { fetchUserProfile } from "./api";
+import { loadLocalStorage, saveLocalStorage } from "./storage";
 
 
 export default async function initUserProfile() {
     const [localUserProfile, remoteUserData] = await Promise.all([
-        chrome.storage.local.get("user"),
+        loadLocalStorage(StorageKey.USER),
         fetchUserProfile()
     ]);
 
@@ -27,9 +28,8 @@ export default async function initUserProfile() {
     if (currentUserProfile.userId !== localUserProfile.userId) {
         await chrome.storage.local.clear();
     }
-    await chrome.storage.local.set({
-        "user": currentUserProfile
-    });
+
+    await saveLocalStorage(StorageKey.USER, currentUserProfile);
 
     return currentUserProfile;
 }
