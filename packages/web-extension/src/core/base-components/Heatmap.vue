@@ -9,8 +9,9 @@ import {
     TitleComponent
 } from "echarts/components";
 import colors from "tailwindcss/colors";
-import { computed, ref, watch } from "vue";
+import { computed, ref, toRef, watch } from "vue";
 import VChart from "vue-echarts";
+import { ECharts } from "echarts/core";
 
 type Option = EChartsOption & {
     series: HeatmapSeriesOption
@@ -23,11 +24,13 @@ use(() => [
     LegendComponent,
     HeatmapChart
 ]);
+const chart = ref<ECharts>()
 
 const props = defineProps<{
     data: Option["series"]["data"]
     range: string[]
 }>();
+const range = toRef(props, "range");
 
 const emit = defineEmits<{
     (e: "select", index: number): void
@@ -156,7 +159,11 @@ const handleSelectChanged = (change: any) => {
     }
 }
 
+watch(range, () => {
+    chart.value?.dispatchAction({ type: 'unselect', seriesIndex: 0 })
+})
+
 </script>
 <template>
-    <v-chart class="h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize />
+    <v-chart class="h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize ref="chart" />
 </template>
