@@ -1,6 +1,7 @@
 import { ActionType, IDailyActions, StorageKey } from "@/types";
 import { inject, ref, watch, watchEffect } from "vue";
 import { fetchUserDynamic } from "../utils/api";
+import { startOfDate } from "../utils/date";
 import { userInjectionKey } from "../utils/injectionKeys";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 
@@ -18,7 +19,7 @@ export default function useFetchUserDailyActions() {
         if (userId) {
             fetchUserDynamic(userId, cursor.value).then(remote => {
                 remote.list.forEach(({ action, time }) => {
-                    const date = new Date(time * 1000).setHours(0, 0, 0, 0).valueOf();
+                    const date = startOfDate(time * 1000);
                     if (!actions[date]) {
                         actions[date] = {
                             [ActionType.POST]: 0,

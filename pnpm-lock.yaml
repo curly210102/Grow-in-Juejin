@@ -81,6 +81,8 @@ importers:
   packages/web-extension:
     specifiers:
       '@crxjs/vite-plugin': ^1.0.14
+      '@headlessui/vue': ^1.7.10
+      '@heroicons/vue': ^2.0.16
       '@types/chrome': ^0.0.217
       '@vitejs/plugin-vue': ^2.3.4
       autoprefixer: ^10.4.13
@@ -93,6 +95,8 @@ importers:
       vue-echarts: ^6.5.4
       vue-tsc: ^0.34.7
     dependencies:
+      '@headlessui/vue': 1.7.10_vue@3.2.47
+      '@heroicons/vue': 2.0.16_vue@3.2.47
       autoprefixer: 10.4.13_postcss@8.4.21
       echarts: 5.4.1
       postcss: 8.4.21
@@ -1564,6 +1568,23 @@ packages:
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
     dependencies:
       '@hapi/hoek': 9.3.0
+
+  /@headlessui/vue/1.7.10_vue@3.2.47:
+    resolution: {integrity: sha512-qAov7JULOBBes5CU+MiGpwMKoXxLHXS703WEZkOPxYjPD2p7f286ozlFxw7JjA2MmVgbnis2Wvgg/4hT7nRFIg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.2.47
+    dev: false
+
+  /@heroicons/vue/2.0.16_vue@3.2.47:
+    resolution: {integrity: sha512-saVAExLlGu6epqmS543qeWd/UOJUxpTJyK9aXeFGqS3VIW8X7yyJQmUGT40A38gBEAxMOdTdH9jFSh8sjPFM7A==}
+    peerDependencies:
+      vue: '>= 3'
+    dependencies:
+      vue: 3.2.47
+    dev: false
 
   /@humanwhocodes/config-array/0.11.8:
     resolution: {integrity: sha512-UybHIJzJnR5Qc/MsD9Kr+RpO2h+/P1GhOwdiLPXK5TWk5sgTdu88bTD9UP+CKbPPh5Rni1u0GjAdYQLemG8g+g==}

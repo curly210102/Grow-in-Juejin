@@ -1,189 +1,118 @@
 <script lang='ts' setup>
-import { use, time as chartTime, EChartsOption } from "echarts";
-import { CanvasRenderer } from "echarts/renderers";
-import { HeatmapChart, HeatmapSeriesOption } from "echarts/charts";
-import {
-    TooltipComponent,
-    LegendComponent,
-    TitleComponent
-} from "echarts/components";
-import { computed, ref, toRefs, unref, watch, watchEffect } from "vue";
-import colors from 'tailwindcss/colors'
-import VChart from "vue-echarts";
-import { ActionType, IDailyActions } from "@/types";
-import calculateContribution from "../utils/calculateContribution";
-import { MS_OF_YEAR } from "../utils/date";
+import { time as chartTime } from "echarts";
 
-type Option = EChartsOption & {
-    series: HeatmapSeriesOption
-};
+import { computed, ref, toRef, toRefs, unref, watch, watchEffect } from "vue";
+import { ActionType, IDailyActions, UserActions } from "@/types";
+import calculateContribution from "../utils/calculateContribution";
+import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
+import Heatmap from "../base-components/Heatmap.vue"
+import Label from "../base-components/Label.vue"
+import Select, { Item } from "../base-components/Select.vue"
+import { getYear, startOfYear } from '../utils/date';
+
 
 const props = defineProps<{
-    actions: IDailyActions
+    actions: IDailyActions,
+    bodyClass?: string,
+    headerClass?: string
 }>();
-const { actions } = toRefs(props);
+const actions = toRef(props, "actions");
+const { bodyClass, headerClass } = props;
 
+const startFromYear = computed(() => {
+    const minDate = Math.min(...Object.keys(actions.value).map((date) => +date));
+    return startOfYear(minDate);
+})
 
-const current = new Date();
-const lastYear = [chartTime.format(current.valueOf() - MS_OF_YEAR, "{yyyy}-{MM}-{dd}", false), chartTime.format(current, "{yyyy}-{MM}-{dd}", false)]
-
-
-use(() => [
-    CanvasRenderer,
-    TitleComponent,
-    TooltipComponent,
-    LegendComponent,
-    HeatmapChart
-]);
-
-const option = ref<Option>({
-    tooltip: {
-        enterable: true,
-        confine: true,
-        padding: [4, 4, 2],
-        textStyle: {
-            fontSize: 10
-        },
-        position(pos, _$1, _$2, rect, size) {
-            if (rect) {
-                const posx = rect.x + rect.width / 2 - size.contentSize[0] / 2;
-                const posy = rect.y - size.contentSize[1];
-                return [posx, posy];
-            } else {
-                return pos
-            }
-
-        },
-        formatter(params: any) {
-            return `${params.marker} 参与度 <strong>${params.data[1]}</strong>｜${chartTime.format(params.data[0], "{yyyy}年{MM}月{dd}日, {eeee}", false, "ZH")}`
-        }
-    },
-    visualMap: {
-        type: "piecewise",
-        min: 0,
-        max: 100,
-        orient: 'horizontal',
-        left: 'right',
-        bottom: 0,
-        inRange: {
-            color: [colors.slate[100], colors.blue[300], colors.blue[600]],
-        },
-        controller: {
-            inRange: {
-                symbolSize: [10, 100]
-            }
-        },
-        pieces: [
-            { lt: 1, },
-            {
-                gte: 1, lt: 20
-            },
-            {
-                gte: 20, lt: 60
-            },
-            {
-                gte: 60, lt: 80
-            },
-            {
-                gte: 80
-            }
-        ],
-        text: ['More', 'Less'],
-        itemGap: 5,
-        itemWidth: 12,
-        itemHeight: 12,
-        textStyle: {
-            fontSize: 10,
-            color: colors.slate[300]
-        },
-        selectedMode: false
-    },
-    calendar: {
-        top: 30,
-        left: 30,
-        right: 10,
-        cellSize: ['auto', 12],
-        range: lastYear,
-        splitLine: {
-            show: false
-        },
-        itemStyle: {
-            borderWidth: 2,
-            borderColor: "transparent",
-        },
-        dayLabel: {
-            show: true,
-            nameMap: "ZH",
-            color: colors.slate[400],
-            fontSize: 10,
-
-        },
-        monthLabel: {
-            show: true,
-            nameMap: 'ZH',
-            color: colors.slate[400],
-            align: "left",
-            fontSize: 10
-        },
-        yearLabel: { show: false }
-    },
-    series: {
-        type: 'heatmap',
-        coordinateSystem: 'calendar',
-        data: [],
-        emphasis: {
-            itemStyle: {
-                borderColor: colors.sky[200],
-                borderWidth: 3
-            }
-        },
-        itemStyle: {
-            borderRadius: 2,
-        },
-        select: {
-            itemStyle: {
-                borderColor: colors.sky[300],
-                borderWidth: 3
-            }
-        },
-        selectedMode: "single"
+const rangeItems = computed<Item[]>(() => {
+    const items: Item[] = [{
+        key: "lastYear",
+        text: "过去一年"
+    }]
+    const thisYear = getYear();
+    for (let year = getYear(startFromYear.value); year <= thisYear; year++) {
+        items.push({
+            key: year,
+            text: `${year}`
+        })
     }
+
+    return items;
 });
-const selectedIndex = ref<number>(-1);
-const handleSelectChanged = (change: any) => {
-    if (change.fromAction === "select") {
-        selectedIndex.value = change.fromActionPayload.dataIndexInside;
-    } else if (change.fromAction === "unselect") {
-        selectedIndex.value = -1;
-    }
-}
 
-const dailyContribution = computed(() => {
-    const date = +chartTime.parse(lastYear[0]);
-    const endDate = +chartTime.parse(lastYear[1]);
+const selected = ref(rangeItems.value[0]);
+
+watch(rangeItems, (rangeItems) => {
+    if (!rangeItems.includes(selected.value)) {
+        selected.value = rangeItems[0];
+    }
+})
+
+const range = computed(() => {
+    const selectedKey = selected.value.key;
+    if (selectedKey === "lastYear") {
+        return getLastYearRange().map(date => chartTime.format(date, "{yyyy}-{MM}-{dd}", false));
+    } else {
+        return getFullYearRange(+selectedKey).map(date => chartTime.format(date, "{yyyy}-{MM}-{dd}", false));
+    }
+})
+
+
+type ActionOverview = {
+    dateText: string,
+    total: number,
+    score?: number,
+    actions: UserActions
+}
+const dailyContribution = ref<Array<[string, number]>>([]);
+const rangeActionSummation = ref<ActionOverview | null>(null);
+watchEffect(() => {
+    const isRange = range.value[0] !== range.value[1]
+    const date = chartTime.parse(range.value[0]);
+    const startDate = +date;
+    const endDate = !isRange ? +chartTime.parse(range.value[1]) : addOneYear(date);
 
     const dailyActions = unref(actions);
-    const dayTime = 3600 * 24 * 1000;
-    const data: [string, number][] = [];
-    for (let time = date; time <= endDate; time += dayTime) {
+    const dailyContributionValue: [string, number][] = [];
+    const totalActions = {
+        [ActionType.POST]: 0,
+        [ActionType.LKPOST]: 0,
+        [ActionType.PIN]: 0,
+        [ActionType.LKPIN]: 0,
+        [ActionType.FOLLOW]: 0
+    };
+    let totalActionCount = 0;
+    for (let time = startDate; time <= endDate; time += MS_OF_DAY) {
         if (dailyActions[time]) {
-            data.push([
+            dailyContributionValue.push([
                 chartTime.format(time, '{yyyy}-{MM}-{dd}', false),
                 calculateContribution(dailyActions[time])
             ]);
+            Object.keys(dailyActions[time]).forEach((actionTypeKey) => {
+                const actionType = +actionTypeKey as ActionType;
+                totalActions[actionType] += dailyActions[time][actionType];
+                totalActionCount += dailyActions[time][actionType];
+            })
         } else {
-            data.push([chartTime.format(time, '{yyyy}-{MM}-{dd}', false), 0]);
+            dailyContributionValue.push([chartTime.format(time, '{yyyy}-{MM}-{dd}', false), 0]);
         }
     }
-    return data;
+    dailyContribution.value = dailyContributionValue;
+    rangeActionSummation.value = {
+        dateText: isRange ? `${range.value[0]} - ${range.value[1]}` : range.value[0],
+        total: totalActionCount,
+        actions: totalActions
+    }
 })
-const selectedDailyAction = computed(() => {
+
+const selectedIndex = ref(-1);
+const selectedDailyActionSummation = computed(() => {
     const selectedItem = dailyContribution.value[selectedIndex.value];
     if (selectedItem) {
         const time = chartTime.parse(selectedItem[0]).valueOf();
         const actionOfDay = actions.value;
         return {
-            date: chartTime.format(time, "{yyyy}-{MM}-{dd}，{eeee}", false, "ZH"),
+            dateText: chartTime.format(time, "{yyyy}-{MM}-{dd} {eeee}", false, "ZH"),
             actions: actionOfDay[time] ?? {},
             total: Object.values(actionOfDay[time] ?? {}).reduce((sum, num) => sum + num, 0),
             score: selectedItem[1]
@@ -192,33 +121,43 @@ const selectedDailyAction = computed(() => {
     return null;
 })
 
-watch(dailyContribution, (value) => {
-    option.value.series.data = value;
-})
+const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?? rangeActionSummation.value);
+
 
 </script>
 <template>
-    <div class="p-3">
-        <v-chart class="h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize />
+    <div :class="['flex justify-between space-x-2 items-center mb-2', headerClass]">
+        <Label>社区贡献</Label>
+        <div class="w-28">
+            <Select :items="rangeItems" v-model="selected" />
+        </div>
     </div>
-    <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8" v-if="selectedDailyAction">
-        <p class="text-sm text-slate-500">
-            {{ selectedDailyAction.date }}，有 {{ selectedDailyAction.total }} 个贡献，参与度 {{ selectedDailyAction.score }}
-        </p>
-        <hr class="divider mt-2 mb-3" />
-        <div class="grid grid-cols-3 gap-x-4 gap-y-2 text-sm">
-            <div>
-                🚀 发布 <strong>{{ selectedDailyAction.actions[ActionType.POST] ?? 0 }}</strong> 篇文章
-            </div>
-            <div>
-                👍 送出 <strong>{{ (selectedDailyAction.actions[ActionType.LKPOST] ?? 0) +
-                    (selectedDailyAction.actions[ActionType.LKPIN] ?? 0) }}</strong> 个赞
-            </div>
-            <div>
-                📣 发布 <strong>{{ selectedDailyAction.actions[ActionType.PIN] ?? 0 }}</strong> 条沸点
-            </div>
-            <div>
-                😀 关注 <strong>{{ selectedDailyAction.actions[ActionType.FOLLOW] ?? 0 }}</strong> 个掘友
+    <div :class="bodyClass">
+        <div class="p-3">
+            <Heatmap :data="dailyContribution" :range="range" :onSelect="(index) => selectedIndex = index" />
+        </div>
+        <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8" v-if="dailyActionSummation">
+            <p class="text-sm text-slate-500">
+                {{ dailyActionSummation.dateText }}，产生 {{ dailyActionSummation.total }} 个贡献
+                <template v-if="dailyActionSummation.score">
+                    ，参与度 {{ dailyActionSummation.score }}
+                </template>
+            </p>
+            <hr class="divider mt-2 mb-3" />
+            <div class="grid grid-cols-3 gap-x-4 gap-y-2 text-sm">
+                <div>
+                    🚀 发布 <strong>{{ dailyActionSummation.actions[ActionType.POST] ?? 0 }}</strong> 篇文章
+                </div>
+                <div>
+                    👍 送出 <strong>{{ (dailyActionSummation.actions[ActionType.LKPOST] ?? 0) +
+                        (dailyActionSummation.actions[ActionType.LKPIN] ?? 0) }}</strong> 个赞
+                </div>
+                <div>
+                    📣 发布 <strong>{{ dailyActionSummation.actions[ActionType.PIN] ?? 0 }}</strong> 条沸点
+                </div>
+                <div>
+                    😀 关注 <strong>{{ dailyActionSummation.actions[ActionType.FOLLOW] ?? 0 }}</strong> 个掘友
+                </div>
             </div>
         </div>
     </div>
