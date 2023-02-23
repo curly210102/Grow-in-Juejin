@@ -88,7 +88,7 @@ const option = computed<Option>(() => ({
                 gte: 80
             }
         ],
-        text: ['More', 'Less'],
+        text: ['More', '参与度: Less'],
         itemGap: 5,
         itemWidth: 12,
         itemHeight: 12,

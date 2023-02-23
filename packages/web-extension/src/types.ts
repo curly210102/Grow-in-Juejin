@@ -26,5 +26,5 @@ export interface IDailyActions {
 
 export enum StorageKey {
     "USER" = "user",
-    "DYNAMIC" = "dynamic"
+    "DYNAMIC" = "dynamic",
 }

@@ -1,10 +1,10 @@
 <script lang='ts' setup>
 import { time as chartTime } from "echarts";
 
-import { computed, ref, toRef, toRefs, unref, watch, watchEffect } from "vue";
+import { computed, ref, toRef, unref, watch, watchEffect } from "vue";
 import { ActionType, IDailyActions, UserActions } from "@/types";
 import calculateContribution from "../utils/calculateContribution";
-import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
+import { addOneYear, getCurrent, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
 import Heatmap from "../base-components/Heatmap.vue"
 import Label from "../base-components/Label.vue"
 import Select, { Item } from "../base-components/Select.vue"
@@ -20,7 +20,7 @@ const actions = toRef(props, "actions");
 const { bodyClass, headerClass } = props;
 
 const startFromYear = computed(() => {
-    const minDate = Math.min(...Object.keys(actions.value).map((date) => +date));
+    const minDate = Math.min(...Object.keys(actions.value).map((date) => +date), getCurrent());
     return startOfYear(minDate);
 })
 

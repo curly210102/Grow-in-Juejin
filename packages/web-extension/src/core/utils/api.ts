@@ -14,7 +14,9 @@ export const fetchUserDynamic = async (userId: string, cursor: string): Promise<
         time: number,
         id: number,
         action: ActionType
-    }>
+    }>,
+    hasMore: boolean,
+    count: number
 }> => {
     try {
         const res = await fetch(`https://api.juejin.cn/user_api/v1/user/dynamic?user_id=${userId}&cursor=${cursor}`).then(res => res.json())

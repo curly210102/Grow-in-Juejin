@@ -22,3 +22,6 @@ export const startOfYear = (ms: number) => {
 export const getYear = (ms?: number) => {
     return (ms ? new Date(ms) : new Date()).getFullYear();
 }
+export const getCurrent = () => {
+    return new Date().valueOf();
+}

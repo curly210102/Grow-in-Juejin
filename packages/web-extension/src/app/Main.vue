@@ -20,7 +20,7 @@ const routes = {
 }
 
 const user = await initUserProfile();
-provide(userInjectionKey, user.userId);
+provide(userInjectionKey, ref(user.userId));
 
 const currentRoute = ref("/");
 onMounted(() => {
