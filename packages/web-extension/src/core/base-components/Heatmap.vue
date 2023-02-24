@@ -37,6 +37,16 @@ const emit = defineEmits<{
 }>()
 
 const option = computed<Option>(() => ({
+    title: {
+        text: "参与度是怎么计算的？",
+        link: "https://github.com/curly210102/grow-in-juejin/blob/main/packages/web-extension/src/core/utils/calculateContribution.ts",
+        bottom: 0,
+        left: 5,
+        textStyle: {
+            fontSize: 10,
+            color: colors.slate[300]
+        },
+    },
     tooltip: {
         enterable: true,
         confine: true,

@@ -149,15 +149,21 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
                     🚀 发布 <strong>{{ dailyActionSummation.actions[ActionType.POST] ?? 0 }}</strong> 篇文章
                 </div>
                 <div>
-                    👍 送出 <strong>{{ (dailyActionSummation.actions[ActionType.LKPOST] ?? 0) +
-                        (dailyActionSummation.actions[ActionType.LKPIN] ?? 0) }}</strong> 个赞
-                </div>
-                <div>
                     📣 发布 <strong>{{ dailyActionSummation.actions[ActionType.PIN] ?? 0 }}</strong> 条沸点
                 </div>
                 <div>
                     😀 关注 <strong>{{ dailyActionSummation.actions[ActionType.FOLLOW] ?? 0 }}</strong> 个掘友
                 </div>
+                <div>
+                    👍 送出 <strong>{{ (dailyActionSummation.actions[ActionType.LKPOST]) ?? 0
+                    }}</strong> 个赞给文章
+                </div>
+                <div>
+                    👏 赞同 <strong>{{ (dailyActionSummation.actions[ActionType.LKPIN] ?? 0) ?? 0
+                    }}</strong> 条沸点
+
+                </div>
+
             </div>
         </div>
     </div>
