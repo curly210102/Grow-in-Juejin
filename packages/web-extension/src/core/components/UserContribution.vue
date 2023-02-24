@@ -5,8 +5,8 @@ import { computed, ref, toRef, unref, watch, watchEffect } from "vue";
 import { ActionType, IDailyActions, UserActions } from "@/types";
 import calculateContribution from "../utils/calculateContribution";
 import { addOneYear, getCurrent, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
+import SectionHeader from "../base-components/SectionHeader.vue"
 import Heatmap from "../base-components/Heatmap.vue"
-import Label from "../base-components/Label.vue"
 import Select, { Item } from "../base-components/Select.vue"
 import { getYear, startOfYear } from '../utils/date';
 
@@ -30,7 +30,8 @@ const rangeItems = computed<Item[]>(() => {
         text: "过去一年"
     }]
     const thisYear = getYear();
-    for (let year = getYear(startFromYear.value); year <= thisYear; year++) {
+    const pioneerYear = getYear(startFromYear.value);
+    for (let year = thisYear; year >= pioneerYear; year--) {
         items.push({
             key: year,
             text: `${year}`
@@ -126,12 +127,11 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
 
 </script>
 <template>
-    <div :class="['flex justify-between space-x-2 items-center mb-2', headerClass]">
-        <Label>社区贡献</Label>
+    <SectionHeader :class="headerClass" title="社区贡献">
         <div class="w-28">
             <Select :items="rangeItems" v-model="selected" />
         </div>
-    </div>
+    </SectionHeader>
     <div :class="bodyClass">
         <div class="p-3">
             <Heatmap :data="dailyContribution" :range="range" :onSelect="(index) => selectedIndex = index" />
@@ -156,7 +156,7 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
                 </div>
                 <div>
                     👍 送出 <strong>{{ (dailyActionSummation.actions[ActionType.LKPOST]) ?? 0
-                    }}</strong> 个赞给文章
+                    }}</strong> 个赞
                 </div>
                 <div>
                     👏 赞同 <strong>{{ (dailyActionSummation.actions[ActionType.LKPIN] ?? 0) ?? 0

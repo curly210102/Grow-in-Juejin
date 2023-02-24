@@ -24,17 +24,17 @@ const selected = toRef(attrs, "modelValue") as Ref<Item>;
     <Listbox>
         <div class="relative z-10">
             <ListboxButton
-                class="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left sm:text-sm text-slate-400 shadow-inner">
+                class="relative w-full rounded-lg bg-gray-300/10 py-1 pl-3 pr-10 text-left text-xs text-slate-400 shadow-inner">
                 <span class="block truncate">{{ selected.text }}</span>
                 <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon class="h-5 w-5 text-slate-400" aria-hidden="true" />
+                    <ChevronUpDownIcon class="h-4 w-4 text-slate-400" aria-hidden="true" />
                 </span>
             </ListboxButton>
 
             <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
                 leave-to-class="opacity-0">
                 <ListboxOptions
-                    class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                    class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-xs">
                     <ListboxOption v-slot="{ active, selected }" v-for="item in items" :key="item.key" :value="item"
                         as="template">
                         <li :class="[

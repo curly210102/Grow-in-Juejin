@@ -12,7 +12,7 @@
 
 @layer components {
   .card {
-    @apply bg-white rounded-lg p-6 shadow-card;
+    @apply bg-white rounded-lg p-3 shadow-card;
   }
   .describe {
     @apply text-xs font-light text-slate-500 sm:text-sm;

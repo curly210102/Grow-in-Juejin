@@ -44,7 +44,8 @@ const option = computed<Option>(() => ({
         left: 5,
         textStyle: {
             fontSize: 10,
-            color: colors.slate[300]
+            color: colors.slate[300],
+            fontWeight: "normal"
         },
     },
     tooltip: {
@@ -98,7 +99,7 @@ const option = computed<Option>(() => ({
                 gte: 80
             }
         ],
-        text: ['More', '参与度: Less'],
+        text: ['More', 'Less'],
         itemGap: 5,
         itemWidth: 12,
         itemHeight: 12,

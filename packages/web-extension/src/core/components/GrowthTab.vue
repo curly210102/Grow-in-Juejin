@@ -1,6 +1,7 @@
 <script lang='ts' setup>
 import useFetchUserDailyActions from '../composables/useFetchUserDailyActions';
 import UserContribution from './UserContribution.vue';
+import UserGrowTrending from './UserGrowTrending.vue';
 
 
 const dailyActions = useFetchUserDailyActions();
@@ -9,7 +10,12 @@ const dailyActions = useFetchUserDailyActions();
 </script>
 
 <template>
-    <div>
-        <UserContribution :actions="dailyActions" bodyClass="shadow-card rounded-lg" />
+    <div class="space-y-8">
+        <div>
+            <UserContribution :actions="dailyActions" bodyClass="shadow-card rounded-lg" />
+        </div>
+        <div>
+            <UserGrowTrending :actions="dailyActions" />
+        </div>
     </div>
 </template>
