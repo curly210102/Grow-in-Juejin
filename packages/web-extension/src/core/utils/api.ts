@@ -1,8 +1,8 @@
 import { ActionType } from "@/types";
 
-export const fetchUserProfile = async () => {
+export const fetchUserProfile = async (userId?: string | null) => {
     try {
-        const res = await fetch("https://api.juejin.cn/user_api/v1/user/get").then(res => res.json())
+        const res = await fetch("https://api.juejin.cn/user_api/v1/user/get" + (userId ? `?user_id=${userId}` : "")).then(res => res.json())
         return res.data;
     } catch (error) {
         throw new Error("Request Failed")
