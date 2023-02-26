@@ -9,6 +9,8 @@ APP_TOKEN = os.environ.get("APP_TOKEN", "")
 APP_ID = os.environ.get("APP_ID", "")
 APP_SECRET = os.environ.get("APP_SECRET", "")
 
+print(APP_TOKEN, APP_ID, APP_SECRET)
+
 
 def isMultilineText(arg):
     return isinstance(arg, list)
@@ -20,17 +22,19 @@ def isLink(arg):
 
 def convertMultilineTextToString(mlText):
     str = ""
-    for line in mlText:
-        str += line["text"]
+    if mlText:
+        for line in mlText:
+            str += line["text"]
     return str
 
 
 def extractLinkFromMultilineText(mlText):
     link = ""
-    for line in mlText:
-        if line["type"] == "url":
-            link = line["link"]
-            break
+    if mlText:
+        for line in mlText:
+            if line["type"] == "url":
+                link = line["link"]
+                break
     return link
 
 
@@ -76,8 +80,9 @@ async def requestTableRecords(app_token, table_id, view_id=None, optionalParams=
 
 def parseActivityRecordsToList(records=[]):
     mapping_dict = {"关联键": "key", "备注": "desc", "开始时间": "startTimeStamp",
-                    "活动名": "title", "活动链接": "docLink", "类别": "category", "结束时间": "endTimeStamp"}
+                    "活动名": "title", "活动链接": "docLink", "类别": "category", "结束时间": "endTimeStamp", "头图": "figure"}
     list = []
+    print(records)
     for record in records:
         obj = {mapping_dict[k]: convertMultilineTextToString(
             v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
@@ -94,22 +99,23 @@ def parseActivityRewardToRewardList(records=[]):
         "rewards": []
     }]
 
-    for record in records:
-        fields = record["fields"]
-        if fields.get("最小天数"):
-            list[0]["rewards"].append({
-                "name": convertMultilineTextToString(fields.get("等级名")),
-                "days": fields.get("最小天数")
-            })
-        elif fields.get("数量"):
-            list[1]["rewards"].append({
-                "name": convertMultilineTextToString(fields.get("等级名")),
-                "count": fields.get("数量")
-            })
+    if records:
+        for record in records:
+            fields = record["fields"]
+            if fields.get("最小天数"):
+                list[0]["rewards"].append({
+                    "name": convertMultilineTextToString(fields.get("等级名")),
+                    "days": fields.get("最小天数")
+                })
+            elif fields.get("数量"):
+                list[1]["rewards"].append({
+                    "name": convertMultilineTextToString(fields.get("等级名")),
+                    "count": fields.get("数量")
+                })
     return list
 
 
-def parseActivityRuleMap(records):
+def parseActivityRuleMap(records=[]):
     ruleMap = {
         "categories": [],
         "signSlogan": "",
@@ -119,10 +125,9 @@ def parseActivityRuleMap(records):
     }
     for record in records:
         fields = record["fields"]
-
-        ruleMap["categories"] = fields.get("分类")
-        ruleMap["tagNames"] = fields.get("标签")
-        ruleMap["wordCount"] = fields.get("字数")
+        ruleMap["categories"] = fields.get("分类") or []
+        ruleMap["tagNames"] = fields.get("标签") or []
+        ruleMap["wordCount"] = fields.get("字数") or 0
         ruleMap["signSlogan"] = convertMultilineTextToString(
             fields.get("关键词")).replace("N", "\\d+")
         ruleMap["signLink"] = extractLinkFromMultilineText(fields.get("关键词"))
@@ -148,12 +153,16 @@ async def fetchAndBuildDictionary():
     activityRewardsResp = await activityRewardsTasks
     activityRulesResp = await activityRulesTasks
 
+    print(relatedKeys, activityRulesResp)
+
     for i, item in enumerate(list):
-        rewardList = parseActivityRewardToRewardList(
-            activityRewardsResp[i]["items"])
-        ruleMap = parseActivityRuleMap(activityRulesResp[i]["items"])
-        item["rewards"] = rewardList
-        item.update(ruleMap)
+        if activityRewardsResp[i]:
+            rewardList = parseActivityRewardToRewardList(
+                activityRewardsResp[i].get("items"))
+            item["rewards"] = rewardList
+        if activityRulesResp[i].get("items"):
+            ruleMap = parseActivityRuleMap(activityRulesResp[i].get("items"))
+            item.update(ruleMap)
     return list
 
 

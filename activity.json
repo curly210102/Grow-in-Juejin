@@ -2,6 +2,7 @@
     {
         "key": "2023二月更文",
         "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ab8c1236d554b33b60b4cae111bfbbd~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.awebp?",
         "startTimeStamp": 1675180800000,
         "title": "日新计划｜2月更文挑战",
         "docLink": "https://juejin.cn/post/7167294154827890702",
@@ -24,7 +25,7 @@
                         "days": "14"
                     },
                     {
-                        "name": "第一关\nHHH",
+                        "name": "第一关",
                         "days": "7"
                     }
                 ]
@@ -39,18 +40,32 @@
                 ]
             }
         ],
-        "categories": [
-            "前端",
-            "后端",
-            "iOS",
-            "Android",
-            "人工智能"
+        "categories": [],
+        "signSlogan": "本文参加了由公众号@若川视野 发起的每周源码共读活动， 点击了解详情一起参与。\n这是源码共读的第\\d+期，链接：",
+        "signLink": "https://link.juejin.cn/?target=https%3A%2F%2Flxchuan12.gitee.io",
+        "tagNames": [],
+        "wordCount": 0
+    },
+    {
+        "key": "若川源码",
+        "desc": "每周大家一起学习200行左右的源码，共同进步",
+        "title": "若川视野 x 源码共读",
+        "docLink": "https://juejin.cn/post/7079706017579139102",
+        "category": "源码阅读",
+        "rewards": [
+            {
+                "title": "进度追踪",
+                "rewards": []
+            },
+            {
+                "title": "数量追踪",
+                "rewards": []
+            }
         ],
-        "signSlogan": "开启掘金成长之旅！这是我参与「掘金日新计划 · 2 月更文挑战」的第 \\d+ 天，点击查看活动详情",
-        "signLink": "https://juejin.cn/post/7194721470063312933",
-        "tagNames": [
-            "掘金·日新计划"
-        ],
-        "wordCount": "500"
+        "categories": [],
+        "signSlogan": "本文参加了由公众号@若川视野 发起的每周源码共读活动， 点击了解详情一起参与。\n这是源码共读的第\\d+期，链接：",
+        "signLink": "https://link.juejin.cn/?target=https%3A%2F%2Flxchuan12.gitee.io",
+        "tagNames": [],
+        "wordCount": 0
     }
 ]
