@@ -37,7 +37,7 @@ const currentView = computed(() => {
 
 <template>
   <UserProfile :user="user" />
-  <div class="mt-8 relative mb-12">
+  <div class="mt-8 relative mb-24">
     <div class="inline-block relative left-2/4 -translate-x-2/4 lg:absolute lg:left-0 lg:-translate-x-full lg:-ml-8 mb-8">
       <div
         class="flex space-x-1 p-1 text-center rounded-xl bg-blue-100/20 text-xs md:text-sm lg:flex-col shadow-inner lg:p-2">

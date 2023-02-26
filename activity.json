@@ -1,0 +1,56 @@
+[
+    {
+        "key": "2023二月更文",
+        "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
+        "startTimeStamp": 1675180800000,
+        "title": "日新计划｜2月更文挑战",
+        "docLink": "https://juejin.cn/post/7167294154827890702",
+        "category": "更文活动",
+        "endTimeStamp": 1677340800000,
+        "rewards": [
+            {
+                "title": "进度追踪",
+                "rewards": [
+                    {
+                        "name": "第三关",
+                        "days": "21"
+                    },
+                    {
+                        "name": "第四关",
+                        "days": "30"
+                    },
+                    {
+                        "name": "第二关",
+                        "days": "14"
+                    },
+                    {
+                        "name": "第一关\nHHH",
+                        "days": "7"
+                    }
+                ]
+            },
+            {
+                "title": "数量追踪",
+                "rewards": [
+                    {
+                        "name": "劳模奖",
+                        "count": "45"
+                    }
+                ]
+            }
+        ],
+        "categories": [
+            "前端",
+            "后端",
+            "iOS",
+            "Android",
+            "人工智能"
+        ],
+        "signSlogan": "开启掘金成长之旅！这是我参与「掘金日新计划 · 2 月更文挑战」的第 \\d+ 天，点击查看活动详情",
+        "signLink": "https://juejin.cn/post/7194721470063312933",
+        "tagNames": [
+            "掘金·日新计划"
+        ],
+        "wordCount": "500"
+    }
+]
