@@ -58,3 +58,12 @@ export const fetchUserPins = async (userId: string, cursor: number) => {
         throw new Error("Request Failed")
     }
 }
+
+export const fetchActivities = async () => {
+    try {
+        const res = await fetch("https://raw.githubusercontent.com/curly210102/grow-in-juejin/main/activity.json").then(res => res.json())
+        return res;
+    } catch (error) {
+        throw new Error("Request Failed")
+    }
+}

@@ -105,12 +105,12 @@ def parseActivityRewardToRewardList(records=[]):
             if fields.get("最小天数"):
                 list[0]["rewards"].append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
-                    "days": fields.get("最小天数")
+                    "days": +fields.get("最小天数")
                 })
             elif fields.get("数量"):
                 list[1]["rewards"].append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
-                    "count": fields.get("数量")
+                    "count": +fields.get("数量")
                 })
     return list
 

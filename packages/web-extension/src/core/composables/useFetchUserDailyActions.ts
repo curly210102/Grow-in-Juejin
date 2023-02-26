@@ -105,7 +105,6 @@ export default function useFetchUserDailyActions() {
     }
 
     init();
-
     watch([userId], sync)
 
     return dailyActions;

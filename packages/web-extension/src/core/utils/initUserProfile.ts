@@ -5,9 +5,6 @@ import { loadLocalStorage, saveLocalStorage } from "./storage";
 
 export default async function initUserProfile() {
     const userId = new URLSearchParams(window.location.search).get("userId");
-
-    console.log(userId)
-
     const [localUserProfile, remoteUserData] = await Promise.all([
         loadLocalStorage(StorageKey.USER),
         fetchUserProfile(userId)

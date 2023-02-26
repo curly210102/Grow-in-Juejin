@@ -1,8 +1,16 @@
+<script lang="ts" setup>
+const activities = useFetchActivities()
+
+
+</script>
 <script lang='ts'>
+
 import ActivityOngoing from "./ActivityOngoing.vue";
 import ActivityJoined from "./ActivityJoined.vue";
+import useFetchActivities from "../composables/useFetchActivities";
 
 export default {
+
     components: {
         ActivityOngoing,
         ActivityJoined
@@ -13,7 +21,7 @@ export default {
 <template>
     <div class="space-y-8">
         <div>
-            <ActivityOngoing />
+            <ActivityOngoing :items="activities" />
         </div>
         <div>
             <ActivityJoined />
