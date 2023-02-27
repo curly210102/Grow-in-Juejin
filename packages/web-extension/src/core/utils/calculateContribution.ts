@@ -1,4 +1,4 @@
-import { ActionType, UserActions } from "@/types";
+import { ActionType, UserActions } from "../types";
 
 export default function (userActions: UserActions) {
     let score = 0;

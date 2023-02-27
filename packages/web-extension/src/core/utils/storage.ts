@@ -1,4 +1,4 @@
-import { StorageKey } from "@/types"
+import { StorageKey } from "../types"
 
 export const loadLocalStorage = async (storageKey: StorageKey | StorageKey[]) => {
     const local = (await chrome.storage.local.get(storageKey));

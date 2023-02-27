@@ -3,7 +3,7 @@ import { computed, ref, toRef, watch } from "vue";
 import RadioSelect from "../base-components/RadioSelect.vue";
 import SectionHeader from "../base-components/SectionHeader.vue"
 import VChart from "vue-echarts";
-import { ActionType, IDailyActions } from "@/types";
+import { ActionType, IDailyActions } from "../types";
 import { daysOfMonth, getDate, getMonth, getYear, startOfYear, startOfMonth, prevYear, prevMonth, nextMonth, nextYear } from "../utils/date";
 import colors from "tailwindcss/colors";
 import { EChartsOption } from "echarts";

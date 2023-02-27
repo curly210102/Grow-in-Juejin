@@ -2,6 +2,8 @@ import asyncio
 import requests
 import json
 import os
+import datetime
+import time
 
 # 飞书多维表格 -> json
 
@@ -82,11 +84,12 @@ def parseActivityRecordsToList(records=[]):
     mapping_dict = {"关联键": "key", "备注": "desc", "开始时间": "startTimeStamp",
                     "活动名": "title", "活动链接": "docLink", "类别": "category", "结束时间": "endTimeStamp", "头图": "figure"}
     list = []
-    print(records)
-    for record in records:
-        obj = {mapping_dict[k]: convertMultilineTextToString(
-            v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
-        list.append(obj)
+
+    if records:
+        for record in records:
+            obj = {mapping_dict[k]: convertMultilineTextToString(
+                v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
+            list.append(obj)
     return list
 
 
@@ -105,12 +108,12 @@ def parseActivityRewardToRewardList(records=[]):
             if fields.get("最小天数"):
                 list[0]["rewards"].append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
-                    "days": +fields.get("最小天数")
+                    "days": int(fields.get("最小天数"))
                 })
             elif fields.get("数量"):
                 list[1]["rewards"].append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
-                    "count": +fields.get("数量")
+                    "count": int(fields.get("数量"))
                 })
     return list
 
@@ -135,8 +138,12 @@ def parseActivityRuleMap(records=[]):
 
 
 async def fetchAndBuildDictionary():
-    result = await requestTableRecords(APP_TOKEN, "tblM2kMhEmywUdD2", "vewyLKKASn")
-    list = parseActivityRecordsToList(result["items"])
+    today = str(datetime.date.today()-datetime.timedelta(days=14))
+    result = await requestTableRecords(APP_TOKEN, "tblM2kMhEmywUdD2", "vewD9xQ8SV", {
+        "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
+        "sort": '["结束时间 DESC"]'
+    })
+    list = parseActivityRecordsToList(result.get("items"))
 
     relatedKeys = [item["key"] for item in list]
 
@@ -152,8 +159,6 @@ async def fetchAndBuildDictionary():
 
     activityRewardsResp = await activityRewardsTasks
     activityRulesResp = await activityRulesTasks
-
-    print(relatedKeys, activityRulesResp)
 
     for i, item in enumerate(list):
         if activityRewardsResp[i]:

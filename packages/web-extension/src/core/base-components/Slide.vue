@@ -1,11 +1,18 @@
 <script lang='ts' setup>
 import { computed, ref, watch } from 'vue';
-import { IActivity } from '../types';
+
+interface ISlideItem {
+    figure?: string;
+    title: string;
+    docLink: string;
+    desc?: string;
+    category: string;
+}
 
 const HANDLER_WIDTH = 24;
 
 const props = defineProps<{
-    items: IActivity[]
+    items: ISlideItem[]
 }>()
 
 const items = computed(() => {

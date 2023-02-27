@@ -2,7 +2,7 @@
 import { time as chartTime } from "echarts";
 
 import { computed, ref, toRef, unref, watch, watchEffect } from "vue";
-import { ActionType, IDailyActions, UserActions } from "@/types";
+import { ActionType, IDailyActions, UserActions } from "../types";
 import calculateContribution from "../utils/calculateContribution";
 import { addOneYear, getCurrent, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
 import SectionHeader from "../base-components/SectionHeader.vue"

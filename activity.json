@@ -7,26 +7,26 @@
         "title": "日新计划｜2月更文挑战",
         "docLink": "https://juejin.cn/post/7167294154827890702",
         "category": "更文活动",
-        "endTimeStamp": 1677340800000,
+        "endTimeStamp": 1677945600000,
         "rewards": [
             {
                 "title": "进度追踪",
                 "rewards": [
                     {
                         "name": "第三关",
-                        "days": "21"
+                        "days": 21
                     },
                     {
                         "name": "第四关",
-                        "days": "30"
+                        "days": 30
                     },
                     {
                         "name": "第二关",
-                        "days": "14"
+                        "days": 14
                     },
                     {
                         "name": "第一关",
-                        "days": "7"
+                        "days": 7
                     }
                 ]
             },
@@ -35,7 +35,7 @@
                 "rewards": [
                     {
                         "name": "劳模奖",
-                        "count": "45"
+                        "count": 45
                     }
                 ]
             }

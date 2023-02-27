@@ -1,4 +1,4 @@
-import { ActionType, IDailyActions, StorageKey } from "@/types";
+import { ActionType, IDailyActions, StorageKey } from "../types";
 import { inject, Ref, ref, watch } from "vue";
 import { fetchUserDynamic } from "../utils/api";
 import { startOfDate } from "../utils/date";
@@ -10,6 +10,17 @@ export default function useFetchUserDailyActions() {
     let lastSyncActionTime = -1;
     let lastSyncActionCount = 0;
     const userId = inject<Ref<string>>(userInjectionKey, ref(""));
+
+    async function init() {
+        await loadLocalStorage(StorageKey.DYNAMIC).then(data => {
+            if (data) {
+                dailyActions.value = data.actions;
+                lastSyncActionTime = data.time
+                lastSyncActionCount = data.count
+            }
+        })
+        sync();
+    }
 
     async function sync() {
         if (!userId) {
@@ -25,7 +36,7 @@ export default function useFetchUserDailyActions() {
         const lastActionList = list;
         const tailOfLastActionList = list[list.length - 1];
 
-        // 如果新增的动态大于20条，根据动态总数的差值估算后续请求数
+        // 根据动态总数的差值估算后续请求数
         const predictRequestTimes = (count > oneBatchCount && tailOfLastActionList && tailOfLastActionList.time > lastSyncActionTime && hasMore) ? Math.ceil((count - lastSyncActionCount) / oneBatchCount) : 0;
         const batchDynamics = await Promise.all(Array.from(new Array(predictRequestTimes), (_v, i) => i).map((i) => fetchUserDynamic(userId.value, `${oneBatchCount + i * oneBatchCount}`)))
         const allActionList = [lastActionList].concat(batchDynamics.map(({ list }) => list));
@@ -92,17 +103,6 @@ export default function useFetchUserDailyActions() {
         })
     }
 
-    async function init() {
-        await loadLocalStorage(StorageKey.DYNAMIC).then(data => {
-            if (data) {
-                dailyActions.value = data.actions;
-                lastSyncActionTime = data.time
-                lastSyncActionCount = data.count
-            }
-
-        })
-        sync();
-    }
 
     init();
     watch([userId], sync)

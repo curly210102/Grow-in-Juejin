@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IUser } from '@/types';
+import { IUser } from '../types';
 import { computed } from 'vue';
 
 const { user } = defineProps<{ user: IUser }>();

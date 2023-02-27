@@ -1,6 +1,6 @@
-import { IUser, StorageKey } from "@/types";
-import { fetchUserProfile } from "./api";
-import { loadLocalStorage, saveLocalStorage } from "./storage";
+import { IUser, StorageKey } from "../types";
+import { fetchUserProfile } from "../utils/api";
+import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 
 
 export default async function initUserProfile() {
