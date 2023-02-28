@@ -132,7 +132,7 @@ def parseActivityRuleMap(records=[]):
         ruleMap["tagNames"] = fields.get("标签") or []
         ruleMap["wordCount"] = fields.get("字数") or 0
         ruleMap["signSlogan"] = convertMultilineTextToString(
-            fields.get("关键词")).replace("N", "\\d+")
+            fields.get("关键词"))
         ruleMap["signLink"] = extractLinkFromMultilineText(fields.get("关键词"))
     return ruleMap
 
