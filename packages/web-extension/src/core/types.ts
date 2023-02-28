@@ -26,7 +26,7 @@ export interface IActivity {
     categories: string[];
     signSlogan: string;
     signLink: string;
-    tagNames: [];
+    tagNames: string[];
     wordCount: number;
 }
 
@@ -84,11 +84,10 @@ export interface IArticleContentItem {
     count: number;
     modifiedTimeStamp: number;
     fragment: string;
-    tagFit?: boolean;
 }
 
 export type TypeArticle = IArticle &
-    Pick<IArticleContentItem, "count" | "tagFit">;
+    Pick<IArticleContentItem, "count">;
 
 export type TypeInvalidSummary = {
     id: string;

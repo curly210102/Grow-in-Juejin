@@ -34,14 +34,16 @@ const updateView = (route: string) => {
 </script>
 
 <template>
-  <UserProfile :user="user" />
-  <div class="mt-8 relative mb-24">
-    <Navigator :routes="routes" @change="updateView" />
-    <KeepAlive>
-      <component :is="currentView" />
-    </KeepAlive>
-    <CrossOriginHack />
-  </div>
+  <CrossOriginHack>
+    <UserProfile :user="user" />
+    <div class="mt-8 relative mb-24">
+      <Navigator :routes="routes" @change="updateView" />
+      <KeepAlive>
+        <component :is="currentView" />
+      </KeepAlive>
+
+    </div>
+  </CrossOriginHack>
 </template>
 
 <style></style>

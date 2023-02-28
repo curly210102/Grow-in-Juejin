@@ -1,5 +1,13 @@
 export const MS_OF_YEAR = 366 * 24 * 3600 * 1000;
 export const MS_OF_DAY = 24 * 3600 * 1000;
+export const format = (date: number | Date, template: string) => {
+    const dateObj = new Date(date);
+    const year = `${dateObj.getFullYear()}`;
+    const month = `${dateObj.getMonth() + 1}`.padStart(2, "0");
+    const day = `${dateObj.getDate()}`.padStart(2, "0");
+
+    return template.replaceAll("YYYY", year).replaceAll("MM", month).replaceAll("DD", day);
+}
 export const addOneYear = (date: Date) => {
     const year = date.getFullYear();
     return date.setFullYear(year + 1);

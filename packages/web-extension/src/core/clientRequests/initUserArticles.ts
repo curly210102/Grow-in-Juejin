@@ -36,20 +36,36 @@ export default async function initUserArticles(userId: string, earliestTime: num
         }
         // 请求最近的一批
         const { cursor, data: lastArticleList, count, has_more } = await fetchUserArticles(userId, "0");
-        const oneBatchCount = +cursor;
+        const oneRequestCount = +cursor;
 
         const tailOfLastActionList = lastArticleList[lastArticleList.length - 1];
+        const newArticleList = [...lastArticleList];
 
         // 根据数量差计算需请求的次数
-        const predictRequestTimes = (has_more && count > oneBatchCount && tailOfLastActionList) ? Math.ceil((count - articles.length) / oneBatchCount) : 0;
-        const batchArticles = (await Promise.all(Array.from(new Array(predictRequestTimes), (_v, i) => i).map((i) => fetchUserArticles(userId, `${oneBatchCount + i * oneBatchCount}`)))).filter(res => res.data)
+        const predictRequestTimes = (has_more && count > oneRequestCount && tailOfLastActionList) ? Math.ceil((count - articles.length) / oneRequestCount) : 0;
+        const MAX_PARALLEL = 10;
+        const batchRequestTimes = Math.ceil(predictRequestTimes / MAX_PARALLEL);
+        const lastBatchRequestCount = predictRequestTimes % MAX_PARALLEL;
+        let tailOfResponse = null;
+        for (let time = 1; time <= batchRequestTimes; time++) {
+            const prevCursor = oneRequestCount + (time - 1) * MAX_PARALLEL * oneRequestCount;
+            const parallelRequestCount = time === batchRequestTimes ? lastBatchRequestCount : MAX_PARALLEL;
+            const batchArticles = (await Promise.all(Array.from(new Array(parallelRequestCount), (_v, i) => i).map((i) => fetchUserArticles(userId, `${prevCursor + i * oneRequestCount}`)))).filter(res => res.data)
 
-        const newArticleList = lastArticleList.concat(...batchArticles.map(({ data }) => data));
+            batchArticles.forEach(item => {
+                if (item.data) {
+                    newArticleList.push(...item.data);
+                }
+            })
 
-        const tailOfResponse = batchArticles.slice(-1)[0];
+            tailOfResponse = batchArticles.slice(-1)[0];
+        }
+
+
+
         // 存在用户删除动态的情况，这时上一步的差值不一定够
         const lastArticle = newArticleList.slice(-1)[0];
-        if (lastArticle && +lastArticle.article_info.ctime * 1000 > earliestTime) {
+        if (tailOfResponse && tailOfResponse.has_more && lastArticle && +lastArticle.article_info.ctime * 1000 > earliestTime) {
             await syncToEnd(userId, tailOfResponse.cursor, newArticleList);
         }
 
@@ -70,7 +86,7 @@ export default async function initUserArticles(userId: string, earliestTime: num
             const { article_id, mark_content, mtime } = article_info;
             const content = nm(mark_content).trim();
             articleContentMap.set(article_id, {
-                fragment: content.slice(0, 50) + "\n" + content.slice(-50),
+                fragment: content.slice(0, 100) + "\n" + content.slice(-100),
                 count: countWords(mark_content),
                 modifiedTimeStamp: +mtime * 1000,
             });
