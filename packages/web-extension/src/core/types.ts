@@ -9,14 +9,14 @@ export interface IActivity {
     endTimeStamp?: number;
     rewards: [
         {
-            title: "进度追踪";
+            type: "days";
             rewards: Array<{
                 name: string;
-                days: number;
+                count: number;
             }>;
         },
         {
-            title: "数量追踪";
+            type: "count";
             rewards: Array<{
                 name: string;
                 count: number;

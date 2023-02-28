@@ -23,7 +23,7 @@ const summary = computed(() => ([
 <template>
   <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
     <div class="flex items-center gap-4">
-      <img :src="user.avatar" class="rounded-full w-14 h-14 outline sm:w-16 sm:h-16" :alt="user.userName"
+      <img :src="user.avatar" class="rounded-full w-14 h-14 sm:w-16 sm:h-16" :alt="user.userName"
         :title="user.userName" />
       <div class="py-2">
         <strong class="text-xl tracking-wide mb-2 block sm:mb-3">{{ user.userName }}</strong>

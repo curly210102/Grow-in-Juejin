@@ -12,7 +12,7 @@ onErrorCaptured((err) => {
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto py-4 pl-6 pr-8">
+  <div class="max-w-3xl mx-auto py-6 pl-6 pr-8">
     <Suspense>
       <Main />
       <template #fallback>

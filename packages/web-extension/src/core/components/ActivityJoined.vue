@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, inject, ref, Ref, toRef, watch } from "vue";
+import { computed, inject, ref, Ref, toRef } from "vue";
 import SectionHeader from "../base-components/SectionHeader.vue"
 import { IActivity, IArticle, IArticleContentItem } from "../types";
 import { format } from "../utils/date";
 import { articleInjectionKey } from "../utils/injectionKeys";
+import ActivityCard, { ActivityStatus } from "./ActivityCard.vue";
 
 const props = defineProps<{
     activities: IActivity[]
@@ -73,10 +74,11 @@ const joinedActivities = computed(() => {
         docLink,
         startTimeStamp,
         endTimeStamp,
-        desc
+        desc,
+        rewards
     }) => {
-        const stat = activityStats.value[key]
-        return {
+        const stat = activityStats.value[key];
+        const activityStatus: ActivityStatus = {
             key,
             title,
             docLink,
@@ -88,8 +90,28 @@ const joinedActivities = computed(() => {
             collect: stat.collect,
             comment: stat.comment,
             dayCount: stat.dates.size,
-            articleCount: stat.articleCount
-        }
+            articleCount: stat.articleCount,
+            rewards: []
+        };
+
+        rewards.forEach(({ type, rewards }) => {
+            const compareProperty = type === "days" ? "dayCount" : "articleCount";
+            const nextRewardIndex = rewards.findIndex(reward => reward.count > activityStatus[compareProperty]);
+
+            const currentReward = nextRewardIndex < 0 ? rewards.slice(-1)[0] : rewards[nextRewardIndex - 1];
+            const nextReward = rewards[nextRewardIndex];
+
+            if (currentReward || nextReward) {
+                activityStatus.rewards.push({
+                    type,
+                    currentLevel: currentReward?.name,
+                    currentTarget: currentReward?.count,
+                    nextTarget: nextReward?.count,
+                    nextLevel: nextReward?.name,
+                })
+            }
+        })
+        return activityStatus;
     })
 })
 
@@ -97,11 +119,9 @@ const joinedActivities = computed(() => {
 
 <template>
     <SectionHeader title="已参与的活动">
-        <div v-for="activity in joinedActivities">
-
-            {{ activity.title }}
-            {{ activity.articleCount }}
-            {{ activity.dayCount }}
-        </div>
     </SectionHeader>
+    <div class="grid gap-2 grid-cols-2">
+        <ActivityCard v-for="activity in joinedActivities" class="card" :activity="activity">
+        </ActivityCard>
+    </div>
 </template>

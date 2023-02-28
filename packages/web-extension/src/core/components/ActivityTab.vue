@@ -20,7 +20,7 @@ const ongoingActivities = computed(() => {
 
 </script>
 <template>
-    <div class="space-y-8">
+    <div class="space-y-10">
         <div>
             <ActivityOngoing :items="ongoingActivities" />
         </div>

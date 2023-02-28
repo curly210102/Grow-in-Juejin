@@ -66,6 +66,6 @@ provide(articleInjectionKey, readonly(articles));
 
 </script>
 <template>
-    <iframe :src="frameURL" ref="frame"></iframe>
+    <iframe :src="frameURL" ref="frame" class="w-0 h-0 hidden"></iframe>
     <slot></slot>
 </template>

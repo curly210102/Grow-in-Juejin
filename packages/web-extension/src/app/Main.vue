@@ -36,7 +36,7 @@ const updateView = (route: string) => {
 <template>
   <CrossOriginHack>
     <UserProfile :user="user" />
-    <div class="mt-8 relative mb-24">
+    <div class="mt-8 relative mb-20">
       <Navigator :routes="routes" @change="updateView" />
       <KeepAlive>
         <component :is="currentView" />
