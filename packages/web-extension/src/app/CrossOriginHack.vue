@@ -5,9 +5,7 @@ const frame = ref<HTMLIFrameElement | null>(null);
 
 
 onMounted(() => {
-    window.addEventListener("message", ({ data }) => {
-        console.log(data)
-    })
+
 })
 </script>
 <template>

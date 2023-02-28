@@ -32,42 +32,60 @@ export default function useFetchUserDailyActions() {
         // 请求最近的20条动态
         const lastDynamics = await fetchUserDynamic(userId.value, "0");
         const { cursor, list, count, hasMore } = lastDynamics;
-        const oneBatchCount = +cursor;
+        const oneRequestOffset = +cursor;
         const lastActionList = list;
         const tailOfLastActionList = list[list.length - 1];
+        const isAttachLocalRecord = mergeActions(lastActionList);
 
-        // 根据动态总数的差值估算后续请求数
-        const predictRequestTimes = (count > oneBatchCount && tailOfLastActionList && tailOfLastActionList.time > lastSyncActionTime && hasMore) ? Math.ceil((count - lastSyncActionCount) / oneBatchCount) : 0;
-        const batchDynamics = await Promise.all(Array.from(new Array(predictRequestTimes), (_v, i) => i).map((i) => fetchUserDynamic(userId.value, `${oneBatchCount + i * oneBatchCount}`)))
-        const allActionList = [lastActionList].concat(batchDynamics.map(({ list }) => list));
-        for (const list of allActionList) {
-            const isFinished = mergeActions(list);
-            if (isFinished) {
-                break;
+        if (!isAttachLocalRecord) {
+            // 根据动态总数的差值估算后续请求数
+            const predictRequestTimes = (count > oneRequestOffset && tailOfLastActionList && tailOfLastActionList.time > lastSyncActionTime && hasMore) ? Math.ceil((count - lastSyncActionCount) / oneRequestOffset) : 0;
+            const tailOfBatchDynamics = await batchSync(oneRequestOffset, predictRequestTimes);
+
+            // 存在用户删除动态的情况，这时上一步的差值不一定够
+            if (tailOfBatchDynamics) {
+                const tailOfBatchActionList = tailOfBatchDynamics.list.slice(-1)[0];
+                if (tailOfBatchActionList && tailOfBatchActionList.time > lastSyncActionTime && tailOfBatchDynamics.hasMore) {
+                    await syncToAttachLocalRecord(userId.value, tailOfBatchDynamics.cursor);
+                }
             }
         }
 
-        // 存在用户删除动态的情况，这时上一步的差值不一定够
-        const tailOfBatchDynamics = batchDynamics.slice(-1)[0];
-        if (tailOfBatchDynamics) {
-            const tailOfBatchActionList = tailOfBatchDynamics.list.slice(-1)[0];
-            if (tailOfBatchActionList && tailOfBatchActionList.time > lastSyncActionTime && tailOfBatchDynamics.hasMore) {
-                await syncToEnd(userId.value, tailOfBatchDynamics.cursor);
-            }
-        }
-
-        if (lastActionList[0]) {
+        if (lastActionList.length) {
             updateSyncFlag(lastActionList[0].time, count);
         }
     }
 
-    async function syncToEnd(userId: string, cursor: string) {
+    async function batchSync(oneRequestCount: number, predictRequestTimes: number) {
+        // 防止大量并发请求崩掉服务器，限制一次只发10个请求
+        const MAX_PARALLEL = 10;
+        const batchRequestTimes = Math.ceil(predictRequestTimes / MAX_PARALLEL);
+        const lastBatchRequestCount = predictRequestTimes % MAX_PARALLEL
+        let lastDynamics = null;
+
+        for (let time = 1; time <= batchRequestTimes; time++) {
+            const parallelRequestCount = time === batchRequestTimes ? lastBatchRequestCount : MAX_PARALLEL;
+            const prevCursor = oneRequestCount + (time - 1) * MAX_PARALLEL * oneRequestCount;
+            const batchDynamics = await Promise.all(Array.from(new Array(parallelRequestCount), (_v, i) => i).map((i) => fetchUserDynamic(userId.value, `${prevCursor + i * oneRequestCount}`)))
+            let isAttachLocalRecord = false;
+            for (const { list } of batchDynamics) {
+                isAttachLocalRecord = mergeActions(list);
+                if (isAttachLocalRecord) {
+                    return null;
+                }
+            }
+            lastDynamics = batchDynamics.slice(-1)[0];
+        }
+        return lastDynamics;
+    }
+
+    async function syncToAttachLocalRecord(userId: string, cursor: string) {
         const { list, cursor: nextCursor, hasMore } = await fetchUserDynamic(userId, cursor)
         const isFinished = mergeActions(list);
         if (isFinished) {
             return
         } else if (hasMore) {
-            await syncToEnd(userId, nextCursor);
+            await syncToAttachLocalRecord(userId, nextCursor);
         }
     }
 
