@@ -22,7 +22,6 @@ export type ActivityStatus = Pick<IActivity, "key" | "docLink" | "startTimeStamp
 
 const { activity } = defineProps<{ activity: ActivityStatus }>()
 
-console.log(activity)
 </script>
 <template>
     <div class="p-6 space-y-5 pb-10">

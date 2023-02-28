@@ -16,9 +16,14 @@ onErrorCaptured((err) => {
     <Suspense>
       <Main />
       <template #fallback>
-        Loading...
+        <Warning v-if="errorInfo" :error-info="errorInfo" />
+        <div v-else>
+          Loading...
+        </div>
+
       </template>
     </Suspense>
+
   </div>
 </template>
 
