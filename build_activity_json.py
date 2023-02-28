@@ -11,8 +11,6 @@ APP_TOKEN = os.environ.get("APP_TOKEN", "")
 APP_ID = os.environ.get("APP_ID", "")
 APP_SECRET = os.environ.get("APP_SECRET", "")
 
-print(APP_TOKEN, APP_ID, APP_SECRET)
-
 
 def isMultilineText(arg):
     return isinstance(arg, list)
@@ -153,7 +151,7 @@ async def fetchAndBuildDictionary():
     }) for key in relatedKeys])
 
     activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblawuUZtQTY7Tq4", "vewo5RWnaX", {
-        filter: f'CurrentValue.[所属活动]="{key}"',
+        "filter": f'CurrentValue.[所属活动]="{key}"',
         "field_names": '["关键词", "分类", "字数", "标签"]'
     }) for key in relatedKeys])
 
@@ -168,6 +166,7 @@ async def fetchAndBuildDictionary():
         if activityRulesResp[i].get("items"):
             ruleMap = parseActivityRuleMap(activityRulesResp[i].get("items"))
             item.update(ruleMap)
+
     return list
 
 
