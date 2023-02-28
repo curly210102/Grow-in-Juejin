@@ -95,10 +95,10 @@ def parseActivityRecordsToList(records=[]):
 
 def parseActivityRewardToRewardList(records=[]):
     list = [{
-        "title": "进度追踪",
+        "type": "days",
         "rewards": []
     }, {
-        "title": "数量追踪",
+        "type": "count",
         "rewards": []
     }]
 
@@ -115,6 +115,9 @@ def parseActivityRewardToRewardList(records=[]):
                     "name": convertMultilineTextToString(fields.get("等级名")),
                     "count": int(fields.get("数量"))
                 })
+    for i, item in enumerate(list):
+        item["rewards"] = sorted(item.get("rewards"),
+                                 key=lambda reward: reward.get("days") or reward.get("count"))
     return list
 
 

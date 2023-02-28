@@ -10,8 +10,16 @@
         "endTimeStamp": 1677945600000,
         "rewards": [
             {
-                "title": "进度追踪",
+                "type": "days",
                 "rewards": [
+                    {
+                        "name": "第一关",
+                        "days": 7
+                    },
+                    {
+                        "name": "第二关",
+                        "days": 14
+                    },
                     {
                         "name": "第三关",
                         "days": 21
@@ -19,19 +27,11 @@
                     {
                         "name": "第四关",
                         "days": 30
-                    },
-                    {
-                        "name": "第二关",
-                        "days": 14
-                    },
-                    {
-                        "name": "第一关",
-                        "days": 7
                     }
                 ]
             },
             {
-                "title": "数量追踪",
+                "type": "count",
                 "rewards": [
                     {
                         "name": "劳模奖",
@@ -62,11 +62,11 @@
         "category": "源码阅读",
         "rewards": [
             {
-                "title": "进度追踪",
+                "type": "days",
                 "rewards": []
             },
             {
-                "title": "数量追踪",
+                "type": "count",
                 "rewards": []
             }
         ],
