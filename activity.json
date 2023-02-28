@@ -14,19 +14,19 @@
                 "rewards": [
                     {
                         "name": "第一关",
-                        "days": 7
+                        "count": 7
                     },
                     {
                         "name": "第二关",
-                        "days": 14
+                        "count": 14
                     },
                     {
                         "name": "第三关",
-                        "days": 21
+                        "count": 21
                     },
                     {
                         "name": "第四关",
-                        "days": 30
+                        "count": 30
                     }
                 ]
             },

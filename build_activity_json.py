@@ -108,7 +108,7 @@ def parseActivityRewardToRewardList(records=[]):
             if fields.get("最小天数"):
                 list[0]["rewards"].append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
-                    "days": int(fields.get("最小天数"))
+                    "count": int(fields.get("最小天数"))
                 })
             elif fields.get("数量"):
                 list[1]["rewards"].append({
@@ -117,7 +117,7 @@ def parseActivityRewardToRewardList(records=[]):
                 })
     for i, item in enumerate(list):
         item["rewards"] = sorted(item.get("rewards"),
-                                 key=lambda reward: reward.get("days") or reward.get("count"))
+                                 key=lambda reward: reward.get("count"))
     return list
 
 
