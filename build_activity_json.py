@@ -3,7 +3,6 @@ import requests
 import json
 import os
 import datetime
-import time
 
 # 飞书多维表格 -> json
 
@@ -24,7 +23,10 @@ def convertMultilineTextToString(mlText):
     str = ""
     if mlText:
         for line in mlText:
-            str += line["text"]
+            if line["type"] == "url":
+                str += f'[{line["text"]}]({line["link"]})'
+            else:
+                str += line["text"]
     return str
 
 

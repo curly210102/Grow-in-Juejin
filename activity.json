@@ -47,7 +47,7 @@
             "Android",
             "人工智能"
         ],
-        "signSlogan": "开启掘金成长之旅！这是我参与「掘金日新计划 · 2 月更文挑战」的第 \\d+ 天，点击查看活动详情",
+        "signSlogan": "开启掘金成长之旅！这是我参与「掘金日新计划 · 2 月更文挑战」的第 \\d+ 天，[点击查看活动详情](https://juejin.cn/post/7194721470063312933)",
         "signLink": "https://juejin.cn/post/7194721470063312933",
         "tagNames": [
             "掘金·日新计划"
@@ -71,7 +71,7 @@
             }
         ],
         "categories": [],
-        "signSlogan": "本文参加了由公众号@若川视野 发起的每周源码共读活动， 点击了解详情一起参与。\n这是源码共读的第\\d+期，链接：",
+        "signSlogan": "本文参加了由[公众号@若川视野](https://link.juejin.cn/?target=https%3A%2F%2Flxchuan12.gitee.io) 发起的每周源码共读活动， [点击了解详情一起参与。](https://juejin.cn/post/7079706017579139102)\n这是源码共读的第\\d+期，链接：",
         "signLink": "https://link.juejin.cn/?target=https%3A%2F%2Flxchuan12.gitee.io",
         "tagNames": [],
         "wordCount": 0
