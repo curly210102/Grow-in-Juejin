@@ -1,13 +1,19 @@
 {
   "manifest_version": 3,
-  "name": "我的掘金",
+  "name": "Grow in Juejin",
   "version": "1.0.0",
   "background": {
     "service_worker": "src/background/index.ts",
     "type": "module"
   },
+  "icons": {
+    "16": "src/logo/icon16.png",
+    "32": "src/logo/icon32.png",
+    "48": "src/logo/icon48.png",
+    "128": "src/logo/icon128.png"
+  },
   "action": {
-    "default_title": "进入我的掘金"
+    "default_title": "打开 Grow in Juejin"
   },
   "content_scripts": [
     {
@@ -17,14 +23,6 @@
       "all_frames": true,
       "js": [
         "src/content-scripts/home/index.ts"
-      ]
-    },
-    {
-      "matches": [
-        "https://juejin.cn/user/*"
-      ],
-      "js": [
-        "src/content-scripts/user/index.ts"
       ]
     }
   ],

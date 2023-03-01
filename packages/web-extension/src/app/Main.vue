@@ -12,7 +12,7 @@ import CrossOriginHack from './CrossOriginHack.vue';
 
 const routes = [{
   path: "/",
-  category: "统计"
+  category: "轨迹"
 }, {
   path: "/activity",
   category: "活动"

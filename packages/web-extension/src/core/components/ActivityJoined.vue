@@ -38,6 +38,7 @@ const activityStats = computed(() => {
             const { count, fragment } = articleContentInfo;
             for (const activity of activities.value) {
                 const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames } = activity;
+
                 const signSloganRegexp = new RegExp(signSlogan.replace(/([()\[{*+.$^\\|?\]])|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, (match) => {
                     if (match.startsWith("http")) {
                         const escaped = match.replace(/([()\[{*+.$^\\|?\]])/g, "\\$1");

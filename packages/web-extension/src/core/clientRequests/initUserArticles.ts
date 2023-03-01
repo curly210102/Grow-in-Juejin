@@ -86,7 +86,7 @@ export default async function initUserArticles(userId: string, earliestTime: num
             const { article_id, mark_content, mtime } = article_info;
             const content = nm(mark_content).trim();
             articleContentMap.set(article_id, {
-                fragment: content.slice(0, 200) + "\n" + content.slice(-200),
+                fragment: content.slice(0, 300) + "\n" + content.slice(-200),
                 count: countWords(mark_content),
                 modifiedTimeStamp: +mtime * 1000,
             });

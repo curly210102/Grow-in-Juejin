@@ -138,7 +138,7 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
     </SectionHeader>
     <div :class="bodyClass">
         <div class="p-3">
-            <Heatmap :data="dailyContribution" :range="range" :onSelect="(index) => selectedIndex = index" />
+            <Heatmap :data="dailyContribution" :range="range" :onSelect="(index: number) => selectedIndex = index" />
         </div>
         <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8" v-if="dailyActionSummation">
             <p class="text-sm text-slate-500">
