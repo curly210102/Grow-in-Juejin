@@ -80,7 +80,7 @@ watchEffect(() => {
         [ActionType.LKPOST]: 0,
         [ActionType.PIN]: 0,
         [ActionType.LKPIN]: 0,
-        [ActionType.FOLLOW]: 0
+        [ActionType.FOLLOW]: 0,
     };
     let totalActionCount = 0;
     for (let time = startDate; time <= endDate; time += MS_OF_DAY) {
@@ -91,8 +91,11 @@ watchEffect(() => {
             ]);
             Object.keys(dailyActions[time]).forEach((actionTypeKey) => {
                 const actionType = +actionTypeKey as ActionType;
-                totalActions[actionType] += dailyActions[time][actionType];
-                totalActionCount += dailyActions[time][actionType];
+                if (actionType in totalActions) {
+                    totalActions[actionType] += (dailyActions[time][actionType] ?? 0);
+                    totalActionCount += (dailyActions[time][actionType] ?? 0);
+                }
+
             })
         } else {
             dailyContributionValue.push([chartTime.format(time, '{yyyy}-{MM}-{dd}', false), 0]);
@@ -115,7 +118,7 @@ const selectedDailyActionSummation = computed(() => {
         return {
             dateText: chartTime.format(time, "{yyyy}-{MM}-{dd} {eeee}", false, "ZH"),
             actions: actionOfDay[time] ?? {},
-            total: Object.values(actionOfDay[time] ?? {}).reduce((sum, num) => sum + num, 0),
+            total: Object.values(actionOfDay[time] ?? {}).reduce((sum, num) => sum + (num ?? 0), 0),
             score: selectedItem[1]
         };
     }
@@ -123,6 +126,7 @@ const selectedDailyActionSummation = computed(() => {
 })
 
 const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?? rangeActionSummation.value);
+
 
 
 </script>

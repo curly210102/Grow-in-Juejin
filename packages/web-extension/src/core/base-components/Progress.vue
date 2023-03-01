@@ -6,9 +6,6 @@ const props = defineProps<{
 
 const steps = toRef(props, "steps")
 
-console.log(steps.value)
-
-
 </script>
 <template>
     <div class="relative rounded-full p-2 border bg-gray-300/10 w-full overflow-hidden shadow-inner">

@@ -105,7 +105,9 @@ export default function useFetchUserDailyActions() {
                 }
             }
 
-            dailyActions.value[date][action]++;
+            if (action in dailyActions.value[date]) {
+                dailyActions.value[date][action]++;
+            }
         }
 
         return false;
