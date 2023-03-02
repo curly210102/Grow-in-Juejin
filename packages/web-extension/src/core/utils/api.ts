@@ -1,4 +1,4 @@
-import { ActionType, IActivity, IArticle } from "../types";
+import { ActionType } from "../types";
 
 export const fetchUserProfile = async (userId?: string | null) => {
     try {
@@ -87,7 +87,7 @@ export const fetchUserArticles = async (
 export const fetchActivities = async () => {
     try {
         const res = await fetch(
-            "https://raw.githubusercontent.com/curly210102/grow-in-juejin/main/activity.json"
+            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
         ).then((res) => res.json());
         return res;
     } catch (error) {
