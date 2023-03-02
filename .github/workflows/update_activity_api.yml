@@ -2,6 +2,9 @@ name: Update Activity API
 
 on:
   push:
+    paths:
+      - "build_activity_json.py"
+      - "sync_to_gitee.sh"
   workflow_dispatch:
   schedule:
     - cron: "0 */2 * * *"
