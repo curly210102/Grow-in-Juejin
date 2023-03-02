@@ -73,8 +73,7 @@ export const fetchUserArticles = async (
                 }),
                 headers: {
                     "User-agent": window.navigator.userAgent,
-                    "content-type": "application/json",
-                    origin: "",
+                    "content-type": "application/json"
                 },
             }
         ).then((res) => res.json());
