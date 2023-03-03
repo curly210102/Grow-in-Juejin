@@ -50,7 +50,8 @@ function closeDetectResultModalOpen() {
         </div>
         <div class="space-y-3">
             <div v-for="reward in activity.rewards" class="space-y-1">
-                <Progress :steps="0.6">
+                <Progress :steps="Math.min(1, activity.dayCount / Math.max(1, (reward.nextTarget ?? activity.dayCount))) *
+                    Math.min(activity.articleCount / Math.max(1, reward.nextTarget ?? activity.articleCount), 1)">
                     <div class="flex gap-2 px-1">
                         <span v-if="reward.currentLevel" class="text-white/90">{{ reward.currentLevel }} 🎉</span>
                         <span class="text-slate-800/60 ml-auto">🎯 {{ reward.nextLevel }}</span>
