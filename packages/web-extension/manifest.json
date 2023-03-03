@@ -37,6 +37,7 @@
     "<all_urls>"
   ],
   "author": "water.curly@outlook.com",
+  "homepage_url": "https://grow-in-juejin.curlybrackets.space",
   "web_accessible_resources": [
     {
       "resources": ["src/app/index.html"],
