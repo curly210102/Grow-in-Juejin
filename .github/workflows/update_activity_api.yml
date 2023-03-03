@@ -41,8 +41,8 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y jq
       - name: Update Gitee File
         env:
-          GITEE_ACCESS_TOKEN: ${{ secrets.GITEE }}
-        run: sync_to_gitee.sh
+          GITEE_ACCESS_TOKEN: ${{ secrets.GITEE_ACCESS_TOKEN }}
+        run: sh ./sync_to_gitee.sh
         shell: bash
       - name: Commit and push if changed
         run: |-

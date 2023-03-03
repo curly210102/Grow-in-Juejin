@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "name": "Grow in Juejin",
   "version": "1.0.0",
+  "description": "见证在掘金的每一步成长",
   "background": {
     "service_worker": "src/background/index.ts",
     "type": "module"
