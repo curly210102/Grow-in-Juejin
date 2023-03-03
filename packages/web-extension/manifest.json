@@ -25,7 +25,8 @@
       "all_frames": true,
       "js": [
         "src/content-scripts/home/index.ts"
-      ]
+      ],
+      "run_at": "document_start"
     }
   ],
   "permissions": [
