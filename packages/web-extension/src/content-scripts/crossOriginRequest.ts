@@ -2,7 +2,7 @@ import { extCode, frameURL } from "@/constant";
 import initUserArticles from "@/core/clientRequests/initUserArticles";
 
 
-export default async function () {
+export default async function crossOriginRequest() {
     // const res = await initUserArticles("2340192209345405", Infinity);
     // 1. 通过一些判断确定是 extension page 中的 iframe
     // 2. sendMessage 给 extension page
@@ -29,3 +29,5 @@ export default async function () {
         })
     }
 }
+
+crossOriginRequest();

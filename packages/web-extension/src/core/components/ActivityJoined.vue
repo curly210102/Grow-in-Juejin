@@ -157,7 +157,7 @@ const joinedActivities = computed(() => {
 </script>
 
 <template>
-    <SectionHeader title="已参与的活动">
+    <SectionHeader title="正在参与的活动">
     </SectionHeader>
     <div class="grid gap-2 grid-cols-2" v-if="joinedActivities.length">
         <ActivityCard v-for="activity in joinedActivities" class="card" :activity="activity">
@@ -165,7 +165,7 @@ const joinedActivities = computed(() => {
     </div>
     <div v-else class="border rounded-md border-gray-200/80 bg-gray-100/50 text-slate-400 text-sm text-center p-4">
         <a href="https://github.com/curly210102/grow-in-juejin/issues/new" target="_blank" class="block">
-            未检测到已参与的活动，如有差异请提交
+            未检测到正在参与的活动，如有差异请提交
             Issue
         </a>
     </div>

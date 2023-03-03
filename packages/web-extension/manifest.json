@@ -19,23 +19,18 @@
   },
   "content_scripts": [
     {
-      "matches": [
-        "https://juejin.cn/**"
-      ],
+      "matches": ["https://juejin.cn/**"],
+      "js": ["src/content-scripts/home/index.ts"]
+    },
+    {
+      "matches": ["https://juejin.cn/s/**"],
       "all_frames": true,
-      "js": [
-        "src/content-scripts/home/index.ts"
-      ],
+      "js": ["src/content-scripts/crossOriginRequest.ts"],
       "run_at": "document_start"
     }
   ],
-  "permissions": [
-    "unlimitedStorage",
-    "storage"
-  ],
-  "host_permissions": [
-    "<all_urls>"
-  ],
+  "permissions": ["unlimitedStorage", "storage"],
+  "host_permissions": ["<all_urls>"],
   "author": "water.curly@outlook.com",
   "homepage_url": "https://grow-in-juejin.curlybrackets.space",
   "web_accessible_resources": [
