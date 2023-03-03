@@ -12,5 +12,12 @@ export default defineConfig({
     },
   },
   plugins: [vue(),
-  crx({ manifest }),]
+  crx({ manifest }),],
+  build: {
+    rollupOptions: {
+      input: {
+        dashboard: 'src/app/index.html',
+      },
+    },
+  },
 })

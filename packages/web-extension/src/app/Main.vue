@@ -1,7 +1,7 @@
 
 <script setup lang="ts">
 import initUserProfile from '@/core/clientRequests/initUserProfile';
-import { provide, ref, shallowRef } from 'vue';
+import { provide, ref, shallowRef, toRef } from 'vue';
 import GrowthTab from "@/core/components/GrowthTab.vue";
 import ActivityTab from "@/core/components/ActivityTab.vue";
 import NotFound from '@/core/components/NotFound.vue';
@@ -9,6 +9,7 @@ import UserProfile from "@/core/components/UserProfile.vue"
 import { userInjectionKey } from '@/core/utils/injectionKeys';
 import Navigator from './Navigator.vue';
 import CrossOriginHack from './CrossOriginHack.vue';
+import { IUser } from '@/core/types';
 
 const routes = [{
   path: "/",
@@ -22,9 +23,14 @@ const route2Component = {
   '/activity': ActivityTab
 }
 
+const props = defineProps<{
+  user: IUser
+}>();
 
-const user = await initUserProfile();
-provide(userInjectionKey, ref(user.userId));
+const user = toRef(props, "user");
+
+
+provide(userInjectionKey, ref(user.value.userId));
 
 const currentView = shallowRef();
 const updateView = (route: string) => {
