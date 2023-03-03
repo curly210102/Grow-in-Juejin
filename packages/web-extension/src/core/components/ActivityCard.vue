@@ -1,7 +1,9 @@
 <script lang='ts' setup>
+import { ref } from 'vue';
 import Progress from '../base-components/Progress.vue';
-import { IActivity } from '../types'
+import { IActivity, TypeInvalidSummary } from '../types'
 import { format } from "../utils/date";
+import ActivityDetectResultModal from "./ActivityDetectResultModal.vue";
 
 export type ActivityStatus = Pick<IActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title"> & {
     view: number,
@@ -17,16 +19,25 @@ export type ActivityStatus = Pick<IActivity, "key" | "docLink" | "startTimeStamp
         currentTarget: number,
         nextLevel: string,
         nextTarget: number
-    }>>
+    }>>,
+    invalid: Array<TypeInvalidSummary>
 }
 
 const { activity } = defineProps<{ activity: ActivityStatus }>()
+
+const isDetectResultModalOpen = ref<boolean>(false)
+
+function closeDetectResultModalOpen() {
+    isDetectResultModalOpen.value = false
+}
+
 
 </script>
 <template>
     <div class="p-6 space-y-5 pb-10">
         <div class="flex items-center">
-            <div class="flex-1 text-md font-semibold">{{ activity.title }}</div>
+            <div class="flex-1 text-md font-semibold"><a :href="activity.docLink" target="_blank">{{ activity.title }}</a>
+            </div>
             <div class="text-sm font-semibold text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
                 {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(activity.endTimeStamp, "MM/DD") }}</div>
         </div>
@@ -61,5 +72,12 @@ const { activity } = defineProps<{ activity: ActivityStatus }>()
                 </div>
             </div>
         </div>
+        <div v-if="activity.invalid.length" class="text-slate-400 text-xs">
+            ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a class="text-blue-400 cursor-pointer hover:text-blue-500"
+                @click="isDetectResultModalOpen = true">查看</a>
+        </div>
+        <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModalOpen"
+            :invalid-summaries="activity.invalid">
+        </ActivityDetectResultModal>
     </div>
 </template>

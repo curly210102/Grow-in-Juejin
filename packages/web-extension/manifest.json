@@ -36,8 +36,6 @@
     "<all_urls>"
   ],
   "author": "water.curly@outlook.com",
-  "update_url": "https://gitee.com/curlly-brackets/grow-in-juejin-web-extension/raw/update.xml",
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0O1hMZLAM/jKyYxaBC5+yxvFOwwTnKCGKuz4Xic8v9a9UjIPB2MZIr8ksR0tOkCUeD8xITeDrwRB+uwQLfZqsCb3XewqyV3Famd+MQev/Y1fUAl9uI5cjieBMjrehypFpMwv7oMAoBCDFLSI3h1f7TRcWbcgGJQuuvJsfCGmuORxSDT2askQbcoOTmTYxbkEj5D3L3xkwmx8zimtiZrPHG1Kers1bA5g/056V4vvH5GiPf7k0aMIeToPYgcNWlMTzRM5n65Tn+rF/KYqvFbfbYfocXbclCwD6r7AFcuEq02hZcZANHs6yeNUsiSaQjKUqRAasb49O0fBInvTJELvJwIDAQAB",
   "web_accessible_resources": [
     {
       "resources": ["src/app/index.html"],

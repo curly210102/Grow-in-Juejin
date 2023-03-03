@@ -94,7 +94,7 @@ export default async function initUserArticles(userId: string, earliestTime: num
 
         mergeArticles(newArticleList);
 
-        saveLocalStorage(StorageKey.ARTICLES, {
+        await saveLocalStorage(StorageKey.ARTICLES, {
             list: articles,
             contents: Object.fromEntries(articleContentMap)
         })

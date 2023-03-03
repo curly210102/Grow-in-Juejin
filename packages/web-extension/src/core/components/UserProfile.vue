@@ -25,10 +25,10 @@ const summary = computed(() => ([
     <div class="flex items-center gap-4">
       <img :src="user.avatar" class="rounded-full w-14 h-14 sm:w-16 sm:h-16" :alt="user.userName"
         :title="user.userName" />
-      <div class="py-2">
-        <strong class="text-xl tracking-wide mb-2 block sm:mb-3"><a :href="`https://juejin.cn/user/${user.userId}`"
-            target="_blank" class="text-slate-800">{{ user.userName }}</a></strong>
-        <p class="describe before:content-['「'] after:content-['」']">{{ user.description }}</p>
+      <div class="py-2 space-y-2">
+        <strong class="text-xl tracking-wide block"><a :href="`https://juejin.cn/user/${user.userId}`" target="_blank"
+            class="text-slate-800">{{ user.userName }}</a></strong>
+        <p v-if="user.description" class="describe before:content-['「'] after:content-['」']">{{ user.description }}</p>
       </div>
     </div>
     <div class="flex px-2 justify-between text-center gap-6">

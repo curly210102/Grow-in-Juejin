@@ -92,11 +92,10 @@ export type TypeArticle = IArticle &
 export type TypeInvalidSummary = {
     id: string;
     title: string;
-    status:
-    | "time_range"
-    | "category_range"
-    | "word_count"
-    | "slogan_fit"
-    | "link_fit"
-    | "tag_fit";
+    status: Array<"time_range"
+        | "category_range"
+        | "word_count"
+        | "slogan_fit"
+        | "link_fit"
+        | "tag_fit">
 };

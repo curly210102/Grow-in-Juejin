@@ -37,8 +37,8 @@ onMounted(() => {
     });
 
     chrome.storage.local.onChanged.addListener((changes) => {
-        if (changes["article"]) {
-            const current = changes["article"].newValue
+        if (changes[StorageKey.ARTICLES]) {
+            const current = changes[StorageKey.ARTICLES].newValue
             articles.value = {
                 list: current.list,
                 contentMap: new Map(Object.entries(current.contents))

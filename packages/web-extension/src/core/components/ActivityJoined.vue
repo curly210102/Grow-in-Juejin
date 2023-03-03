@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { computed, inject, ref, Ref, toRef } from "vue";
+import { computed, inject, ref, Ref, toRef, watch } from "vue";
 import SectionHeader from "../base-components/SectionHeader.vue"
-import { IActivity, IArticle, IArticleContentItem } from "../types";
+import { IActivity, IArticle, IArticleContentItem, TypeInvalidSummary } from "../types";
 import { format } from "../utils/date";
 import { articleInjectionKey } from "../utils/injectionKeys";
 import ActivityCard, { ActivityStatus } from "./ActivityCard.vue";
@@ -21,6 +21,7 @@ const articles = inject<Ref<{
 }))
 
 
+
 const activityStats = computed(() => {
     const stats = Object.fromEntries(activities.value.map(a => [a.key, {
         view: 0,
@@ -28,11 +29,12 @@ const activityStats = computed(() => {
         collect: 0,
         comment: 0,
         dates: new Set<string>(),
-        articleCount: 0
+        articleCount: 0,
+        invalidSummaries: [] as TypeInvalidSummary[]
     }]))
 
     const { list, contentMap } = articles.value;
-    list.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, verify, id }) => {
+    list.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id }) => {
         const articleContentInfo = contentMap.get(id);
         if (articleContentInfo) {
             const { count, fragment } = articleContentInfo;
@@ -54,10 +56,10 @@ const activityStats = computed(() => {
                     const linkFit = signLinkRegexp.test(fragment);
                     const wordCountFit = count >= wordCount;
                     const categoryFit = categories.includes(category);
-                    const tagFit = new Set(tags.filter(tag => tagNames.includes(tag.tag_name)).map(tag => tag.tag_id)).size === tagNames.length;
+                    const tagFit = new Set(tags.filter(tag => tagNames.includes(tag.tag_name)).map(tag => tag.tag_id)).size === tagNames.length && tagNames.length > 0;
 
+                    const activityStat = stats[activity.key];
                     if (sloganFit && linkFit && wordCountFit && categoryFit && tagFit) {
-                        const activityStat = stats[activity.key];
                         activityStat.view += view_count;
                         activityStat.digg += digg_count;
                         activityStat.collect += collect_count;
@@ -65,7 +67,36 @@ const activityStats = computed(() => {
                         activityStat.articleCount += 1;
                         activityStat.dates.add(format(publishTime, "YYYY-MM-DD"))
                         break;
+                    } else if (sloganFit || linkFit || tagFit) {
+                        const summaries: TypeInvalidSummary = {
+                            id,
+                            title,
+                            status: []
+                        }
+                        if (!categoryFit) {
+                            summaries.status.push("category_range");
+                        }
+
+                        if (!wordCountFit) {
+                            summaries.status.push("word_count");
+                        }
+
+                        if (!sloganFit) {
+                            summaries.status.push("slogan_fit");
+                        }
+
+                        if (!linkFit) {
+                            summaries.status.push("link_fit");
+                        }
+
+                        if (!tagFit) {
+                            summaries.status.push("tag_fit");
+                        }
+
+                        activityStat.invalidSummaries.push(summaries)
+
                     }
+
                 }
             }
         }
@@ -75,7 +106,7 @@ const activityStats = computed(() => {
 })
 
 const joinedActivities = computed(() => {
-    return activities.value.filter(({ key }) => activityStats.value[key]?.articleCount > 0).map(({
+    return activities.value.filter(({ key }) => activityStats.value[key]?.articleCount > 0 || activityStats.value[key]?.invalidSummaries.length > 0).map(({
         key,
         title,
         docLink,
@@ -98,7 +129,8 @@ const joinedActivities = computed(() => {
             comment: stat.comment,
             dayCount: stat.dates.size,
             articleCount: stat.articleCount,
-            rewards: []
+            rewards: [],
+            invalid: stat.invalidSummaries
         };
 
         rewards.forEach(({ type, rewards }) => {
