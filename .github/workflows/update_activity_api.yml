@@ -36,7 +36,7 @@ jobs:
           APP_SECRET: ${{ secrets.APP_SECRET }}
         run: |-
           python build_activity_json.py
-          cat build_activity_json.py
+          cat activity.json
       - name: Install jq for Bash
         run: sudo apt-get update && sudo apt-get install -y jq
       - name: Update Gitee File
