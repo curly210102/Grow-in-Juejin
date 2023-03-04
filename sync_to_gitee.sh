@@ -7,7 +7,7 @@ path="activity.json"
 access_token=$GITEE_ACCESS_TOKEN
 
 # 读取activity.json的内容，进行base64编码得到encodedContent
-encodedContent=$(cat activity.json | base64)
+encodedContent=$(cat activity.json | base64 -w 0)
 
 
 # 请求https://gitee.com/api/v5/repos/{owner}/{repo}/contents/{path}?access_token={access_token}获取响应数据中的sha值
