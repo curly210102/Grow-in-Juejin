@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref, toRefs, watch } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import Button from "../base-components/Button.vue"
 
 const props = defineProps<{

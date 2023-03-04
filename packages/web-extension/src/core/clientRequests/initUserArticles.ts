@@ -6,6 +6,7 @@ import { fetchArticleDetail, fetchUserArticles } from "../utils/api";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 import nm from "nomatter";
 import { countWords } from "@homegrown/word-counter";
+import { batchRequestData } from "../utils/batchRequest";
 
 type ResponseArticle = Awaited<ReturnType<typeof fetchUserArticles>>["data"];
 
@@ -14,8 +15,8 @@ export default async function initUserArticles(userId: string, earliestTime: num
     let articleContentMap: Map<string, IArticleContentItem> =
         new Map();
 
-    // 1. 请求最近的10篇动态
-    // 2. 根据数量差和时间访问拉取文章
+    // 1. 请求最近的10篇文章
+    // 2. 根据数量差和活动时间访问拉取文章
     // 数量差N：可能更新了N篇文章
     // 为了保证限时活动的准确性：拉取最早活动时间之后的文章
     // 3. 根据最后一篇文章的创建时间，找到本地数据中之后的文章，两部分拼接
@@ -63,24 +64,23 @@ export default async function initUserArticles(userId: string, earliestTime: num
 
 
 
-        // 存在用户删除动态的情况，这时上一步的差值不一定够
+        // 存在用户删除文章的情况，这时上一步的差值不一定够
         const lastArticle = newArticleList.slice(-1)[0];
         if (tailOfResponse && tailOfResponse.has_more && lastArticle && +lastArticle.article_info.ctime * 1000 > earliestTime) {
             await syncToEnd(userId, tailOfResponse.cursor, newArticleList);
         }
 
-        const articleDetails = await Promise.all(
-            newArticleList
-                .filter(({ article_id, article_info }) => {
-                    const id = article_id;
-                    const modifiedTime = +article_info.mtime * 1000
-                    return (
-                        !articleContentMap.has(id) ||
-                        articleContentMap.get(id)?.["modifiedTimeStamp"] !== modifiedTime
-                    );
-                })
-                .map(({ article_id }) => fetchArticleDetail(article_id))
-        );
+        const articleDetailRequestData = newArticleList
+            .filter(({ article_id, article_info }) => {
+                const id = article_id;
+                const modifiedTime = +article_info.mtime * 1000
+                return (
+                    !articleContentMap.has(id) ||
+                    articleContentMap.get(id)?.["modifiedTimeStamp"] !== modifiedTime
+                );
+            }).map(({ article_id }) => article_id);
+
+        const articleDetails = await batchRequestData(articleDetailRequestData, fetchArticleDetail, 10)
 
         articleDetails.forEach(({ article_info }) => {
             const { article_id, mark_content, mtime } = article_info;

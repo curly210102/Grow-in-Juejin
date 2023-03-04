@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { onErrorCaptured, ref, Suspense } from 'vue';
+import { onErrorCaptured, ref } from 'vue';
 import Main from "./Main.vue";
 import Warning from "@/core/components/Warning.vue"
 import initUserProfile from '@/core/clientRequests/initUserProfile';
@@ -15,8 +15,13 @@ onErrorCaptured((err) => {
 const user = ref<IUser | null>(null);
 
 (async () => {
-  const currentUser = await initUserProfile();
-  user.value = currentUser;
+  try {
+    const currentUser = await initUserProfile();
+    user.value = currentUser;
+  } catch (error: any) {
+    errorInfo.value = error
+  }
+
 })()
 </script>
 
