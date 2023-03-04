@@ -1,5 +1,32 @@
 [
     {
+        "key": "技术专题20期",
+        "desc": "从技术视角探索 ChatGPT",
+        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eeec3b8d208e4a1a87dd87d8ad69d91e~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1676563200000,
+        "title": "技术视角深入ChatGPT",
+        "docLink": "https://juejin.cn/post/7200689071261663289",
+        "category": "技术专题",
+        "endTimeStamp": 1678204800000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "categories": [],
+        "signSlogan": "本文正在参加 ✍🏻 技术视角深入 ChatGPT 征文活动",
+        "signLink": "",
+        "tagNames": [
+            "ChatGPT"
+        ],
+        "wordCount": "650"
+    },
+    {
         "key": "2023二月更文",
         "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
         "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ab8c1236d554b33b60b4cae111bfbbd~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.awebp?",
@@ -41,11 +68,7 @@
             }
         ],
         "categories": [
-            "前端",
-            "后端",
-            "iOS",
-            "Android",
-            "人工智能"
+            "*"
         ],
         "signSlogan": "开启掘金成长之旅！这是我参与「掘金日新计划 · 2 月更文挑战」的第 N 天，[点击查看活动详情](https://juejin.cn/post/7194721470063312933)",
         "signLink": "https://juejin.cn/post/7194721470063312933",
