@@ -49,7 +49,7 @@ jobs:
         run: |-
           git diff
           git config --global user.email "water.curly@outlook.com"
-          git config --global user.name "CB-bot"
+          git config --global user.name "curly210102"
           git pull
           git add -A
           git commit -m "Updated content" || exit 0
