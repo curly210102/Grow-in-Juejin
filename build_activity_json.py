@@ -4,7 +4,12 @@ import json
 import os
 import datetime
 
+
+class AuthenticationError(Exception):
+    pass
+
 # 飞书多维表格 -> json
+
 
 APP_TOKEN = os.environ.get("APP_TOKEN", "")
 APP_ID = os.environ.get("APP_ID", "")
@@ -181,6 +186,8 @@ async def main():
         json_object = json.dumps(dictionary, indent=4, ensure_ascii=False)
         with open("activity.json", "w", encoding="utf-8") as outfile:
             outfile.write(json_object)
+    else:
+        raise AuthenticationError("FeiShu request access token")
 
 
 asyncio.run(main())
