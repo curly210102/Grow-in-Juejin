@@ -37,7 +37,9 @@ const activityStats = computed(() => {
     list.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id }) => {
         const articleContentInfo = contentMap.get(id);
         if (articleContentInfo) {
-            const { count, fragment } = articleContentInfo;
+            const { count, fragment: articleFragment } = articleContentInfo;
+            // hack: 删掉markdown语法
+            const fragment = articleFragment.replaceAll("**", "");
             for (const activity of activities.value) {
                 const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames } = activity;
 
@@ -55,7 +57,7 @@ const activityStats = computed(() => {
                     const sloganFit = signSloganRegexp.test(fragment);
                     const linkFit = signLinkRegexp.test(fragment);
                     const wordCountFit = count >= wordCount;
-                    const categoryFit = categories.includes("*") ? !!category : categories.includes(category);
+                    const categoryFit = categories.length < 1 || (categories.includes("*") ? !!category : categories.includes(category));
                     const tagFit = new Set(tags.filter(tag => tagNames.includes(tag.tag_name)).map(tag => tag.tag_id)).size === tagNames.length && tagNames.length > 0;
 
                     const activityStat = stats[activity.key];
@@ -67,7 +69,7 @@ const activityStats = computed(() => {
                         activityStat.articleCount += 1;
                         activityStat.dates.add(format(publishTime, "YYYY-MM-DD"))
                         break;
-                    } else if (sloganFit || linkFit || tagFit) {
+                    } else if ((sloganFit || tagFit) || (signLink ? sloganFit : false)) {
                         const summaries: TypeInvalidSummary = {
                             id,
                             title,
