@@ -48,8 +48,8 @@ jobs:
       - name: Commit and push if changed
         run: |-
           git diff
-          git config --global user.email "water.curly@outlook.com"
-          git config --global user.name "curly210102"
+          git config --global user.email "curly230304@163.com"
+          git config --global user.name "curly230304"
           git pull
           git add -A
           git commit -m "Updated content" || exit 0
