@@ -5,46 +5,40 @@
     <img src="./preset/tile.png" />
 </p>
 
-<p style="font-size:14px;color:#97A3B6;" align="center">
-为掘金社区提供增强功能。<br />目前形态为浏览器插件，支持 Chromium 系浏览器
+<p align="center">
+目前形态为浏览器插件，支持 Chromium 系浏览器
 </p>
 
 ## 功能
 
-<p align="center">
-<figure>
-    <img src="./preset/features/contribution.png" alt="热力图"/>
-    <figcaption align="center" style="font-size: 14px;color:#97A3B6;">热力图展示社区参与度</figcaption>
-</figure>
-</p>
-
-<p align="center">
-<figure>
-    <img src="./preset/features/trending.png"/>
-    <figcaption align="center" style="font-size: 14px;color:#97A3B6;">创作趋势追踪成长轨迹</figcaption>
-</figure>
-</p>
-
-<p align="center">
-<figure>
-    <img src="./preset/features/ongoingActivity.png"/>
-    <figcaption align="center" style="font-size: 14px;color:#97A3B6;">推荐社区最新的在线活动</figcaption>
-</figure>
-</p>
-
-<p align="center">
-<figure>
-    <img src="./preset/features/joinedActivity.png"/>
-    <figcaption align="center" style="font-size: 14px;color:#97A3B6;">追踪参与中的活动进度</figcaption>
-</figure>
-</p>
-
-<p align="center">
-<figure>
-    <img src="./preset/features/articleDetector.png"/>
-    <figcaption align="center" style="font-size: 14px;color:#97A3B6;">文章合规检测</figcaption>
-</figure>
-</p>
+<table>
+    <tr>
+        <td>
+        展示社区参与度
+        </td>
+        <td>
+追踪创作成长轨迹
+        </td>
+    </tr>
+    <tr>
+        <td><img src="./preset/features/contribution.png" alt="热力图"/></td>
+        <td><img src="./preset/features/trending.png"/></td>
+    </tr>
+    <tr>
+        <td>当前可参与的社区活动</td>
+        <td>追踪参与中的活动进度</td>
+    </tr>
+    <tr>
+        <td><img src="./preset/features/ongoingActivity.png"/></td>
+        <td><img src="./preset/features/joinedActivity.png"/></td>
+    </tr>
+    <tr>
+        <td>活动文章合规检测</td>
+    </tr>
+    <tr>
+        <td><img src="./preset/features/articleDetector.png"/></td>
+    </tr>
+</table>
 
 ## 使用指南
 
@@ -56,14 +50,26 @@
 
 4. 解压第一步下载的 zip 包，将解压后的文件夹拖拽至 [chrome://extensions](chrome://extensions) 页面即可使用
 
-5. 打开 [juejin.cn](https://juejin.cn)，顶部导航栏出现入口，点击进入即可
+5. 使用方法
 
-![使用说明](./preset/usage/entry.png)
-
-6. 也可点击浏览器工具栏的插件 icon 进入
-
-![使用说明](./preset/usage/browser-entry.png)
-
+<table>
+<tr>
+<td>
+<a href="https://juejin.cn">juejin.cn</a>顶部导航栏入口
+</td>
+<td>
+浏览器工具栏入口
+</td>
+</tr>
+<tr>
+<td>
+<img src="./preset/usage/entry.png" />
+</td>
+<td>
+<img src="./preset/usage/browser-entry.png" />
+</td>
+</tr>
+</table>
 <p style="color:#97A3B6;">
 <i>备注：Edge 商店已提交审核，等待上架中...</i>
 </p>
