@@ -2,7 +2,7 @@ import { ActionType, IDailyActions, StorageKey } from "../types";
 import { inject, Ref, ref, watch } from "vue";
 import { fetchUserDynamic } from "../utils/api";
 import { startOfDate } from "../utils/date";
-import { userInjectionKey } from "../utils/injectionKeys";
+import { defaultSyncInjectContent, ISyncInjectContentType, syncInjectionKey, userInjectionKey } from "../utils/injectionKeys";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 
 export default function useFetchUserDailyActions() {
@@ -10,6 +10,7 @@ export default function useFetchUserDailyActions() {
     let lastSyncActionTime = -1;
     let lastSyncActionCount = 0;
     const userId = inject<Ref<string>>(userInjectionKey, ref(""));
+    const syncBoardCast = inject<ISyncInjectContentType>(syncInjectionKey, defaultSyncInjectContent);
 
     async function init() {
         await loadLocalStorage(StorageKey.DYNAMIC).then(data => {
@@ -29,6 +30,7 @@ export default function useFetchUserDailyActions() {
             lastSyncActionCount = 0;
             return;
         }
+        const completeSync = syncBoardCast.sync();
         // 请求最近的20条动态
         const lastDynamics = await fetchUserDynamic(userId.value, "0");
         const { cursor, list, count, hasMore } = lastDynamics;
@@ -54,6 +56,8 @@ export default function useFetchUserDailyActions() {
         if (lastActionList.length) {
             updateSyncFlag(lastActionList[0].time, count);
         }
+
+        completeSync();
     }
 
     async function batchSync(oneRequestCount: number, predictRequestTimes: number) {

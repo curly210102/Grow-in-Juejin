@@ -1,5 +1,6 @@
 import { extCode, frameURL } from "@/constant";
 import initUserArticles from "@/core/clientRequests/initUserArticles";
+import generateUniqueId from "@/core/utils/uniqueId";
 
 
 export default async function crossOriginRequest() {
@@ -17,11 +18,24 @@ export default async function crossOriginRequest() {
         let syncLocked = false
         chrome.runtime.onMessage.addListener((message, sender) => {
             if (sender.id === chrome.runtime.id) {
-                console.log("enter")
                 if (message.action === "sync") {
-                    console.log("sync")
                     if (!syncLocked) {
-                        initUserArticles(message.userId, message.earliestTime).then(() => { syncLocked = false })
+                        (async () => {
+                            const syncId = await chrome.runtime.sendMessage({
+                                to: "Grow in Juejin",
+                                code: extCode,
+                                content: "Sync",
+                            });
+
+                            initUserArticles(message.userId, message.earliestTime).then(() => { syncLocked = false }).finally(() => {
+                                chrome.runtime.sendMessage({
+                                    to: "Grow in Juejin",
+                                    code: extCode,
+                                    content: "CompleteSync",
+                                    syncId
+                                })
+                            })
+                        })()
                     }
                 }
             }

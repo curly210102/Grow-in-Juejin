@@ -1,15 +1,18 @@
 
 <script setup lang="ts">
-import initUserProfile from '@/core/clientRequests/initUserProfile';
-import { provide, ref, shallowRef, toRef } from 'vue';
+import { computed, provide, readonly, ref, shallowRef, toRef } from 'vue';
 import GrowthTab from "@/core/components/GrowthTab.vue";
 import ActivityTab from "@/core/components/ActivityTab.vue";
 import NotFound from '@/core/components/NotFound.vue';
 import UserProfile from "@/core/components/UserProfile.vue"
-import { userInjectionKey } from '@/core/utils/injectionKeys';
+import { syncInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
 import Navigator from './Navigator.vue';
 import CrossOriginHack from './CrossOriginHack.vue';
 import { IUser } from '@/core/types';
+import { ArrowPathIcon } from '@heroicons/vue/20/solid'
+import { FunnelChart } from 'echarts/charts';
+import generateUniqueId from '@/core/utils/uniqueId';
+
 
 const routes = [{
   path: "/",
@@ -28,9 +31,37 @@ const props = defineProps<{
 }>();
 
 const user = toRef(props, "user");
+const activeSyncActions = ref<Set<Symbol | string>>(new Set());
+
+const isDataLoading = computed(() => {
+  return activeSyncActions.value.size
+})
 
 
-provide(userInjectionKey, ref(user.value.userId));
+function sync() {
+  const syncId = Symbol();
+  activeSyncActions.value.add(syncId);
+  return () => {
+    completeSync(syncId);
+  };
+}
+
+function startSyncWithStringId() {
+  const syncId = generateUniqueId();
+  activeSyncActions.value.add(syncId);
+  return syncId;
+}
+
+function completeSync(syncId: string | Symbol) {
+  activeSyncActions.value.delete(syncId);
+}
+
+provide(userInjectionKey, readonly(ref(user.value.userId)));
+provide(syncInjectionKey, readonly({
+  startSyncWithStringId,
+  sync,
+  completeSync
+}))
 
 const currentView = shallowRef();
 const updateView = (route: string) => {
@@ -41,7 +72,13 @@ const updateView = (route: string) => {
 
 <template>
   <CrossOriginHack>
-    <UserProfile :user="user" />
+    <UserProfile :user="user">
+      <template v-slot:status v-if="isDataLoading">
+        <ArrowPathIcon class="animate-spin-slow w-4 h-4 text-slate-400 mr-1">
+        </ArrowPathIcon>
+        <div class="text-slate-400/60 text-xs">数据加载中，请耐心等待</div>
+      </template>
+    </UserProfile>
     <div class="mt-8 relative mb-20">
       <Navigator :routes="routes" @change="updateView" />
       <KeepAlive>

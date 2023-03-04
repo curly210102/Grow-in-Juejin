@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import useFetchActivities from '@/core/composables/useFetchActivities';
 import { IArticle, IArticleContentItem, StorageKey } from '@/core/types';
-import { activityInjectionKey, articleInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
+import { activityInjectionKey, articleInjectionKey, defaultSyncInjectContent, ISyncInjectContentType, syncInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
 import { loadLocalStorage } from '@/core/utils/storage';
 import { inject, onMounted, provide, ref, unref, watchEffect, readonly } from 'vue';
 import { extCode, frameURL } from "../constant"
@@ -20,6 +20,9 @@ const articles = ref<{
     contentMap: new Map()
 })
 
+const syncBoardCast = inject<ISyncInjectContentType>(syncInjectionKey, defaultSyncInjectContent);
+
+
 loadLocalStorage(StorageKey.ARTICLES).then(data => {
     if (data) {
         articles.value = {
@@ -30,9 +33,17 @@ loadLocalStorage(StorageKey.ARTICLES).then(data => {
 })
 
 onMounted(() => {
-    chrome.runtime.onMessage.addListener(function (message, sender) {
-        if (message.to === "Grow in Juejin" && message.code === extCode && message.content === "Ready") {
-            tabId.value = sender.tab?.id
+    chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+        if (message.to === "Grow in Juejin" && message.code === extCode) {
+            if (message.content === "Ready") {
+                tabId.value = sender.tab?.id
+            } else if (message.content === "Sync") {
+                const syncId = syncBoardCast.startSyncWithStringId();
+                sendResponse(syncId);
+            } else if (message.content === "CompleteSync") {
+                console.log(message.syncId)
+                syncBoardCast.completeSync(message.syncId)
+            }
         }
     });
 
