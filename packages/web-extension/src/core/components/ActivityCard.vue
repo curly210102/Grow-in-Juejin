@@ -35,12 +35,19 @@ function closeDetectResultModalOpen() {
 </script>
 <template>
     <div class="p-6 space-y-5 pb-10">
-        <div class="flex items-center">
-            <div class="flex-1 text-md font-semibold"><a :href="activity.docLink" target="_blank">{{ activity.title }}</a>
+        <div>
+            <div class="flex items-center">
+                <div class="flex-1 text-md font-semibold"><a :href="activity.docLink" target="_blank">{{ activity.title
+                }}</a>
+                </div>
+                <div class="text-sm font-semibold text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
+                    {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(activity.endTimeStamp, "MM/DD") }}</div>
             </div>
-            <div class="text-sm font-semibold text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
-                {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(activity.endTimeStamp, "MM/DD") }}</div>
+            <div class="text-xs text-slate-400/60 mt-2">
+                {{ activity.desc }}
+            </div>
         </div>
+
         <div class="flex items-center">
             <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
                 class="flex-1 text-center text-3xl font-bold font-mono">

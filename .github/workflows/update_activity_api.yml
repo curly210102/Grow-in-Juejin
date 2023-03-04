@@ -52,5 +52,5 @@ jobs:
           git config --global user.name "curly_bot"
           git pull
           git add -A
-          git commit -m "Updated content" || exit 0
+          git commit -m "Update activity.json" || exit 0
           git push
