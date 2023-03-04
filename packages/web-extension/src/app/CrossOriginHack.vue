@@ -41,7 +41,6 @@ onMounted(() => {
                 const syncId = syncBoardCast.startSyncWithStringId();
                 sendResponse(syncId);
             } else if (message.content === "CompleteSync") {
-                console.log(message.syncId)
                 syncBoardCast.completeSync(message.syncId)
             }
         }
