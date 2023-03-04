@@ -42,7 +42,7 @@
 
 ## 使用指南
 
-1. 下载[最新的 Release 包](https://github.com/curly210102/grow-in-juejin/releases/latest/download/extension.zip)
+1. 下载[最新的 Release 包](https://github.com/curly210102/grow-in-juejin/releases/latest/download/grow-in-juejin.zip)
 
 2. 打开浏览器插件管理页面 [chrome://extensions](chrome://extensions)
 
