@@ -288,6 +288,6 @@ const option = computed<Option>(() => ({
         <RadioSelect :items="unitItems" v-model="unit" />
     </SectionHeader>
     <div class="card relative">
-        <v-chart :option="option" class="h-56" />
+        <v-chart :option="option" class="h-56" autoresize />
     </div>
 </template>
