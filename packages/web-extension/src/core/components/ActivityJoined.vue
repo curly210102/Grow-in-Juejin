@@ -55,7 +55,7 @@ const activityStats = computed(() => {
                     const sloganFit = signSloganRegexp.test(fragment);
                     const linkFit = signLinkRegexp.test(fragment);
                     const wordCountFit = count >= wordCount;
-                    const categoryFit = categories.includes(category);
+                    const categoryFit = categories.includes("*") ? !!category : categories.includes(category);
                     const tagFit = new Set(tags.filter(tag => tagNames.includes(tag.tag_name)).map(tag => tag.tag_id)).size === tagNames.length && tagNames.length > 0;
 
                     const activityStat = stats[activity.key];
