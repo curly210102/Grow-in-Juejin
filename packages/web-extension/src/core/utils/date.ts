@@ -68,3 +68,6 @@ export const nextMonth = (time: number) => {
     const date = new Date(time);
     return new Date(date.getFullYear(), date.getMonth() + 1, 1).valueOf();
 }
+export const isAllDay = (time: number) => {
+    return time % MS_OF_DAY == 0;
+}

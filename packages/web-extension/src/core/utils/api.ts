@@ -1,4 +1,4 @@
-import { ActionType } from "../types";
+import { ActionType, IActivity } from "../types";
 
 export const fetchUserProfile = async (userId?: string | null) => {
     try {
@@ -84,7 +84,7 @@ export const fetchUserArticles = async (
 };
 
 
-export const fetchActivities = async () => {
+export const fetchActivities = async (): Promise<Array<IActivity>> => {
     try {
         const res = await fetch(
             "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
