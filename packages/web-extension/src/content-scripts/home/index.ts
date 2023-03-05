@@ -1,4 +1,4 @@
-import renderNavbarEntry from "./renderNavbarEntry"
+import renderEntry from "./renderEntry"
 
-renderNavbarEntry();
+renderEntry();
 

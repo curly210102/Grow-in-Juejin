@@ -27,10 +27,6 @@
       "all_frames": true,
       "js": ["src/content-scripts/crossOriginRequest.ts"],
       "run_at": "document_start"
-    },
-    {
-      "matches": ["https://juejin.cn/user/**"],
-      "js": ["src/content-scripts/user/index.ts"]
     }
   ],
   "permissions": ["unlimitedStorage", "storage"],
