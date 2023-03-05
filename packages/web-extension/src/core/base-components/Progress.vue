@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import { defineProps, toRef } from "vue";
+import { toRef } from "vue";
 const props = defineProps<{
     steps: number
 }>()

@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import useFetchActivities from '@/core/composables/useFetchActivities';
 import { IArticle, IArticleContentItem, StorageKey } from '@/core/types';
-import { activityInjectionKey, articleInjectionKey, defaultSyncInjectContent, ISyncInjectContentType, syncInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
+import { activityInjectionKey, articleContentInjectionKey, articleListInjectionKey, defaultSyncInjectContent, ISyncInjectContentType, syncInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
 import { loadLocalStorage } from '@/core/utils/storage';
 import { inject, onMounted, provide, ref, unref, watchEffect, readonly } from 'vue';
 import { extCode, frameURL } from "../constant"
@@ -12,23 +12,16 @@ const userId = inject(userInjectionKey, ref(""));
 const tabId = ref();
 
 const activities = useFetchActivities()
-const articles = ref<{
-    list: IArticle[],
-    contentMap: Map<string, IArticleContentItem>
-}>({
-    list: [],
-    contentMap: new Map()
-})
+const articleList = ref<IArticle[]>([]);
+const articleContent = ref<Map<string, IArticleContentItem>>(new Map());
 
 const syncBoardCast = inject<ISyncInjectContentType>(syncInjectionKey, defaultSyncInjectContent);
 
 
-loadLocalStorage(StorageKey.ARTICLES).then(data => {
+loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS]).then(data => {
     if (data) {
-        articles.value = {
-            list: data.list,
-            contentMap: new Map(Object.entries(data.contents))
-        }
+        articleList.value = data[StorageKey.ARTICLE_LIST] ?? [];
+        articleContent.value = new Map(Object.entries(data[StorageKey.ARTICLE_CONTENTS] ?? []));
     }
 })
 
@@ -47,12 +40,11 @@ onMounted(() => {
     });
 
     chrome.storage.local.onChanged.addListener((changes) => {
-        if (changes[StorageKey.ARTICLES]) {
-            const current = changes[StorageKey.ARTICLES].newValue
-            articles.value = {
-                list: current.list,
-                contentMap: new Map(Object.entries(current.contents))
-            }
+        if (changes[StorageKey.ARTICLE_LIST]) {
+            articleList.value = changes[StorageKey.ARTICLE_LIST].newValue;
+        }
+        if (changes[StorageKey.ARTICLE_CONTENTS]) {
+            articleContent.value = new Map(Object.entries(changes[StorageKey.ARTICLE_CONTENTS].newValue));
         }
     })
 })
@@ -71,7 +63,8 @@ watchEffect(() => {
 
 
 provide(activityInjectionKey, readonly(activities));
-provide(articleInjectionKey, readonly(articles));
+provide(articleListInjectionKey, readonly(articleList));
+provide(articleContentInjectionKey, readonly(articleContent));
 
 
 </script>

@@ -1,19 +1,34 @@
 <script lang='ts' setup>
-import { computed, ref, toRef, watch } from "vue";
+import { computed, inject, ref, watch } from "vue";
 import RadioSelect from "../base-components/RadioSelect.vue";
 import SectionHeader from "../base-components/SectionHeader.vue"
 import VChart from "vue-echarts";
-import { ActionType, IDailyActions } from "../types";
-import { daysOfMonth, getDate, getMonth, getYear, startOfYear, startOfMonth, prevYear, prevMonth, nextMonth, nextYear } from "../utils/date";
+import { daysOfMonth, getDate, getMonth, getYear, startOfYear, startOfMonth, prevYear, prevMonth, nextMonth, nextYear, startOfDate } from "../utils/date";
 import colors from "tailwindcss/colors";
 import { EChartsOption } from "echarts";
 import { LineSeriesOption } from "echarts/charts";
 import { time } from "echarts/core";
+import { articleListInjectionKey, IArticleListInjectContentType } from "../utils/injectionKeys";
 
-const props = defineProps<{
-    actions: IDailyActions
-}>()
-const actions = toRef(props, "actions");
+
+const articleList = inject<IArticleListInjectContentType>(articleListInjectionKey, ref([]))
+
+const dailyCountMap = computed(() => {
+    const dailyCountMap = new Map<number, number>();
+    articleList.value.forEach(({ publishTime }) => {
+        const date = startOfDate(publishTime);
+        const currentCount = dailyCountMap.get(date);
+        if (currentCount) {
+            dailyCountMap.set(date, currentCount + 1);
+        } else {
+            dailyCountMap.set(date, 1);
+        }
+    })
+
+    return dailyCountMap;
+})
+
+
 
 
 const unitItems = [
@@ -41,54 +56,47 @@ watch(unit, (value, oldValue) => {
 const data = computed(() => {
     const record: Record<number, number> = {};
     if (unit.value.key === "year") {
-        for (const date in actions.value) {
-            const postCount = actions.value[date][ActionType.POST];
-            if (postCount) {
-                const year = getYear(+date);
-                const key = year;
-                if (key in record) {
-                    record[key] += postCount;
-                } else {
-                    record[key] = postCount
-                }
+        dailyCountMap.value.forEach((count, date) => {
+            const key = getYear(date);
+            if (key in record) {
+                record[key] += count;
+            } else {
+                record[key] = count
             }
-        }
+        })
     }
     else if (unit.value.key === "month") {
         for (let i = 1; i <= 12; i++) {
             record[i] = 0;
         }
-        for (const date in actions.value) {
-            if (startOfYear(+date) === currentRange.value) {
-                const month = getMonth(+date);
-                const key = month;
-                const postCount = actions.value[date][ActionType.POST];
+        dailyCountMap.value.forEach((count, date) => {
+            if (startOfYear(date) === currentRange.value) {
+                const key = getMonth(date);
                 if (key in record) {
-                    record[key] += postCount;
+                    record[key] += count;
                 } else {
-                    record[key] = postCount
+                    record[key] = count
                 }
             }
-        }
+        })
+
     }
     else if (unit.value.key === "day") {
         const days = daysOfMonth(currentRange.value);
         for (let i = 1; i <= days; i++) {
             record[i] = 0;
         }
-        for (const time in actions.value) {
-            if (currentRange.value === startOfMonth(+time)) {
-                const date = getDate(+time);
-                const key = date;
-                const postCount = actions.value[time][ActionType.POST];
+
+        dailyCountMap.value.forEach((count, date) => {
+            if (currentRange.value === startOfMonth(date)) {
+                const key = getDate(+time);
                 if (key in record) {
-                    record[key] += postCount;
+                    record[key] += count;
                 } else {
-                    record[key] = postCount
+                    record[key] = count;
                 }
             }
-
-        }
+        })
     }
 
 
@@ -288,6 +296,6 @@ const option = computed<Option>(() => ({
         <RadioSelect :items="unitItems" v-model="unit" />
     </SectionHeader>
     <div class="card relative">
-        <v-chart :option="option" class="h-56" autoresize />
+        <v-chart :option="option" class="h-56" autoresize :loading="!articleList.length" />
     </div>
 </template>
