@@ -163,7 +163,7 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
                     }}</strong> 个赞
                 </div>
                 <div>
-                    👏 赞同 <strong class="red">{{ (dailyActionSummation.actions[ActionType.LKPIN] ?? 0) ?? 0
+                    👏 赞同 <strong>{{ (dailyActionSummation.actions[ActionType.LKPIN] ?? 0) ?? 0
                     }}</strong> 条沸点
 
                 </div>
@@ -172,9 +172,3 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
         </div>
     </div>
 </template>
-
-<style>
-.red {
-    color: red
-}
-</style>
