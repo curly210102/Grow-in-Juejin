@@ -94,7 +94,8 @@ def parseActivityRecordsToList(records=[]):
         for record in records:
             obj = {mapping_dict[k]: convertMultilineTextToString(
                 v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
-            if obj["endTimeStamp"] % 86400000 == 0:  # 判断 endTimeStamp 是否为一天的起始时
+            # 判断 endTimeStamp 是否为东八区一天的起始时
+            if obj.get("endTimeStamp") and obj["endTimeStamp"] % 28800000 == 0:
                 obj["endTimeStamp"] += 86400000  # 加上 24 小时的时间戳
             list.append(obj)
     return list

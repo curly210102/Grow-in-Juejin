@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import Progress from '../base-components/Progress.vue';
 import { IActivity, TypeInvalidSummary } from '../types'
-import { format, isAllDay, MS_OF_DAY } from "../utils/date";
+import { format, isStartOfDay, MS_OF_DAY } from "../utils/date";
 import ActivityDetectResultModal from "./ActivityDetectResultModal.vue";
 
 export type ActivityStatus = Pick<IActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title"> & {
@@ -41,7 +41,7 @@ function closeDetectResultModalOpen() {
                 }}</a>
                 </div>
                 <div class="text-sm font-semibold text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
-                    {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(isAllDay(activity.endTimeStamp) ?
+                    {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(isStartOfDay(activity.endTimeStamp) ?
                         activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</div>
             </div>
             <div class="text-xs text-slate-400/60 mt-2">
