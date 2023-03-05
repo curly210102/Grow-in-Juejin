@@ -59,7 +59,8 @@ export interface IDailyActions {
 export enum StorageKey {
     "USER" = "user",
     "DYNAMIC" = "dynamic",
-    "ARTICLES" = "articles",
+    "ARTICLE_LIST" = "articleList",
+    "ARTICLE_CONTENTS" = "articleContents",
     "PINS" = "pins"
 }
 
@@ -85,9 +86,6 @@ export interface IArticleContentItem {
     modifiedTimeStamp: number;
     fragment: string;
 }
-
-export type TypeArticle = IArticle &
-    Pick<IArticleContentItem, "count">;
 
 export type TypeInvalidSummary = {
     id: string;

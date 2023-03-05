@@ -15,7 +15,7 @@ const dailyActions = useFetchUserDailyActions();
             <UserContribution :actions="dailyActions" bodyClass="shadow-card rounded-lg" />
         </div>
         <div>
-            <UserGrowTrending :actions="dailyActions" />
+            <UserGrowTrending />
         </div>
     </div>
 </template>

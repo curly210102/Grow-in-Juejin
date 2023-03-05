@@ -45,7 +45,7 @@ watch(items, (v) => {
                     }" @click="activeIndex = i">
                     {{ category }}
                 </div>
-                <div class=" h-full bg-slate-100 shadow-sm rounded-md rounded-tl-none overflow-hidden"
+                <div class=" h-full bg-slate-100 border-2 rounded-md rounded-tl-none overflow-hidden"
                     :style="{ marginLeft: `${HANDLER_WIDTH + 4}px` }">
                     <a :href="docLink" target="_blank" class="block h-full">
                         <img :src="figure" class="w-full h-full" :alt="title" v-if="figure" />

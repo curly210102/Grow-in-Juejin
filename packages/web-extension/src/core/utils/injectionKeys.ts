@@ -1,10 +1,15 @@
-import { readonly } from "vue";
+import { readonly, Ref } from "vue";
+import { IArticle, IArticleContentItem } from "../types";
 
 export const userInjectionKey = Symbol();
 export const activityInjectionKey = Symbol();
-export const articleInjectionKey = Symbol();
-export const syncInjectionKey = Symbol();
 
+export const articleListInjectionKey = Symbol();
+export type IArticleListInjectContentType = Ref<IArticle[]>;
+export const articleContentInjectionKey = Symbol();
+export type IArticleContentInjectContentType = Ref<Map<string, IArticleContentItem>>;
+
+export const syncInjectionKey = Symbol();
 export type ISyncInjectContentType = {
     startSyncWithStringId: () => any,
     sync: () => () => void,

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, inject, ref, Ref, toRef, watch } from "vue";
+import { computed, inject, ref, toRef } from "vue";
 import SectionHeader from "../base-components/SectionHeader.vue"
-import { IActivity, IArticle, IArticleContentItem, TypeInvalidSummary } from "../types";
+import { IActivity, TypeInvalidSummary } from "../types";
 import { format } from "../utils/date";
-import { articleInjectionKey } from "../utils/injectionKeys";
+import { articleListInjectionKey, articleContentInjectionKey, IArticleListInjectContentType, IArticleContentInjectContentType } from "../utils/injectionKeys";
 import ActivityCard, { ActivityStatus } from "./ActivityCard.vue";
 
 const props = defineProps<{
@@ -12,13 +12,8 @@ const props = defineProps<{
 
 const activities = toRef(props, "activities");
 
-const articles = inject<Ref<{
-    list: IArticle[],
-    contentMap: Map<string, IArticleContentItem>
-}>>(articleInjectionKey, ref({
-    list: [],
-    contentMap: new Map()
-}))
+const articleList = inject<IArticleListInjectContentType>(articleListInjectionKey, ref([]))
+const articleContentMap = inject<IArticleContentInjectContentType>(articleContentInjectionKey, ref(new Map()))
 
 
 
@@ -33,9 +28,8 @@ const activityStats = computed(() => {
         invalidSummaries: [] as TypeInvalidSummary[]
     }]))
 
-    const { list, contentMap } = articles.value;
-    list.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id }) => {
-        const articleContentInfo = contentMap.get(id);
+    articleList.value.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id }) => {
+        const articleContentInfo = articleContentMap.value.get(id);
         if (articleContentInfo) {
             const { count, fragment: articleFragment } = articleContentInfo;
             // hack: 删掉markdown语法
