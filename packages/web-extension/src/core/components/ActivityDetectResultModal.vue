@@ -18,7 +18,7 @@
   
 <script setup lang="ts">
 import { toRef } from "vue";
-import Modal from "../base-components/ Modal.vue"
+import Modal from "../base-components/Modal.vue"
 import { TypeInvalidSummary } from "../types";
 
 const props = defineProps<{
