@@ -48,7 +48,7 @@ watch(unit, (value, oldValue) => {
             currentRange.value = startOfYear(currentRange.value);
 
         } else if (value.key === "day") {
-            currentRange.value = startOfMonth(currentRange.value);
+            currentRange.value = startOfMonth(startOfYear(currentRange.value) === startOfYear(new Date().valueOf()) ? new Date().valueOf() : currentRange.value);
         }
     }
 })
@@ -89,7 +89,7 @@ const data = computed(() => {
 
         dailyCountMap.value.forEach((count, date) => {
             if (currentRange.value === startOfMonth(date)) {
-                const key = getDate(+time);
+                const key = getDate(date);
                 if (key in record) {
                     record[key] += count;
                 } else {
