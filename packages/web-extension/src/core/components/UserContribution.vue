@@ -52,9 +52,9 @@ watch(rangeItems, (rangeItems) => {
 const range = computed(() => {
     const selectedKey = selected.value.key;
     if (selectedKey === "lastYear") {
-        return getLastYearRange().map(date => chartTime.format(date, "{yyyy}-{MM}-{dd}", false));
+        return getLastYearRange();
     } else {
-        return getFullYearRange(+selectedKey).map(date => chartTime.format(date, "{yyyy}-{MM}-{dd}", false));
+        return getFullYearRange(+selectedKey)
     }
 })
 
@@ -69,9 +69,8 @@ const dailyContribution = ref<Array<[string, number]>>([]);
 const rangeActionSummation = ref<ActionOverview | null>(null);
 watchEffect(() => {
     const isRange = range.value[0] !== range.value[1]
-    const date = chartTime.parse(range.value[0]);
-    const startDate = +date;
-    const endDate = !isRange ? +chartTime.parse(range.value[1]) : addOneYear(date);
+    const startDate = range.value[0];
+    const endDate = !isRange ? range.value[1] : addOneYear(startDate);
 
     const dailyActions = unref(actions);
     const dailyContributionValue: [string, number][] = [];
@@ -103,7 +102,7 @@ watchEffect(() => {
     }
     dailyContribution.value = dailyContributionValue;
     rangeActionSummation.value = {
-        dateText: isRange ? `${range.value[0]} - ${range.value[1]}` : range.value[0],
+        dateText: isRange ? `${chartTime.format(range.value[0], '{yyyy}-{MM}-{dd}', false)} - ${chartTime.format(range.value[1], '{yyyy}-{MM}-{dd}', false)}` : chartTime.format(range.value[0], '{yyyy}-{MM}-{dd}', false),
         total: totalActionCount,
         actions: totalActions
     }
@@ -127,6 +126,10 @@ const selectedDailyActionSummation = computed(() => {
 
 const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?? rangeActionSummation.value);
 
+const echartsRange = computed(() => {
+    return [`${chartTime.format(range.value[0], '{yyyy}-{MM}-{dd}', false)}`, `${chartTime.format(range.value[1], '{yyyy}-{MM}-{dd}', false)}`];
+})
+
 
 
 </script>
@@ -138,7 +141,7 @@ const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?
     </SectionHeader>
     <div :class="bodyClass">
         <div class="p-3">
-            <Heatmap :data="dailyContribution" :range="range" :onSelect="(index: number) => selectedIndex = index" />
+            <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index" />
         </div>
         <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8" v-if="dailyActionSummation">
             <p class="text-sm text-slate-500">

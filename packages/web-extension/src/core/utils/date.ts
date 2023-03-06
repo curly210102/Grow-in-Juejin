@@ -8,12 +8,13 @@ export const format = (date: number | Date, template: string) => {
 
     return template.replaceAll("YYYY", year).replaceAll("MM", month).replaceAll("DD", day);
 }
-export const addOneYear = (date: Date) => {
-    const year = date.getFullYear();
-    return date.setFullYear(year + 1);
+export const addOneYear = (date: number | Date) => {
+    const dateObj = new Date(date);
+    const year = dateObj.getFullYear();
+    return dateObj.setFullYear(year + 1);
 }
 export const getLastYearRange = () => {
-    const current = new Date();
+    const current = new Date().setHours(0, 0, 0, 0);
     return [current.valueOf() - MS_OF_YEAR, current.valueOf()]
 }
 export const getFullYearRange = (year: number) => {
