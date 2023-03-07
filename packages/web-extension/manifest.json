@@ -23,6 +23,10 @@
       "js": ["src/content-scripts/home/index.ts"]
     },
     {
+      "matches": ["https://juejin.cn/user/**"],
+      "js": ["src/content-scripts/user/index.ts"]
+    },
+    {
       "matches": ["https://juejin.cn/s/**"],
       "all_frames": true,
       "js": ["src/content-scripts/crossOriginRequest.ts"],

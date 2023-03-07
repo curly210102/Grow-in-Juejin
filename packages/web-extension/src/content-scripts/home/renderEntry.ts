@@ -34,10 +34,8 @@ function addUserProfileEntry() {
 
 export default function renderEntryIcon() {
     addNavbarEntry();
-    addUserProfileEntry();
     onRouteChange(function () {
         addNavbarEntry();
-        addUserProfileEntry();
     });
 }
 

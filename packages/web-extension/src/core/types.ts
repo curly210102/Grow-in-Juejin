@@ -61,7 +61,8 @@ export enum StorageKey {
     "DYNAMIC" = "dynamic",
     "ARTICLE_LIST" = "articleList",
     "ARTICLE_CONTENTS" = "articleContents",
-    "PINS" = "pins"
+    "PINS" = "pins",
+    "ACTIVITIES" = "activities"
 }
 
 export interface IArticle {
@@ -86,6 +87,8 @@ export interface IArticleContentItem {
     modifiedTimeStamp: number;
     fragment: string;
 }
+
+export type ArticleContentMap = Map<string, IArticleContentItem>
 
 export type TypeInvalidSummary = {
     id: string;
