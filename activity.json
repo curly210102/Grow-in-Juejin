@@ -2,7 +2,7 @@
     {
         "key": "金石计划第3期",
         "desc": "优质大咖挑战，瓜分万元现金奖池",
-        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/44f0081cf8e84ca68c2216781933ef75~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
         "startTimeStamp": 1678204800000,
         "title": "金石计划第三期",
         "docLink": "https://juejin.cn/post/7207698564641996856",
@@ -15,9 +15,29 @@
             },
             {
                 "type": "count",
-                "rewards": []
+                "rewards": [
+                    {
+                        "name": "基础挑战",
+                        "count": 2
+                    },
+                    {
+                        "name": "进阶挑战①",
+                        "count": 4
+                    },
+                    {
+                        "name": "进阶挑战②",
+                        "count": 6
+                    }
+                ]
             }
-        ]
+        ],
+        "categories": [],
+        "signSlogan": "本文正在参加[「金石计划」](https://juejin.cn/post/7207698564641996856/)",
+        "signLink": "https://juejin.cn/post/7207698564641996856/",
+        "tagNames": [
+            "掘金·金石计划"
+        ],
+        "wordCount": "650"
     },
     {
         "key": "技术专题20期",
@@ -96,27 +116,5 @@
             "掘金·日新计划"
         ],
         "wordCount": "500"
-    },
-    {
-        "key": "若川源码",
-        "desc": "每周大家一起学习200行左右的源码，共同进步",
-        "title": "若川视野 x 源码共读",
-        "docLink": "https://juejin.cn/post/7079706017579139102",
-        "category": "源码阅读",
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "categories": [],
-        "signSlogan": "本文参加了由[公众号@若川视野](https://link.juejin.cn/?target=https%3A%2F%2Flxchuan12.gitee.io) 发起的每周源码共读活动， [点击了解详情一起参与。](https://juejin.cn/post/7079706017579139102)\n这是源码共读的第N期，链接：",
-        "signLink": "https://link.juejin.cn/?target=https%3A%2F%2Flxchuan12.gitee.io",
-        "tagNames": [],
-        "wordCount": 0
     }
 ]
