@@ -4,7 +4,11 @@ export const fetchUserProfile = async (userId?: string | null) => {
     try {
         const res = await fetch(
             "https://api.juejin.cn/user_api/v1/user/get" +
-            (userId ? `?user_id=${userId}` : "")
+            (userId ? `?user_id=${userId}` : ""), {
+            method: 'GET',
+            credentials: 'include',
+            mode: 'cors'
+        }
         ).then((res) => res.json());
         return res.data;
     } catch (error) {
