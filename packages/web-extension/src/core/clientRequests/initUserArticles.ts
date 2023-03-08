@@ -1,7 +1,7 @@
 // 本地存储全量，Max(最早的活动时间, 补全 count)
 // 请求最近 10 篇文章
 
-import { IArticle, IArticleContentItem, StorageKey } from "../types";
+import { ArticleContentMap, IArticle, IArticleContentItem, StorageKey } from "../types";
 import { fetchArticleDetail, fetchUserArticles } from "../utils/api";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 import nm from "nomatter";
@@ -12,13 +12,16 @@ type ResponseArticle = Awaited<ReturnType<typeof fetchUserArticles>>["data"];
 
 export default async function initUserArticles(userId: string, earliestTime: number) {
     if (!userId) {
-        return;
+        return {
+            articleList: [],
+            articleContentMap: new Map() as ArticleContentMap
+        }
     }
 
     const localArticles = await loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS]).then(data => {
         return {
-            list: data?.[0] ?? [],
-            contents: data?.[1] ?? {}
+            list: data[StorageKey.ARTICLE_LIST] ?? [],
+            contents: data[StorageKey.ARTICLE_CONTENTS] ?? []
         }
     });
 
@@ -33,12 +36,17 @@ export default async function initUserArticles(userId: string, earliestTime: num
 // 3. 根据最后一篇文章的创建时间，找到本地数据中之后的文章，两部分拼接
 async function sync(userId: string, earliestTime: number, localRawData: {
     "list": [],
-    "contents": {}
+    "contents": []
 }) {
     const localArticleList = [...localRawData.list];
-    const localArticleContentMap = new Map<string, IArticleContentItem>(Object.entries(localRawData.contents));
+    const localArticleContentMap = new Map<string, IArticleContentItem>(localRawData.contents);
     const currentArticleList = await syncArticleList(userId, localArticleList, earliestTime);
-    await syncArticleDetails(currentArticleList, localArticleContentMap);
+    const currentArticleContentMap = await syncArticleDetails(currentArticleList, localArticleContentMap, earliestTime);
+
+    return {
+        articleList: currentArticleList,
+        articleContentMap: currentArticleContentMap
+    }
 }
 
 async function syncArticleList(userId: string, localArticleList: IArticle[], earliestTime: number) {
@@ -46,30 +54,37 @@ async function syncArticleList(userId: string, localArticleList: IArticle[], ear
     const { cursor, data: lastArticleList, count, has_more } = await fetchUserArticles(userId, "0");
     const oneRequestCount = +cursor;
 
-    const tailOfLastActionList = lastArticleList[lastArticleList.length - 1];
+    const lastArticleOfFirstFetch = lastArticleList[lastArticleList.length - 1];
     const newArticleList = [...lastArticleList];
     // 根据数量差计算需请求的次数
-    const predictRequestTimes = (has_more && count > oneRequestCount && tailOfLastActionList) ? Math.ceil((count - localArticleList.length) / oneRequestCount) : 0;
-    const MAX_PARALLEL = 10;
+    const predictRequestTimes = (has_more && count > oneRequestCount && lastArticleOfFirstFetch) ? Math.ceil((count - localArticleList.length) / oneRequestCount) : 0;
+    const MAX_PARALLEL = 5;
     const batchRequestTimes = Math.ceil(predictRequestTimes / MAX_PARALLEL);
-    const lastBatchRequestCount = predictRequestTimes % MAX_PARALLEL;
-    let tailOfResponse = null;
+    const lastBatchRequestCount = (predictRequestTimes % MAX_PARALLEL) || MAX_PARALLEL;
+    let cursorOfLastResponse = null;
     for (let time = 1; time <= batchRequestTimes; time++) {
         const prevCursor = oneRequestCount + (time - 1) * MAX_PARALLEL * oneRequestCount;
         const parallelRequestCount = time === batchRequestTimes ? lastBatchRequestCount : MAX_PARALLEL;
-        const batchArticles = (await Promise.all(Array.from(new Array(parallelRequestCount), (_v, i) => i).map((i) => fetchUserArticles(userId, `${prevCursor + i * oneRequestCount}`)))).filter(res => res.data)
+        const batchArticles = (await Promise.all(Array.from(new Array(parallelRequestCount), (_v, i) => i).map((i) => fetchUserArticles(userId, `${prevCursor + i * oneRequestCount}`)))).filter(res => res.data) || [];
         batchArticles.forEach(item => {
             if (item.data) {
                 newArticleList.push(...item.data);
             }
         })
 
-        tailOfResponse = batchArticles.slice(-1)[0];
+        const tailOfResponse = batchArticles.slice(-1)[0];
+        const lastArticle = newArticleList.slice(-1)[0];
+
+        if (!tailOfResponse || tailOfResponse?.has_more || +lastArticle?.article_info.ctime * 1000 <= earliestTime) {
+            cursorOfLastResponse = null;
+        } else {
+            cursorOfLastResponse = tailOfResponse.cursor
+        }
     }
     // 存在用户删除文章的情况，这时上一步的差值不一定够，逐个请求到 earliestTime 为止
     const lastArticle = newArticleList.slice(-1)[0];
-    if (tailOfResponse && tailOfResponse.has_more && lastArticle && +lastArticle.article_info.ctime * 1000 > earliestTime) {
-        await syncToEnd(userId, tailOfResponse.cursor, newArticleList, earliestTime);
+    if (cursorOfLastResponse && lastArticle && +lastArticle.article_info.ctime * 1000 > earliestTime) {
+        await syncToEnd(userId, cursorOfLastResponse, newArticleList, earliestTime);
     }
 
     const mergedArticleList = mergeArticleList(localArticleList, newArticleList);
@@ -136,13 +151,13 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
     }), ...oldArticles];
 }
 
-async function syncArticleDetails(articleList: IArticle[], localArticleContentMap: Map<string, IArticleContentItem>) {
+async function syncArticleDetails(articleList: IArticle[], localArticleContentMap: Map<string, IArticleContentItem>, earliestTime: number) {
     const newArticleContentMap = new Map(localArticleContentMap);
     // 请求 article details
     const articleDetailRequestData = articleList
-        .filter(({ id, modifiedTime }) => {
+        .filter(({ id, modifiedTime, publishTime }) => {
             return (
-                !localArticleContentMap.has(id) ||
+                (!localArticleContentMap.has(id) && publishTime >= earliestTime) ||
                 localArticleContentMap.get(id)?.["modifiedTimeStamp"] !== modifiedTime
             );
         }).map(({ id }) => id);
@@ -157,5 +172,7 @@ async function syncArticleDetails(articleList: IArticle[], localArticleContentMa
         });
     });
 
-    await saveLocalStorage(StorageKey.ARTICLE_CONTENTS, Object.fromEntries(newArticleContentMap));
+    await saveLocalStorage(StorageKey.ARTICLE_CONTENTS, [...newArticleContentMap]);
+
+    return newArticleContentMap;
 }
