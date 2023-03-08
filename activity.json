@@ -1,5 +1,25 @@
 [
     {
+        "key": "金石计划第3期",
+        "desc": "优质大咖挑战，瓜分万元现金奖池",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/44f0081cf8e84ca68c2216781933ef75~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1678204800000,
+        "title": "金石计划第三期",
+        "docLink": "https://juejin.cn/post/7207698564641996856",
+        "category": "更文活动",
+        "endTimeStamp": 1682092800000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ]
+    },
+    {
         "key": "技术专题20期",
         "desc": "从技术视角探索 ChatGPT",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eeec3b8d208e4a1a87dd87d8ad69d91e~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
