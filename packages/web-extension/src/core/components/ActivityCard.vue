@@ -44,7 +44,7 @@ function closeDetectResultModalOpen() {
                     {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(isStartOfDay(activity.endTimeStamp) ?
                         activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</div>
             </div>
-            <div class="text-xs text-slate-400/60 mt-2">
+            <div class="text-xs text-slate-400/60 mt-2 whitespace-pre-wrap">
                 {{ activity.desc }}
             </div>
         </div>
