@@ -25,13 +25,13 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
                 for (const activity of activities.value) {
                     const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames } = activity;
 
-                    const signSloganRegexp = new RegExp(signSlogan.replace(/([()\[{*+.$^\\|?\]])|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, (match) => {
+                    const signSloganRegexp = new RegExp(signSlogan?.replace(/([()\[{*+.$^\\|?\]])|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, (match) => {
                         if (match.startsWith("http")) {
                             const escaped = match.replace(/([()\[{*+.$^\\|?\]])/g, "\\$1");
                             return `${escaped}(\\s"${escaped}")?`
                         }
                         return "\\" + match
-                    }).replace(/N/g, "\\d+"));
+                    })?.replace(/N/g, "\\d+") ?? "");
                     const signLinkRegexp = new RegExp(`${signLink}((?:\/|$)?)`);
 
                     if (publishTime >= startTimeStamp && publishTime <= endTimeStamp) {
