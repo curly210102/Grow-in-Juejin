@@ -90,7 +90,7 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
     })
 
     const joinedActivities = computed(() => {
-        return activities.value.filter(({ key }) => activityStats.value[key]?.articleCount > 0 || activityStats.value[key]?.invalidSummaries.length > 0).map(({
+        return activities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0 || activityStats.value[key]?.invalidSummaries.length > 0) || (endTimeStamp && endTimeStamp >= Date.now())).map(({
             key,
             title,
             docLink,
@@ -107,14 +107,14 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
                 startTimeStamp,
                 endTimeStamp,
                 desc,
-                view: stat.view,
-                digg: stat.digg,
-                collect: stat.collect,
-                comment: stat.comment,
-                dayCount: stat.dates.size,
-                articleCount: stat.articleCount,
+                view: stat?.view ?? 0,
+                digg: stat?.digg ?? 0,
+                collect: stat?.collect ?? 0,
+                comment: stat?.comment ?? 0,
+                dayCount: stat?.dates?.size ?? 0,
+                articleCount: stat?.articleCount ?? 0,
                 rewards: [],
-                invalid: stat.invalidSummaries
+                invalid: stat?.invalidSummaries ?? []
             };
 
             rewards.forEach(({ type, rewards }) => {
