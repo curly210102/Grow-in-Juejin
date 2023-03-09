@@ -1,50 +1,41 @@
 import initUserProfile from "@/core/clientRequests/initUserProfile";
-import { StorageKey } from "@/core/types";
-import { loadLocalStorage } from "@/core/utils/storage";
 import { getCurrentUserId } from "../utils/getInformation";
 import onRouteChange from "../utils/onRouteChange";
 import { CustomJoinedActivity, register } from "./components";
 
 register();
+main();
 
-const intervalIds: number[] = [];
-render();
-onRouteChange(() => {
-    intervalIds.forEach(clearInterval);
-    intervalIds.length = 0;
-    render();
-});
+async function main() {
+    // 进入页面后先检查用户是否已切换，确保 storage 中存的都是当前用户的数据
+    const { userId: myUserId } = await initUserProfile()
 
+    let currentRenderWork = renderFeatures(myUserId);
+    onRouteChange(() => {
+        if (currentRenderWork) {
+            currentRenderWork.abort();
+        }
+        renderFeatures(myUserId);
+    });
+}
 
-async function render() {
-    const userId = getCurrentUserId();
-    if (userId) {
-        const myUserId = window?.__NUXT__?.state?.avatarMenuInfo?.user_basic?.user_id;
-        if (userId === myUserId) {
-            // 为了保证 storage 里存的都是当前用户的数据
-            const localUserProfile = await loadLocalStorage(StorageKey.USER);
-            if (localUserProfile && myUserId !== localUserProfile.userId) {
-                await chrome.storage.local.clear();
-                await initUserProfile();
-            }
-            // 页面中的元素不一定已经挂载，设置一个上限5次的轮询
-            let attemptTimes = 0;
-            if (!renderJoinedActivities(userId)) {
-                const intervalId = setInterval(() => {
-                    if (++attemptTimes > 5 || renderJoinedActivities(userId)) {
-                        clearInterval(intervalId);
-                    }
-                }, 100);
-                intervalIds.push(intervalId);
+function renderFeatures(myUserId?: string) {
+    const userId = myUserId;
+    if (myUserId && userId === myUserId) {
+        // My Features
+        const joinedActivitiesLoop = loopObserver(() => renderJoinedActivities(myUserId))
+        return {
+            abort() {
+                joinedActivitiesLoop?.abort();
             }
         }
     }
 }
 
-
-function renderJoinedActivities(userId: string) {
+function renderJoinedActivities(myUserId: string) {
+    const userId = getCurrentUserId();
     const followBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.follow-block.block.shadow");
-    if (followBlock) {
+    if (followBlock && myUserId === userId) {
         const activityBlock = document.createElement("div");
         activityBlock.append(new CustomJoinedActivity({
             userId
@@ -53,4 +44,21 @@ function renderJoinedActivities(userId: string) {
         return true;
     }
     return false
+}
+
+function loopObserver(job: () => boolean, maxTimes: number = 5) {
+    const success = job();
+    if (!success) {
+        const intervalId = setInterval(() => {
+            if (--maxTimes < 0 || job()) {
+                clearInterval(intervalId);
+            }
+        }, 100)
+        return {
+            abort() {
+                maxTimes = 0;
+                clearInterval(intervalId);
+            }
+        }
+    }
 }
