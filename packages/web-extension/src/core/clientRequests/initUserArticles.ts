@@ -49,7 +49,7 @@ async function sync(userId: string, earliestTime: number, localRawData: {
     }
 }
 
-async function syncArticleList(userId: string, localArticleList: IArticle[], earliestTime: number) {
+export async function syncArticleList(userId: string, localArticleList: IArticle[] = [], earliestTime: number = 0) {
     // 请求最近的一批
     const { cursor, data: lastArticleList, count, has_more } = await fetchUserArticles(userId, "0");
     const oneRequestCount = +cursor;
@@ -75,7 +75,7 @@ async function syncArticleList(userId: string, localArticleList: IArticle[], ear
         const tailOfResponse = batchArticles.slice(-1)[0];
         const lastArticle = newArticleList.slice(-1)[0];
 
-        if (!tailOfResponse || tailOfResponse?.has_more || +lastArticle?.article_info.ctime * 1000 <= earliestTime) {
+        if (!tailOfResponse || !tailOfResponse?.has_more || +lastArticle?.article_info.ctime * 1000 <= earliestTime) {
             cursorOfLastResponse = null;
         } else {
             cursorOfLastResponse = tailOfResponse.cursor

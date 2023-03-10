@@ -1,7 +1,7 @@
 import initUserProfile from "@/core/clientRequests/initUserProfile";
 import { getCurrentUserId } from "../utils/getInformation";
 import onRouteChange from "../utils/onRouteChange";
-import { CustomJoinedActivity, register } from "./components";
+import { CustomJoinedActivity, CustomUserGrowTrending, register } from "./components";
 
 register();
 main();
@@ -20,14 +20,18 @@ async function main() {
 }
 
 function renderFeatures(myUserId?: string) {
-    const userId = myUserId;
+    const userId = getCurrentUserId();
+    const loops: ReturnType<typeof loopObserver>[] = [];
+
+    loops.push(loopObserver(() => renderUserGrowTrending(myUserId)));
     if (myUserId && userId === myUserId) {
-        // My Features
-        const joinedActivitiesLoop = loopObserver(() => renderJoinedActivities(myUserId))
-        return {
-            abort() {
-                joinedActivitiesLoop?.abort();
-            }
+        loops.push(loopObserver(() => renderJoinedActivities(myUserId)));
+    }
+
+    return {
+        abort() {
+            loops.forEach(loop => loop?.abort())
+            loops.length = 0;
         }
     }
 }
@@ -35,7 +39,12 @@ function renderFeatures(myUserId?: string) {
 function renderJoinedActivities(myUserId: string) {
     const userId = getCurrentUserId();
     const followBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.follow-block.block.shadow");
-    if (followBlock && myUserId === userId) {
+    const container = document.querySelector<HTMLDivElement>("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div");
+    if (container && followBlock && myUserId === userId) {
+        container.style.bottom = "10px";
+        container.style.overflow = "auto";
+        container.style.marginRight = "-1rem";
+        container.style.paddingRight = "1rem";
         const activityBlock = document.createElement("div");
         activityBlock.append(new CustomJoinedActivity({
             userId
@@ -44,6 +53,27 @@ function renderJoinedActivities(myUserId: string) {
         return true;
     }
     return false
+}
+
+function renderUserGrowTrending(myUserId?: string) {
+    const userId = getCurrentUserId();
+    const listBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.major-area > div.list-block");
+
+    if (listBlock) {
+        const trendingBlock = document.createElement("div");
+        listBlock.insertAdjacentElement("beforebegin", trendingBlock);
+        trendingBlock.style.marginTop = "1rem";
+        setTimeout(() => {
+            trendingBlock.append(new CustomUserGrowTrending({
+                userId,
+                inMyPage: myUserId === userId
+            }));
+        })
+
+        return true;
+    }
+
+    return false;
 }
 
 function loopObserver(job: () => boolean, maxTimes: number = 5) {
