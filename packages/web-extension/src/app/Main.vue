@@ -89,4 +89,3 @@ const updateView = (route: string) => {
   </CrossOriginHack>
 </template>
 
-<style></style>

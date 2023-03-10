@@ -35,4 +35,3 @@ const user = ref<IUser | null>(null);
   </div>
 </template>
 
-<style></style>

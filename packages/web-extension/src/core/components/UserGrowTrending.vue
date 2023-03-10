@@ -6,9 +6,21 @@ import VChart from "vue-echarts";
 import { daysOfMonth, getDate, getMonth, getYear, startOfYear, startOfMonth, prevYear, prevMonth, nextMonth, nextYear, startOfDate } from "../utils/date";
 import colors from "tailwindcss/colors";
 import { EChartsOption } from "echarts";
-import { LineSeriesOption } from "echarts/charts";
-import { time } from "echarts/core";
+import { LineSeriesOption, LineChart } from "echarts/charts";
+import { time, use } from "echarts/core";
 import { articleListInjectionKey, IArticleListInjectContentType } from "../utils/injectionKeys";
+import { CanvasRenderer } from "echarts/renderers";
+import { GraphicComponent, GridComponent, LegendComponent, TitleComponent, TooltipComponent } from "echarts/components";
+
+use([
+    CanvasRenderer,
+    TitleComponent,
+    TooltipComponent,
+    LegendComponent,
+    LineChart,
+    GridComponent,
+    GraphicComponent
+]);
 
 
 const articleList = inject<IArticleListInjectContentType>(articleListInjectionKey, ref([]))
@@ -24,7 +36,6 @@ const dailyCountMap = computed(() => {
             dailyCountMap.set(date, 1);
         }
     })
-
     return dailyCountMap;
 })
 
@@ -106,6 +117,8 @@ const data = computed(() => {
             item[1] += data[index - 1][1]
         }
     });
+
+    console.log(data);
 
     return data;
 });
@@ -287,15 +300,12 @@ const option = computed<Option>(() => ({
     }]
 }));
 
-
-
-
 </script>
 <template>
     <SectionHeader title="成长之路">
         <RadioSelect :items="unitItems" v-model="unit" />
     </SectionHeader>
     <div class="card relative">
-        <v-chart :option="option" class="h-56" autoresize :loading="!articleList.length" />
+        <v-chart :option="option" autoresize :loading="!articleList.length" class="h-56 block min-w-0 w-full" />
     </div>
 </template>
