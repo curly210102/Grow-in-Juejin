@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import { time as chartTime } from "echarts";
 
-import { computed, inject, ref, unref, watch, watchEffect } from "vue";
+import { computed, inject, readonly, ref, unref, watch, watchEffect } from "vue";
 import { ActionType, StorageKey, UserActions } from "../types";
 import calculateContribution from "../utils/calculateContribution";
 import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
@@ -16,7 +16,6 @@ import { userInjectionKey } from "../utils/injectionKeys";
 const props = defineProps<{
     bodyClass?: string,
     headerClass?: string,
-    storageKey?: StorageKey.DYNAMIC | StorageKey.GUEST_DYNAMIC,
     hideSummation?: boolean
 }>();
 
@@ -41,7 +40,7 @@ const {
     dailyActions: actions,
     earliestYear,
     syncing
-} = useFetchUserDailyActions(userId, range, props.storageKey ?? StorageKey.DYNAMIC);
+} = useFetchUserDailyActions(userId, range);
 
 
 const { bodyClass, headerClass } = props;
@@ -150,7 +149,7 @@ const echartsRange = computed(() => {
             <Select :items="rangeItems" v-model="selected" />
         </div>
     </SectionHeader>
-    <div :class="bodyClass" class="bg-white">
+    <div class="bg-white shadow-card rounded-lg">
         <div class="p-3">
             <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index"
                 :loading="syncing" />

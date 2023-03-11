@@ -1,7 +1,7 @@
 import { ActionType, IDailyActions, StorageKey } from "../types";
-import { Ref, ref, watch, watchEffect } from "vue";
+import { Ref, ref, watch } from "vue";
 import { fetchUserDynamic } from "../utils/api";
-import { getYear, startOfDate } from "../utils/date";
+import { getYear, MS_OF_7DAY, startOfDate } from "../utils/date";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 
 interface ISyncInfo {
@@ -11,6 +11,11 @@ interface ISyncInfo {
 
 type DynamicList = Awaited<ReturnType<typeof fetchUserDynamic>>["list"];
 
+type LocalData = {
+    actions: IDailyActions,
+    syncInfo: ISyncInfo
+}
+
 function lastOfArray<T>(array: Array<T>) {
     return array[array.length - 1] ?? null;
 }
@@ -19,7 +24,7 @@ function actionTotalCount(dailyAction?: IDailyActions[0]) {
     return Object.values(dailyAction ?? {}).reduce((total, count) => total + count, 0);
 }
 
-export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRef: Ref<number[]>, storageKey: StorageKey.DYNAMIC | StorageKey.GUEST_DYNAMIC) {
+export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRef: Ref<readonly number[]>) {
     const dailyActions = ref<IDailyActions>({});
     const syncInfo = ref<ISyncInfo>({
         syncDateTime: 0,
@@ -28,35 +33,49 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
     const earliestYear = ref(getYear());
     const syncing = ref(false);
 
-    async function initFromLocal() {
-        const data = await loadLocalStorage(storageKey);
-        const userData = storageKey === StorageKey.GUEST_DYNAMIC ? data?.[userIdRef.value] : data;
+    async function loadFromLocal(userId: string) {
+        const data = await loadLocalStorage(StorageKey.DYNAMIC);
+        const userData = data?.[userId]?.content
         if (userData) {
             dailyActions.value = userData.actions;
             syncInfo.value = userData.syncInfo;
         }
     }
 
-    async function saveToLocal() {
-        const saveContent = {
-            actions: dailyActions.value,
-            syncInfo: syncInfo.value
+    async function saveToLocal(userId: string) {
+        const data = await loadLocalStorage(StorageKey.DYNAMIC) ?? {};
+        data[userId] = {
+            content: {
+                actions: dailyActions.value,
+                syncInfo: syncInfo.value
+            },
+            expireTime: Date.now() + MS_OF_7DAY
         };
-
-        if (storageKey === StorageKey.GUEST_DYNAMIC) {
-            await saveLocalStorage(storageKey, {
-                [userIdRef.value]: saveContent
-            })
-        } else {
-            await saveLocalStorage(storageKey, saveContent);
-        }
+        await saveLocalStorage(StorageKey.DYNAMIC, data);
     }
 
-    async function syncNewestDynamics() {
-        const userId = userIdRef.value;
-        const { syncDateTime } = syncInfo.value;
+    async function cleanupCache() {
+        const data = await loadLocalStorage(StorageKey.DYNAMIC);
+        const currentTime = Date.now();
+        const filteredRecords: Record<string, {
+            content: LocalData,
+            expireTime: number
+        }> = {};
+        if (data) {
+            Object.keys(data).forEach(userId => {
+                const record = data[userId];
+                if (record.expireTime > currentTime) {
+                    filteredRecords[userId] = record;
+                }
+            })
+        }
+        await saveLocalStorage(StorageKey.DYNAMIC, filteredRecords);
+    }
+
+    async function syncNewestDynamics(userId: string, range: readonly number[]) {
+        const { syncDateTime, count: prevTotalCount } = syncInfo.value;
         const addedDynamicList: DynamicList = [];
-        const rangeStart = rangeRef.value[0];
+        const rangeStart = range[0];
         const untilDateTime = Math.max(rangeStart, syncDateTime);
         const { count: currentTotalCount, list: newestDynamicList, cursor: oneSliceCount, hasMore, lastDynamic: lastDynamicOfNewest } = await fetchDynamics(userId, 0);
         addedDynamicList.push(...newestDynamicList);
@@ -66,7 +85,6 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
 
         if (needMoreRequest) {
             // 先做批量请求
-            const prevTotalCount = syncInfo.value.count;
             // totalChanges = added - deleted
             const totalChanges = currentTotalCount - (prevTotalCount - actionTotalCount(dailyActions.value[syncDateTime]));
             // 预估新增的动态数
@@ -81,14 +99,9 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
                 addedDynamicList.push(...dynamicList);
             }
         }
-
-        mergeDailyActions(addedDynamicList, untilDateTime);
-
+        mergeDailyActions(addedDynamicList, untilDateTime)
         updateSyncInfo(addedDynamicList[0], currentTotalCount);
     }
-
-
-
 
     function mergeDailyActions(dynamicList: DynamicList, untilDateTime: number) {
         for (const { time, action } of dynamicList) {
@@ -120,14 +133,22 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
     }
 
 
-    watch([userIdRef, rangeRef], async () => {
+    watch([userIdRef, rangeRef], async (newValue) => {
         if (syncing.value) {
             return;
         }
         syncing.value = true;
-        await initFromLocal();
-        await syncNewestDynamics();
-        await saveToLocal();
+
+        const userId = newValue[0]
+        const range = newValue[1];
+        // 先初始化本地数据
+        await loadFromLocal(userId);
+        // 更新最新动态
+        await syncNewestDynamics(userId, range);
+        // 将更新后的动态保存到本地
+        await saveToLocal(userId);
+        // 清除过期的本地数据
+        await cleanupCache();
         syncing.value = false;
     }, {
         immediate: true
@@ -189,3 +210,5 @@ async function fetchUntilDateTime(userId: string, untilDateTime: number, cursor:
 
     return await fetchUntilDateTime(userId, untilDateTime, nextCursor, allList.concat(list));
 }
+
+

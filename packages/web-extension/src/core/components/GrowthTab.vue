@@ -10,7 +10,7 @@ import UserGrowTrending from './UserGrowTrending.vue';
 <template>
     <div class="space-y-8">
         <div>
-            <UserContribution bodyClass="shadow-card rounded-lg" />
+            <UserContribution />
         </div>
         <div>
             <UserGrowTrending />

@@ -35,8 +35,7 @@ provide(articleListInjectionKey, articleList);
 </script>
 <template>
     <div class="space-y-2">
-        <UserContribution :storageKey="inMyPage ? StorageKey.DYNAMIC : StorageKey.GUEST_DYNAMIC"
-            bodyClass="shadow-card rounded-lg" hideSummation />
+        <UserContribution hideSummation />
         <UserGrowTrending />
     </div>
 </template>
