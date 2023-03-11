@@ -1,14 +1,14 @@
 import { defineCustomElement } from 'vue'
 import ClientJoinedActivity from './ClientJoinedActivity.ce.vue'
-import ClientUserGrowTrending from './ClientUserGrowTrending.ce.vue'
+import ClientUserTrace from './ClientUserTrace.ce.vue'
 
 const CustomJoinedActivity = defineCustomElement(ClientJoinedActivity)
-const CustomUserGrowTrending = defineCustomElement(ClientUserGrowTrending)
+const CustomUserTrace = defineCustomElement(ClientUserTrace)
 
 // 分别导出元素
-export { CustomJoinedActivity, CustomUserGrowTrending }
+export { CustomJoinedActivity, CustomUserTrace }
 
 export function register() {
     customElements.define('joined-activity', CustomJoinedActivity)
-    customElements.define('grow-trending', CustomUserGrowTrending)
+    customElements.define('user-trace', CustomUserTrace)
 }

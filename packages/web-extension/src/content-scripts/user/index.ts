@@ -1,7 +1,7 @@
 import initUserProfile from "@/core/clientRequests/initUserProfile";
 import { getCurrentUserId } from "../utils/getInformation";
 import onRouteChange from "../utils/onRouteChange";
-import { CustomJoinedActivity, CustomUserGrowTrending, register } from "./components";
+import { CustomJoinedActivity, CustomUserTrace, register } from "./components";
 
 register();
 main();
@@ -64,12 +64,11 @@ function renderUserGrowTrending(myUserId?: string) {
         listBlock.insertAdjacentElement("beforebegin", trendingBlock);
         trendingBlock.style.marginTop = "1rem";
         setTimeout(() => {
-            trendingBlock.append(new CustomUserGrowTrending({
+            trendingBlock.append(new CustomUserTrace({
                 userId,
-                inMyPage: myUserId === userId
+                inMyPage: myUserId === userId,
             }));
         })
-
         return true;
     }
 

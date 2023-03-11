@@ -40,8 +40,6 @@ const dailyCountMap = computed(() => {
 })
 
 
-
-
 const unitItems = [
     { key: "year", text: "年" },
     { key: "month", text: "月" },
@@ -117,8 +115,6 @@ const data = computed(() => {
             item[1] += data[index - 1][1]
         }
     });
-
-    console.log(data);
 
     return data;
 });
@@ -302,10 +298,12 @@ const option = computed<Option>(() => ({
 
 </script>
 <template>
-    <SectionHeader title="成长之路">
-        <RadioSelect :items="unitItems" v-model="unit" />
-    </SectionHeader>
-    <div class="card relative">
-        <v-chart :option="option" autoresize :loading="!articleList.length" class="h-56 block min-w-0 w-full" />
-    </div>
+    <template v-if="articleList.length">
+        <SectionHeader title="成长之路">
+            <RadioSelect :items="unitItems" v-model="unit" />
+        </SectionHeader>
+        <div class="card relative">
+            <v-chart :option="option" autoresize class="h-56 block min-w-0 w-full" />
+        </div>
+    </template>
 </template>

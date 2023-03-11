@@ -38,7 +38,7 @@ const emit = defineEmits<{
 
 const option = computed<Option>(() => ({
     title: {
-        text: "参与度是怎么计算的？",
+        text: "活跃度是怎么计算的？",
         link: "https://github.com/curly210102/grow-in-juejin/blob/main/packages/web-extension/src/core/utils/calculateContribution.ts",
         bottom: 0,
         left: 5,
@@ -66,7 +66,7 @@ const option = computed<Option>(() => ({
 
         },
         formatter(params: any) {
-            return `${params.marker} 参与度 <strong>${params.data[1]}</strong>｜${chartTime.format(params.data[0], "{yyyy}年{MM}月{dd}日, {eeee}", false, "ZH")}`
+            return `${params.marker} 活跃度 <strong>${params.data[1]}</strong>｜${chartTime.format(params.data[0], "{yyyy}年{MM}月{dd}日, {eeee}", false, "ZH")}`
         }
     },
     visualMap: {
@@ -176,5 +176,7 @@ watch(range, () => {
 
 </script>
 <template>
-    <v-chart class="h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize ref="chart" />
+    <!-- height:144px for web component -->
+    <v-chart class="echarts block min-w-0 w-full h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize
+        style="height:144px" ref="chart" />
 </template>

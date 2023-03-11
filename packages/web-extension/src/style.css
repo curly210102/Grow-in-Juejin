@@ -18,7 +18,6 @@
     @apply text-xs font-light text-slate-500 sm:text-sm;
   }
   /* ... */
-
   .juejin-card {
     border-radius: 2px;
     background: #fff;

@@ -51,7 +51,8 @@ async function sync(userId: string, earliestTime: number, localRawData: {
 
 export async function syncArticleList(userId: string, localArticleList: IArticle[] = [], earliestTime: number = 0) {
     // 请求最近的一批
-    const { cursor, data: lastArticleList, count, has_more } = await fetchUserArticles(userId, "0");
+    const { cursor, data, count, has_more } = await fetchUserArticles(userId, "0");
+    const lastArticleList = data || [];
     const oneRequestCount = +cursor;
 
     const lastArticleOfFirstFetch = lastArticleList[lastArticleList.length - 1];
