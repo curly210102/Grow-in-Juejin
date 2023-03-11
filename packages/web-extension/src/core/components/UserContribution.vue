@@ -1,8 +1,8 @@
 <script lang='ts' setup>
 import { time as chartTime } from "echarts";
 
-import { computed, inject, readonly, ref, unref, watch, watchEffect } from "vue";
-import { ActionType, StorageKey, UserActions } from "../types";
+import { computed, inject, ref, unref, watch, watchEffect } from "vue";
+import { ActionType, UserActions } from "../types";
 import calculateContribution from "../utils/calculateContribution";
 import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
 import SectionHeader from "../base-components/SectionHeader.vue"
@@ -43,13 +43,13 @@ const {
 } = useFetchUserDailyActions(userId, range);
 
 
-const { bodyClass, headerClass } = props;
+const { headerClass } = props;
 
 
 const rangeItems = computed<Item[]>(() => {
     const items: Item[] = [RECENT_ITEM]
     const thisYear = getYear();
-    const pioneerYear = getYear(earliestYear.value);
+    const pioneerYear = earliestYear.value;
     for (let year = thisYear; year >= pioneerYear; year--) {
         items.push({
             key: year,
@@ -64,7 +64,8 @@ const rangeItems = computed<Item[]>(() => {
 
 watch(rangeItems, (rangeItems) => {
     if (!rangeItems.includes(selected.value)) {
-        selected.value = rangeItems[0];
+        const selectedKey = selected.value.key;
+        selected.value = rangeItems.find(range => range.key === selectedKey) ?? rangeItems[0];
     }
 })
 

@@ -1,5 +1,5 @@
 import { ActionType, IDailyActions, StorageKey } from "../types";
-import { Ref, ref, watch } from "vue";
+import { computed, Ref, ref, watch } from "vue";
 import { fetchUserDynamic } from "../utils/api";
 import { getYear, MS_OF_7DAY, startOfDate } from "../utils/date";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
@@ -7,6 +7,7 @@ import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 interface ISyncInfo {
     syncDateTime: number,
     count: number,
+    earliestYear: number
 }
 
 type DynamicList = Awaited<ReturnType<typeof fetchUserDynamic>>["list"];
@@ -28,9 +29,9 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
     const dailyActions = ref<IDailyActions>({});
     const syncInfo = ref<ISyncInfo>({
         syncDateTime: 0,
-        count: 0
+        count: 0,
+        earliestYear: 0
     });
-    const earliestYear = ref(getYear());
     const syncing = ref(false);
 
     async function loadFromLocal(userId: string) {
@@ -99,8 +100,10 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
                 addedDynamicList.push(...dynamicList);
             }
         }
+
+        const earliestYear = await getEarliestPublicationYear(userId, currentTotalCount, oneSliceCount);
         mergeDailyActions(addedDynamicList, untilDateTime)
-        updateSyncInfo(addedDynamicList[0], currentTotalCount);
+        updateSyncInfo(addedDynamicList[0], currentTotalCount, earliestYear);
     }
 
     function mergeDailyActions(dynamicList: DynamicList, untilDateTime: number) {
@@ -125,13 +128,30 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
         }
     }
 
-    function updateSyncInfo(dynamic?: DynamicList[0], count?: number) {
+    function updateSyncInfo(dynamic?: DynamicList[0], count?: number, earliestYear?: number) {
         syncInfo.value = {
+            ...syncInfo.value,
             syncDateTime: dynamic ? startOfDate(dynamic.time * 1000) : 0,
-            count: count ?? 0
+            count: count ?? 0,
+            earliestYear: earliestYear ?? 0
         }
     }
 
+    async function getEarliestPublicationYear(userId: string, totalCount: number, onSliceCount: number) {
+        const { earliestYear } = syncInfo.value;
+        if (earliestYear) {
+            return earliestYear;
+        }
+
+        const lastCursor = (Math.ceil(totalCount / onSliceCount) - 1) * onSliceCount;
+        const { hasMore, lastDynamic } = await fetchDynamics(userId, lastCursor);
+        if (!hasMore && lastDynamic) {
+            return getYear(lastDynamic.time * 1000)
+        }
+
+        return getYear();
+
+    }
 
     watch([userIdRef, rangeRef], async (newValue) => {
         if (syncing.value) {
@@ -152,6 +172,10 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
         syncing.value = false;
     }, {
         immediate: true
+    })
+
+    const earliestYear = computed(() => {
+        return syncInfo.value.earliestYear || getYear();
     })
 
     return {
