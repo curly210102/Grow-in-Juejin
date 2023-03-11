@@ -1,105 +1,102 @@
 import { ActionType, IDailyActions, StorageKey } from "../types";
-import { inject, Ref, ref, watch } from "vue";
+import { Ref, ref, watch, watchEffect } from "vue";
 import { fetchUserDynamic } from "../utils/api";
-import { startOfDate } from "../utils/date";
-import { defaultSyncInjectContent, ISyncInjectContentType, syncInjectionKey, userInjectionKey } from "../utils/injectionKeys";
+import { getYear, startOfDate } from "../utils/date";
 import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
 
-export default function useFetchUserDailyActions() {
+interface ISyncInfo {
+    syncDateTime: number,
+    count: number,
+}
+
+type DynamicList = Awaited<ReturnType<typeof fetchUserDynamic>>["list"];
+
+function lastOfArray<T>(array: Array<T>) {
+    return array[array.length - 1] ?? null;
+}
+
+function actionTotalCount(dailyAction?: IDailyActions[0]) {
+    return Object.values(dailyAction ?? {}).reduce((total, count) => total + count, 0);
+}
+
+export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRef: Ref<number[]>, storageKey: StorageKey.DYNAMIC | StorageKey.GUEST_DYNAMIC) {
     const dailyActions = ref<IDailyActions>({});
-    let lastSyncActionTime = -1;
-    let lastSyncActionCount = 0;
-    const userId = inject<Ref<string>>(userInjectionKey, ref(""));
-    const syncBoardCast = inject<ISyncInjectContentType>(syncInjectionKey, defaultSyncInjectContent);
+    const syncInfo = ref<ISyncInfo>({
+        syncDateTime: 0,
+        count: 0
+    });
+    const earliestYear = ref(getYear());
+    const syncing = ref(false);
 
-    async function init() {
-        await loadLocalStorage(StorageKey.DYNAMIC).then(data => {
-            if (data) {
-                dailyActions.value = data.actions;
-                lastSyncActionTime = data.time
-                lastSyncActionCount = data.count
+    async function initFromLocal() {
+        const data = await loadLocalStorage(storageKey);
+        const userData = storageKey === StorageKey.GUEST_DYNAMIC ? data?.[userIdRef.value] : data;
+        if (userData) {
+            dailyActions.value = userData.actions;
+            syncInfo.value = userData.syncInfo;
+        }
+    }
+
+    async function saveToLocal() {
+        const saveContent = {
+            actions: dailyActions.value,
+            syncInfo: syncInfo.value
+        };
+
+        if (storageKey === StorageKey.GUEST_DYNAMIC) {
+            await saveLocalStorage(storageKey, {
+                [userIdRef.value]: saveContent
+            })
+        } else {
+            await saveLocalStorage(storageKey, saveContent);
+        }
+    }
+
+    async function syncNewestDynamics() {
+        const userId = userIdRef.value;
+        const { syncDateTime } = syncInfo.value;
+        const addedDynamicList: DynamicList = [];
+        const rangeStart = rangeRef.value[0];
+        const untilDateTime = Math.max(rangeStart, syncDateTime);
+        const { count: currentTotalCount, list: newestDynamicList, cursor: oneSliceCount, hasMore, lastDynamic: lastDynamicOfNewest } = await fetchDynamics(userId, 0);
+        addedDynamicList.push(...newestDynamicList);
+
+        const needMoreRequest = hasMore && lastDynamicOfNewest && lastDynamicOfNewest.time * 1000 >= untilDateTime;
+        const requestedAddedCount = newestDynamicList.length;
+
+        if (needMoreRequest) {
+            // 先做批量请求
+            const prevTotalCount = syncInfo.value.count;
+            // totalChanges = added - deleted
+            const totalChanges = currentTotalCount - (prevTotalCount - actionTotalCount(dailyActions.value[syncDateTime]));
+            // 预估新增的动态数
+            const predictAddedCount = totalChanges > 0 ? totalChanges : currentTotalCount;
+            const predictRequestTimes = Math.ceil((predictAddedCount - requestedAddedCount) / oneSliceCount);
+            const { dynamicList, nextCursor } = await fetchDynamicsParallel(userId, predictRequestTimes, oneSliceCount, oneSliceCount, untilDateTime);
+            addedDynamicList.push(...dynamicList);
+
+            // totalChanges > 0 但有 deleted，增加的数量比预计的要多
+            if (nextCursor) {
+                const dynamicList = await fetchUntilDateTime(userId, untilDateTime, nextCursor);
+                addedDynamicList.push(...dynamicList);
             }
-        })
-        sync();
+        }
+
+        mergeDailyActions(addedDynamicList, untilDateTime);
+
+        updateSyncInfo(addedDynamicList[0], currentTotalCount);
     }
 
-    async function sync() {
-        if (!userId) {
-            dailyActions.value = {};
-            lastSyncActionTime = -1;
-            lastSyncActionCount = 0;
-            return;
-        }
-        const completeSync = syncBoardCast.sync();
-        // 请求最近的20条动态
-        const lastDynamics = await fetchUserDynamic(userId.value, "0");
-        const { cursor, list, count, hasMore } = lastDynamics;
-        const oneRequestOffset = +cursor;
-        const lastActionList = list;
-        const tailOfLastActionList = list[list.length - 1];
-        const isAttachLocalRecord = mergeActions(lastActionList);
 
-        if (!isAttachLocalRecord) {
-            // 根据动态总数的差值估算后续请求数
-            const predictRequestTimes = (count > oneRequestOffset && tailOfLastActionList && tailOfLastActionList.time > lastSyncActionTime && hasMore) ? Math.ceil((count - lastSyncActionCount) / oneRequestOffset) : 0;
-            const tailOfBatchDynamics = await batchSync(oneRequestOffset, predictRequestTimes);
 
-            // 存在用户删除动态的情况，这时上一步的差值不一定够
-            if (tailOfBatchDynamics) {
-                const tailOfBatchActionList = tailOfBatchDynamics.list.slice(-1)[0];
-                if (tailOfBatchActionList && tailOfBatchActionList.time > lastSyncActionTime && tailOfBatchDynamics.hasMore) {
-                    await syncToAttachLocalRecord(userId.value, tailOfBatchDynamics.cursor);
-                }
-            }
-        }
 
-        if (lastActionList.length) {
-            updateSyncFlag(lastActionList[0].time, count);
-        }
-
-        completeSync();
-    }
-
-    async function batchSync(oneRequestCount: number, predictRequestTimes: number) {
-        // 防止大量并发请求崩掉服务器，限制一次只发10个请求
-        const MAX_PARALLEL = 10;
-        const batchRequestTimes = Math.ceil(predictRequestTimes / MAX_PARALLEL);
-        const lastBatchRequestCount = predictRequestTimes % MAX_PARALLEL
-        let lastDynamics = null;
-
-        for (let time = 1; time <= batchRequestTimes; time++) {
-            const parallelRequestCount = time === batchRequestTimes ? lastBatchRequestCount : MAX_PARALLEL;
-            const prevCursor = oneRequestCount + (time - 1) * MAX_PARALLEL * oneRequestCount;
-            const batchDynamics = await Promise.all(Array.from(new Array(parallelRequestCount), (_v, i) => i).map((i) => fetchUserDynamic(userId.value, `${prevCursor + i * oneRequestCount}`)))
-            let isAttachLocalRecord = false;
-            for (const { list } of batchDynamics) {
-                isAttachLocalRecord = mergeActions(list);
-                if (isAttachLocalRecord) {
-                    return null;
-                }
-            }
-            lastDynamics = batchDynamics.slice(-1)[0];
-        }
-        return lastDynamics;
-    }
-
-    async function syncToAttachLocalRecord(userId: string, cursor: string) {
-        const { list, cursor: nextCursor, hasMore } = await fetchUserDynamic(userId, cursor)
-        const isFinished = mergeActions(list);
-        if (isFinished) {
-            return
-        } else if (hasMore) {
-            await syncToAttachLocalRecord(userId, nextCursor);
-        }
-    }
-
-    function mergeActions(list: Awaited<ReturnType<typeof fetchUserDynamic>>["list"]): boolean {
-        for (const { action, time } of list) {
-            if (lastSyncActionTime >= time) {
-                return true;
+    function mergeDailyActions(dynamicList: DynamicList, untilDateTime: number) {
+        for (const { time, action } of dynamicList) {
+            if (untilDateTime > time * 1000) {
+                break;
             }
             const date = startOfDate(time * 1000);
-            if (!dailyActions.value[date]) {
+            if (!dailyActions.value[date] || date === untilDateTime) {
                 dailyActions.value[date] = {
                     [ActionType.POST]: 0,
                     [ActionType.LKPOST]: 0,
@@ -113,23 +110,82 @@ export default function useFetchUserDailyActions() {
                 dailyActions.value[date][action]++;
             }
         }
-
-        return false;
     }
 
-    function updateSyncFlag(time: number, count: number) {
-        lastSyncActionTime = time;
-        lastSyncActionCount = count;
-        saveLocalStorage(StorageKey.DYNAMIC, {
-            count: lastSyncActionCount,
-            time: lastSyncActionTime,
-            actions: dailyActions.value
-        })
+    function updateSyncInfo(dynamic?: DynamicList[0], count?: number) {
+        syncInfo.value = {
+            syncDateTime: dynamic ? startOfDate(dynamic.time * 1000) : 0,
+            count: count ?? 0
+        }
     }
 
 
-    init();
-    watch([userId], sync)
+    watch([userIdRef, rangeRef], async () => {
+        if (syncing.value) {
+            return;
+        }
+        syncing.value = true;
+        await initFromLocal();
+        await syncNewestDynamics();
+        await saveToLocal();
+        syncing.value = false;
+    }, {
+        immediate: true
+    })
 
-    return dailyActions;
+    return {
+        dailyActions,
+        earliestYear,
+        syncing
+    }
+}
+
+
+async function fetchDynamics(userId: string, requestCursor: number = 0) {
+    const { count, cursor, list, hasMore } = await fetchUserDynamic(userId, `${requestCursor}`);
+    return {
+        count,
+        cursor: +cursor,
+        list,
+        hasMore,
+        lastDynamic: lastOfArray(list)
+    }
+}
+
+const MAX_PARALLEL = 5;
+async function fetchDynamicsParallel(userId: string, requestTimes: number, startCursor: number, oneSliceCount: number, untilDateTime: number) {
+    const parallelTimes = Math.ceil(requestTimes / MAX_PARALLEL);
+    const dynamicList: DynamicList = [];
+    let nextCursor = null;
+    for (let i = 0; i < parallelTimes; i++) {
+        const parallelRequestCount = i === parallelTimes - 1 ? requestTimes % MAX_PARALLEL : MAX_PARALLEL;
+        const prevCursor = startCursor + i * MAX_PARALLEL * oneSliceCount;
+        const parallelRequests = await Promise.all(Array.from(new Array(parallelRequestCount), (_v, i) => i).map((i) => fetchDynamics(userId, prevCursor + i * oneSliceCount)));
+
+        for (const { list, lastDynamic, hasMore, cursor } of parallelRequests) {
+            dynamicList.push(...list);
+            nextCursor = cursor;
+            if (!lastDynamic || lastDynamic.time * 1000 < untilDateTime || !hasMore) {
+                return {
+                    dynamicList,
+                    nextCursor: null
+                };
+            }
+        }
+    }
+
+    return {
+        dynamicList,
+        nextCursor
+    };
+}
+
+async function fetchUntilDateTime(userId: string, untilDateTime: number, cursor: number, allList: DynamicList = []): Promise<DynamicList> {
+    const { list, lastDynamic, hasMore, cursor: nextCursor } = await fetchDynamics(userId, cursor);
+
+    if (!lastDynamic || lastDynamic.time * 1000 < untilDateTime || !hasMore) {
+        return allList.concat(list);
+    }
+
+    return await fetchUntilDateTime(userId, untilDateTime, nextCursor, allList.concat(list));
 }

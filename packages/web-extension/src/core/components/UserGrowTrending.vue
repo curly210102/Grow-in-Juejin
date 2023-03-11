@@ -118,8 +118,6 @@ const data = computed(() => {
         }
     });
 
-    console.log(data);
-
     return data;
 });
 

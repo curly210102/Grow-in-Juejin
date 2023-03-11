@@ -58,11 +58,12 @@ export interface IDailyActions {
 
 export enum StorageKey {
     "USER" = "user",
-    "DYNAMIC" = "dynamic",
+    "DYNAMIC" = "dynamics",
     "ARTICLE_LIST" = "articleList",
     "ARTICLE_CONTENTS" = "articleContents",
     "PINS" = "pins",
-    "ACTIVITIES" = "activities"
+    "ACTIVITIES" = "activities",
+    "GUEST_DYNAMIC" = "guest_dynamics"
 }
 
 export interface IArticle {

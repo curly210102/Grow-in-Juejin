@@ -1,36 +1,56 @@
 <script lang='ts' setup>
 import { time as chartTime } from "echarts";
 
-import { computed, ref, toRef, unref, watch, watchEffect } from "vue";
-import { ActionType, IDailyActions, UserActions } from "../types";
+import { computed, inject, ref, unref, watch, watchEffect } from "vue";
+import { ActionType, StorageKey, UserActions } from "../types";
 import calculateContribution from "../utils/calculateContribution";
-import { addOneYear, getCurrent, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
+import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
 import SectionHeader from "../base-components/SectionHeader.vue"
 import Heatmap from "../base-components/Heatmap.vue"
 import Select, { Item } from "../base-components/Select.vue"
-import { getYear, startOfYear } from '../utils/date';
+import { getYear } from '../utils/date';
+import useFetchUserDailyActions from "../composables/useFetchUserDailyActions";
+import { userInjectionKey } from "../utils/injectionKeys";
 
 
 const props = defineProps<{
-    actions: IDailyActions,
     bodyClass?: string,
-    headerClass?: string
+    headerClass?: string,
+    storageKey?: StorageKey.DYNAMIC | StorageKey.GUEST_DYNAMIC,
+    hideSummation?: boolean
 }>();
-const actions = toRef(props, "actions");
-const { bodyClass, headerClass } = props;
 
-const startFromYear = computed(() => {
-    const minDate = Math.min(...Object.keys(actions.value).map((date) => +date), getCurrent());
-    return startOfYear(minDate);
+const RECENT_ITEM = {
+    key: "lastYear",
+    text: "过去一年"
+}
+
+const selected = ref<Item>(RECENT_ITEM);
+const range = computed(() => {
+    const selectedKey = selected.value.key;
+    if (selectedKey === "lastYear") {
+        return getLastYearRange();
+    } else {
+        return getFullYearRange(+selectedKey)
+    }
 })
 
+
+const userId = inject(userInjectionKey, ref(""));
+const {
+    dailyActions: actions,
+    earliestYear,
+    syncing
+} = useFetchUserDailyActions(userId, range, props.storageKey ?? StorageKey.DYNAMIC);
+
+
+const { bodyClass, headerClass } = props;
+
+
 const rangeItems = computed<Item[]>(() => {
-    const items: Item[] = [{
-        key: "lastYear",
-        text: "过去一年"
-    }]
+    const items: Item[] = [RECENT_ITEM]
     const thisYear = getYear();
-    const pioneerYear = getYear(startFromYear.value);
+    const pioneerYear = getYear(earliestYear.value);
     for (let year = thisYear; year >= pioneerYear; year--) {
         items.push({
             key: year,
@@ -41,20 +61,11 @@ const rangeItems = computed<Item[]>(() => {
     return items;
 });
 
-const selected = ref(rangeItems.value[0]);
+
 
 watch(rangeItems, (rangeItems) => {
     if (!rangeItems.includes(selected.value)) {
         selected.value = rangeItems[0];
-    }
-})
-
-const range = computed(() => {
-    const selectedKey = selected.value.key;
-    if (selectedKey === "lastYear") {
-        return getLastYearRange();
-    } else {
-        return getFullYearRange(+selectedKey)
     }
 })
 
@@ -134,20 +145,22 @@ const echartsRange = computed(() => {
 
 </script>
 <template>
-    <SectionHeader :class="headerClass" title="社区贡献">
+    <SectionHeader :class="headerClass" title="社区活跃度">
         <div class="w-28">
             <Select :items="rangeItems" v-model="selected" />
         </div>
     </SectionHeader>
-    <div :class="bodyClass">
+    <div :class="bodyClass" class="bg-white">
         <div class="p-3">
-            <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index" />
+            <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index"
+                :loading="syncing" />
         </div>
-        <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8" v-if="dailyActionSummation">
+        <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8"
+            v-if="dailyActionSummation && !hideSummation">
             <p class="text-sm text-slate-500">
                 {{ dailyActionSummation.dateText }}，产生 {{ dailyActionSummation.total }} 个贡献
                 <template v-if="dailyActionSummation.score">
-                    ，参与度 {{ dailyActionSummation.score }}
+                    ，活跃度 {{ dailyActionSummation.score }}
                 </template>
             </p>
             <hr class="divider mt-2 mb-3" />
