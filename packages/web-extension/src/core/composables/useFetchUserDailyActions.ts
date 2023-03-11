@@ -107,12 +107,19 @@ export default function useFetchUserDailyActions(userIdRef: Ref<string>, rangeRe
     }
 
     function mergeDailyActions(dynamicList: DynamicList, untilDateTime: number) {
+        dailyActions.value[untilDateTime] = {
+            [ActionType.POST]: 0,
+            [ActionType.LKPOST]: 0,
+            [ActionType.PIN]: 0,
+            [ActionType.LKPIN]: 0,
+            [ActionType.FOLLOW]: 0
+        }
         for (const { time, action } of dynamicList) {
             if (untilDateTime > time * 1000) {
                 break;
             }
             const date = startOfDate(time * 1000);
-            if (!dailyActions.value[date] || date === untilDateTime) {
+            if (!dailyActions.value[date]) {
                 dailyActions.value[date] = {
                     [ActionType.POST]: 0,
                     [ActionType.LKPOST]: 0,

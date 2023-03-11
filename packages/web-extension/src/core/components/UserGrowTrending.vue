@@ -298,10 +298,12 @@ const option = computed<Option>(() => ({
 
 </script>
 <template>
-    <SectionHeader title="成长之路">
-        <RadioSelect :items="unitItems" v-model="unit" />
-    </SectionHeader>
-    <div class="card relative">
-        <v-chart :option="option" autoresize :loading="!articleList.length" class="h-56 block min-w-0 w-full" />
-    </div>
+    <template v-if="articleList.length">
+        <SectionHeader title="成长之路">
+            <RadioSelect :items="unitItems" v-model="unit" />
+        </SectionHeader>
+        <div class="card relative">
+            <v-chart :option="option" autoresize class="h-56 block min-w-0 w-full" />
+        </div>
+    </template>
 </template>

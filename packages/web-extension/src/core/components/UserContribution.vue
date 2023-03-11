@@ -81,7 +81,7 @@ const rangeActionSummation = ref<ActionOverview | null>(null);
 watchEffect(() => {
     const isRange = range.value[0] !== range.value[1]
     const startDate = range.value[0];
-    const endDate = !isRange ? range.value[1] : addOneYear(startDate);
+    const endDate = isRange ? range.value[1] : addOneYear(startDate);
 
     const dailyActions = unref(actions);
     const dailyContributionValue: [string, number][] = [];
