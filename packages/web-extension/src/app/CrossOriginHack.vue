@@ -20,8 +20,8 @@ const syncBoardCast = inject<ISyncInjectContentType>(syncInjectionKey, defaultSy
 
 loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS]).then(data => {
     if (data) {
-        articleList.value = data[StorageKey.ARTICLE_LIST] ?? [];
-        articleContent.value = new Map(Object.entries(data[StorageKey.ARTICLE_CONTENTS] ?? []));
+        articleList.value = data[StorageKey.ARTICLE_LIST]?.[userId.value] ?? [];
+        articleContent.value = new Map(Object.entries(data[StorageKey.ARTICLE_CONTENTS]?.[userId.value] ?? []));
     }
 })
 
@@ -41,10 +41,10 @@ onMounted(() => {
 
     chrome.storage.local.onChanged.addListener((changes) => {
         if (changes[StorageKey.ARTICLE_LIST]) {
-            articleList.value = changes[StorageKey.ARTICLE_LIST].newValue;
+            articleList.value = changes[StorageKey.ARTICLE_LIST].newValue?.[userId.value] ?? [];
         }
         if (changes[StorageKey.ARTICLE_CONTENTS]) {
-            articleContent.value = new Map(Object.entries(changes[StorageKey.ARTICLE_CONTENTS].newValue));
+            articleContent.value = new Map(Object.entries(changes[StorageKey.ARTICLE_CONTENTS].newValue?.[userId.value] ?? []));
         }
     })
 })
