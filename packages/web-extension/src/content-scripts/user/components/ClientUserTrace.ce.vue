@@ -18,11 +18,11 @@ provide(userInjectionKey, readonly(ref(userId)));
 (async () => {
     if (inMyPage) {
         loadLocalStorage(StorageKey.ARTICLE_LIST).then(data => {
-            articleList.value = data ?? []
+            articleList.value = data?.[userId] ?? []
         })
         chrome.storage.local.onChanged.addListener((changes) => {
             if (changes[StorageKey.ARTICLE_LIST]) {
-                articleList.value = changes[StorageKey.ARTICLE_LIST].newValue;
+                articleList.value = changes[StorageKey.ARTICLE_LIST].newValue?.[userId] ?? [];
             }
         })
     } else {

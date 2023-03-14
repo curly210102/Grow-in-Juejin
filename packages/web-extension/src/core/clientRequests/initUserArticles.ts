@@ -20,8 +20,8 @@ export default async function initUserArticles(userId: string, earliestTime: num
 
     const localArticles = await loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS]).then(data => {
         return {
-            list: data[StorageKey.ARTICLE_LIST] ?? [],
-            contents: data[StorageKey.ARTICLE_CONTENTS] ?? []
+            list: data[StorageKey.ARTICLE_LIST]?.[userId] ?? [],
+            contents: data[StorageKey.ARTICLE_CONTENTS]?.[userId] ?? []
         }
     });
 
@@ -41,7 +41,7 @@ async function sync(userId: string, earliestTime: number, localRawData: {
     const localArticleList = [...localRawData.list];
     const localArticleContentMap = new Map<string, IArticleContentItem>(localRawData.contents);
     const currentArticleList = await syncArticleList(userId, localArticleList, earliestTime);
-    const currentArticleContentMap = await syncArticleDetails(currentArticleList, localArticleContentMap, earliestTime);
+    const currentArticleContentMap = await syncArticleDetails(userId, currentArticleList, localArticleContentMap, earliestTime);
 
     return {
         articleList: currentArticleList,
@@ -89,7 +89,9 @@ export async function syncArticleList(userId: string, localArticleList: IArticle
     }
 
     const mergedArticleList = mergeArticleList(localArticleList, newArticleList);
-    await saveLocalStorage(StorageKey.ARTICLE_LIST, mergedArticleList);
+    const localData = await loadLocalStorage(StorageKey.ARTICLE_LIST) ?? {};
+    localData[userId] = mergedArticleList;
+    await saveLocalStorage(StorageKey.ARTICLE_LIST, localData);
     return mergedArticleList;
 }
 
@@ -152,7 +154,7 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
     }), ...oldArticles];
 }
 
-async function syncArticleDetails(articleList: IArticle[], localArticleContentMap: Map<string, IArticleContentItem>, earliestTime: number) {
+async function syncArticleDetails(userId: string, articleList: IArticle[], localArticleContentMap: Map<string, IArticleContentItem>, earliestTime: number) {
     const newArticleContentMap = new Map(localArticleContentMap);
     // 请求 article details
     const articleDetailRequestData = articleList
@@ -173,7 +175,9 @@ async function syncArticleDetails(articleList: IArticle[], localArticleContentMa
         });
     });
 
-    await saveLocalStorage(StorageKey.ARTICLE_CONTENTS, [...newArticleContentMap]);
+    const localData = await loadLocalStorage(StorageKey.ARTICLE_CONTENTS);
+    localData[userId] = [...newArticleContentMap];
+    await saveLocalStorage(StorageKey.ARTICLE_CONTENTS, localData);
 
     return newArticleContentMap;
 }
