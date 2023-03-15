@@ -3,10 +3,11 @@
 
 import { ArticleContentMap, IArticle, IArticleContentItem, StorageKey } from "../types";
 import { fetchArticleDetail, fetchUserArticles } from "../utils/api";
-import { loadLocalStorage, saveLocalStorage } from "../utils/storage";
+import { batchSaveLocalStorage, loadLocalStorage, saveLocalStorage } from "../utils/storage";
 import nm from "nomatter";
 import { countWords } from "@homegrown/word-counter";
 import { batchRequestData } from "../utils/batchRequest";
+import { MS_OF_7DAY } from "../utils/date";
 
 type ResponseArticle = Awaited<ReturnType<typeof fetchUserArticles>>["data"];
 
@@ -25,7 +26,9 @@ export default async function initUserArticles(userId: string, earliestTime: num
         }
     });
 
-    return await sync(userId, earliestTime, localArticles);
+    const data = await sync(userId, earliestTime, localArticles);
+    await cleanupCache();
+    return data;
 }
 
 
@@ -92,12 +95,17 @@ export async function syncArticleList(userId: string, localArticleList: IArticle
     const localData = await loadLocalStorage(StorageKey.ARTICLE_LIST) ?? {};
     localData[userId] = mergedArticleList;
     await saveLocalStorage(StorageKey.ARTICLE_LIST, localData);
+    await updateCacheExpireTime(userId);
     return mergedArticleList;
 }
 
 
 async function syncToEnd(userId: string, cursor: string, list: ResponseArticle = [], earliestTime: number) {
     const { data, cursor: nextCursor, has_more } = await fetchUserArticles(userId, cursor)
+
+    if (!data) {
+        return list;
+    }
 
     list.push(...data);
 
@@ -178,6 +186,29 @@ async function syncArticleDetails(userId: string, articleList: IArticle[], local
     const localData = await loadLocalStorage(StorageKey.ARTICLE_CONTENTS);
     localData[userId] = [...newArticleContentMap];
     await saveLocalStorage(StorageKey.ARTICLE_CONTENTS, localData);
+    await updateCacheExpireTime(userId);
 
     return newArticleContentMap;
+}
+
+async function updateCacheExpireTime(userId: string) {
+    const localCache = (await loadLocalStorage(StorageKey.ARTICLE_CACHE)) ?? {};
+    localCache[userId] = Date.now() + MS_OF_7DAY;
+    await saveLocalStorage(StorageKey.ARTICLE_CACHE, localCache);
+}
+
+async function cleanupCache() {
+    const localData = await loadLocalStorage([StorageKey.ARTICLE_CACHE, StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS]);
+    const { [StorageKey.ARTICLE_CACHE]: localCache, ...rest } = localData; const currentTime = Date.now();
+
+    if (localCache) {
+        Object.keys(localCache).forEach(userId => {
+            if (localCache[userId] <= currentTime) {
+                delete rest?.[StorageKey.ARTICLE_LIST]?.[userId];
+                delete rest?.[StorageKey.ARTICLE_CONTENTS]?.[userId];
+            }
+        });
+    }
+
+    await batchSaveLocalStorage(rest);
 }
