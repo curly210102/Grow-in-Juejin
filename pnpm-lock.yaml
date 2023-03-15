@@ -13,6 +13,7 @@ importers:
       '@homegrown/word-counter': ^0.1.7
       '@types/chrome': ^0.0.217
       '@vitejs/plugin-vue': ^2.3.4
+      '@webcomponents/webcomponentsjs': ^2.7.0
       autoprefixer: ^10.4.13
       echarts: ^5.4.1
       nomatter: ^0.1.0
@@ -27,6 +28,7 @@ importers:
       '@headlessui/vue': 1.7.11_vue@3.2.47
       '@heroicons/vue': 2.0.16_vue@3.2.47
       '@homegrown/word-counter': 0.1.7
+      '@webcomponents/webcomponentsjs': 2.7.0
       autoprefixer: 10.4.13_postcss@8.4.21
       echarts: 5.4.1
       nomatter: 0.1.0
@@ -572,6 +574,10 @@ packages:
   /@webcomponents/custom-elements/1.5.1:
     resolution: {integrity: sha512-6T/XT3S1UHDlRWFSxRXdeSoYWczEl78sygNPS7jDyHVrfZcF/pUtWGYgxF4uviH59iPVw1eOWbhubm8CqO0MpA==}
     dev: true
+
+  /@webcomponents/webcomponentsjs/2.7.0:
+    resolution: {integrity: sha512-j161Z9oiy8k74vchdrQGihfSp7QulrTclCUiPo0D7JF6/RjpXAmB0ThlTAFlSElkgqg0vdFgNAXaX9ZHZy25wQ==}
+    dev: false
 
   /acorn-node/1.8.2:
     resolution: {integrity: sha512-8mt+fslDufLYntIoPAaIMUe/lrbrehIiwmR3t2k9LljIzoigEPF27eLk2hy8zSGzmR/ogr7zbRKINMo1u0yh5A==}

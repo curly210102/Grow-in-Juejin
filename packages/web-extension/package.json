@@ -11,6 +11,7 @@
     "@headlessui/vue": "^1.7.11",
     "@heroicons/vue": "^2.0.16",
     "@homegrown/word-counter": "^0.1.7",
+    "@webcomponents/webcomponentsjs": "^2.7.0",
     "autoprefixer": "^10.4.13",
     "echarts": "^5.4.1",
     "nomatter": "^0.1.0",

@@ -183,7 +183,7 @@ async function syncArticleDetails(userId: string, articleList: IArticle[], local
         });
     });
 
-    const localData = await loadLocalStorage(StorageKey.ARTICLE_CONTENTS);
+    const localData = (await loadLocalStorage(StorageKey.ARTICLE_CONTENTS)) ?? {};
     localData[userId] = [...newArticleContentMap];
     await saveLocalStorage(StorageKey.ARTICLE_CONTENTS, localData);
     await updateCacheExpireTime(userId);
