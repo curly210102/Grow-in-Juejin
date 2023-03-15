@@ -63,6 +63,7 @@ export enum StorageKey {
     "ARTICLE_CONTENTS" = "articleContents",
     "PINS" = "pins",
     "ACTIVITIES" = "activities",
+    "ARTICLE_CACHE" = "articleCache"
 }
 
 export interface IArticle {
