@@ -65,56 +65,5 @@
             "ChatGPT"
         ],
         "wordCount": "650"
-    },
-    {
-        "key": "2023二月更文",
-        "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6ab8c1236d554b33b60b4cae111bfbbd~tplv-k3u1fbpfcp-zoom-crop-mark:3024:3024:3024:1702.awebp?",
-        "startTimeStamp": 1675180800000,
-        "title": "日新计划｜2月更文挑战",
-        "docLink": "https://juejin.cn/post/7194721470063312933",
-        "category": "更文活动",
-        "endTimeStamp": 1678032000000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": [
-                    {
-                        "name": "第一关",
-                        "count": 7
-                    },
-                    {
-                        "name": "第二关",
-                        "count": 14
-                    },
-                    {
-                        "name": "第三关",
-                        "count": 21
-                    },
-                    {
-                        "name": "第四关",
-                        "count": 30
-                    }
-                ]
-            },
-            {
-                "type": "count",
-                "rewards": [
-                    {
-                        "name": "劳模奖",
-                        "count": 45
-                    }
-                ]
-            }
-        ],
-        "categories": [
-            "*"
-        ],
-        "signSlogan": "开启掘金成长之旅！这是我参与「掘金日新计划 · 2 月更文挑战」的第 N 天，[点击查看活动详情](https://juejin.cn/post/7194721470063312933)",
-        "signLink": "https://juejin.cn/post/7194721470063312933",
-        "tagNames": [
-            "掘金·日新计划"
-        ],
-        "wordCount": "500"
     }
 ]
