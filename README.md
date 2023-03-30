@@ -40,39 +40,12 @@
     </tr>
 </table>
 
-## 使用指南
+## 安装插件
 
-1. 下载[最新的 Release 包](https://github.com/curly210102/grow-in-juejin/releases/latest/download/grow-in-juejin.zip)
+- [Chrome 应用商店](https://chrome.google.com/webstore/detail/grow-in-%E6%8E%98%E9%87%91/kiejcjemfigohhmeielfbifkikkiefeg/related?hl=zh-TW&authuser=0)
+- [Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/grow-in-%E6%8E%98%E9%87%91/ookedghbbdhcjopmnhfabdghmkjdoace?hl=en-US)
+- [安装包下载](https://gitee.com/curlly-brackets/grow-in-juejin-web-extension/releases/download/v0.3.0/grow-in-juejin.zip)
 
-2. 打开浏览器插件管理页面 [chrome://extensions](chrome://extensions)
-
-3. 开启“开发者模式”
-
-4. 解压第一步下载的 zip 包，将解压后的文件夹拖拽至 [chrome://extensions](chrome://extensions) 页面即可使用
-
-5. 使用方法
-
-<table>
-<tr>
-<td>
-<a href="https://juejin.cn">juejin.cn</a>顶部导航栏入口
-</td>
-<td>
-浏览器工具栏入口
-</td>
-</tr>
-<tr>
-<td>
-<img src="./preset/usage/entry.png" />
-</td>
-<td>
-<img src="./preset/usage/browser-entry.png" />
-</td>
-</tr>
-</table>
-<p style="color:#97A3B6;">
-<i>备注：Edge 商店已提交审核，等待上架中...</i>
-</p>
 
 ## 反馈&参与
 
