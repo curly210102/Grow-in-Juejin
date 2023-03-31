@@ -17,3 +17,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     }
 })
+
+chrome.runtime.onInstalled.addListener(function(details) {
+    if (details.reason == "update") {
+      chrome.storage.local.clear();
+    }
+  });

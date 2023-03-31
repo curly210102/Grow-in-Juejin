@@ -34,7 +34,7 @@ function closeDetectResultModalOpen() {
 
 </script>
 <template>
-    <div class="p-6 space-y-5 pb-10">
+    <div class="p-6 space-y-5 pb-10 flex flex-col justify-between">
         <div>
             <div class="flex items-center">
                 <div class="flex-1 text-md font-semibold"><a :href="activity.docLink" target="_blank">{{ activity.title
@@ -49,41 +49,45 @@ function closeDetectResultModalOpen() {
             </div>
         </div>
 
-        <div class="flex items-center">
-            <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
-                class="flex-1 text-center text-3xl font-bold font-mono">
-                <span>{{ count }}</span>
-                <span class="text-slate-400 text-xs">{{ unit }}</span>
+        <div>
+            <div class="flex items-center">
+                <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
+                    class="flex-1 text-center text-3xl font-bold font-mono">
+                    <span>{{ count }}</span>
+                    <span class="text-slate-400 text-xs">{{ unit }}</span>
+                </div>
             </div>
-        </div>
-        <div class="space-y-3">
-            <div v-for="reward in activity.rewards" class="space-y-1">
-                <Progress :steps="Math.min(1, activity.dayCount / Math.max(1, (reward.nextTarget ?? activity.dayCount))) *
-                    Math.min(activity.articleCount / Math.max(1, reward.nextTarget ?? activity.articleCount), 1)">
-                    <div class="flex gap-2 px-1">
-                        <span v-if="reward.currentLevel" class="text-white/90">{{ reward.currentLevel }} 🎉</span>
-                        <span class="text-slate-800/60 ml-auto">🎯 {{ reward.nextLevel }}</span>
+            <div class="space-y-3">
+                <div v-for="reward in activity.rewards" class="space-y-1">
+                    <Progress :steps="Math.min(1, activity.dayCount / Math.max(1, (reward.nextTarget ?? activity.dayCount))) *
+                        Math.min(activity.articleCount / Math.max(1, reward.nextTarget ?? activity.articleCount), 1)">
+                        <div class="flex gap-2 px-1">
+                            <span v-if="reward.currentLevel" class="text-white/90">{{ reward.currentLevel }} 🎉</span>
+                            <span class="text-slate-800/60 ml-auto">🎯 {{ reward.nextLevel }}</span>
+                        </div>
+                    </Progress>
+                    <div class="text-slate-400 font-light text-right text-xs px-2" v-if="reward.nextTarget">
+                        {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `累计投稿 ${reward.nextTarget} 篇` }}
                     </div>
-                </Progress>
-                <div class="text-slate-400 font-light text-right text-xs px-2" v-if="reward.nextTarget">
-                    {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `累计投稿 ${reward.nextTarget} 篇` }}
                 </div>
             </div>
         </div>
-        <div class="flex gap-2 flex-wrap justify-between">
-            <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
-                class="text-center overflow-hidden">
-                <div class="text-xl opacity-90 font-mono  truncate text-ellipsis" :alt="count">
-                    {{ count }}
-                </div>
-                <div class="text-slate-400 text-sm whitespace-nowrap">
-                    {{ label }}
+        <div>
+            <div class="flex gap-2 flex-wrap justify-between">
+                <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
+                    class="text-center overflow-hidden">
+                    <div class="text-xl opacity-90 font-mono  truncate text-ellipsis" :alt="count">
+                        {{ count }}
+                    </div>
+                    <div class="text-slate-400 text-sm whitespace-nowrap">
+                        {{ label }}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div v-if="activity.invalid.length" class="text-slate-400 text-xs">
-            ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a class="text-blue-400 cursor-pointer hover:text-blue-500"
-                @click="isDetectResultModalOpen = true">查看</a>
+            <div v-if="activity.invalid.length" class="text-slate-400 text-xs">
+                ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a class="text-blue-400 cursor-pointer hover:text-blue-500"
+                    @click="isDetectResultModalOpen = true">查看</a>
+            </div>
         </div>
         <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModalOpen"
             :invalid-summaries="activity.invalid">
