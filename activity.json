@@ -1,5 +1,25 @@
 [
     {
+        "key": "2023 年 4 月更文",
+        "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
+        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be871d91b1034205a9d84ae133ac9bf3~tplv-k3u1fbpfcp-zoom-1.png",
+        "startTimeStamp": 1680710400000,
+        "title": "日新计划｜4月更文挑战",
+        "docLink": "https://juejin.cn/post/7218068880224550972",
+        "category": "更文活动",
+        "endTimeStamp": 1683907200000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ]
+    },
+    {
         "key": "金石计划第3期",
         "desc": "优质大咖挑战，瓜分万元现金奖池",
         "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
