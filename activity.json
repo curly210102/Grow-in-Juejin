@@ -11,13 +11,38 @@
         "rewards": [
             {
                 "type": "days",
-                "rewards": []
+                "rewards": [
+                    {
+                        "name": "第一关",
+                        "count": 10
+                    },
+                    {
+                        "name": "第二关",
+                        "count": 20
+                    },
+                    {
+                        "name": "第三关",
+                        "count": 30
+                    }
+                ]
             },
             {
                 "type": "count",
-                "rewards": []
+                "rewards": [
+                    {
+                        "name": "超强输出达人",
+                        "count": 42
+                    }
+                ]
             }
-        ]
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [
+            "4月日新计划更文活动"
+        ],
+        "wordCount": "500"
     },
     {
         "key": "金石计划第3期",
