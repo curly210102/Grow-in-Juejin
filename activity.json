@@ -1,115 +1,125 @@
 [
-  {
-    "key": "2023 年 4 月更文",
-    "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
-    "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be871d91b1034205a9d84ae133ac9bf3~tplv-k3u1fbpfcp-zoom-1.png",
-    "startTimeStamp": 1680710400000,
-    "title": "日新计划｜4月更文挑战",
-    "docLink": "https://juejin.cn/post/7218068880224550972",
-    "category": "更文活动",
-    "endTimeStamp": 1683907200000,
-    "rewards": [
-      {
-        "type": "days",
+    {
+        "key": "2023 年 4 月更文",
+        "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
+        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be871d91b1034205a9d84ae133ac9bf3~tplv-k3u1fbpfcp-zoom-1.png",
+        "startTimeStamp": 1680710400000,
+        "title": "日新计划｜4月更文挑战",
+        "docLink": "https://juejin.cn/post/7218068880224550972",
+        "category": "更文活动",
+        "endTimeStamp": 1683907200000,
         "rewards": [
-          {
-            "name": "第一关",
-            "count": 10
-          },
-          {
-            "name": "第二关",
-            "count": 20
-          },
-          {
-            "name": "第三关",
-            "count": 30
-          }
-        ]
-      },
-      {
-        "type": "count",
-        "rewards": [
-          {
-            "name": "玩法一：超强输出达人",
-            "count": 42
-          }
-        ]
-      },
-      {
-        "type": "count",
-        "rewards": [
-          {
-            "name": "玩法二：“人工智能”投稿达人",
-            "count": 35
-          }
+            {
+                "type": "days",
+                "rewards": [
+                    {
+                        "name": "第一关",
+                        "count": 10
+                    },
+                    {
+                        "name": "第二关",
+                        "count": 20
+                    },
+                    {
+                        "name": "第三关",
+                        "count": 30
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "玩法一：超强输出达人",
+                        "count": 42
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "玩法二：“人工智能”投稿达人",
+                        "count": 35
+                    }
+                ],
+                "categories": [
+                    "人工智能"
+                ]
+            }
         ],
-        "categories": ["人工智能"]
-      }
-    ],
-    "categories": [],
-    "signSlogan": "",
-    "signLink": "",
-    "tagNames": ["掘金·日新计划"],
-    "wordCount": "500",
-    "theme": "4月日新计划更文活动"
-  },
-  {
-    "key": "金石计划第3期",
-    "desc": "优质大咖挑战，瓜分万元现金奖池",
-    "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
-    "startTimeStamp": 1678204800000,
-    "title": "金石计划第三期",
-    "docLink": "https://juejin.cn/post/7207698564641996856",
-    "category": "更文活动",
-    "endTimeStamp": 1682092800000,
-    "rewards": [
-      {
-        "type": "days",
-        "rewards": []
-      },
-      {
-        "type": "count",
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "500",
+        "theme": "4月日新计划更文活动"
+    },
+    {
+        "key": "金石计划第3期",
+        "desc": "优质大咖挑战，瓜分万元现金奖池",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1678204800000,
+        "title": "金石计划第三期",
+        "docLink": "https://juejin.cn/post/7207698564641996856",
+        "category": "更文活动",
+        "endTimeStamp": 1682092800000,
         "rewards": [
-          {
-            "name": "基础挑战",
-            "count": 2
-          },
-          {
-            "name": "进阶挑战①",
-            "count": 4
-          },
-          {
-            "name": "进阶挑战②",
-            "count": 6
-          }
-        ]
-      }
-    ],
-    "categories": [],
-    "signSlogan": "本文正在参加[「金石计划」](https://juejin.cn/post/7207698564641996856/)",
-    "signLink": "https://juejin.cn/post/7207698564641996856/",
-    "tagNames": ["掘金·金石计划"],
-    "wordCount": "650",
-    "theme": ""
-  },
-  {
-    "key": "人工智能创作者扶持计划",
-    "desc": "人工智能领域的创作者集结令来啦~",
-    "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c604bbcf1805429594be8309d6b5ead2~tplv-k3u1fbpfcp-watermark.image",
-    "startTimeStamp": 1678636800000,
-    "title": "人工智能创作者扶持计划",
-    "docLink": "https://juejin.cn/post/7209850311259471930",
-    "category": "技术专题",
-    "endTimeStamp": 1681056000000,
-    "rewards": [
-      {
-        "type": "days",
-        "rewards": []
-      },
-      {
-        "type": "count",
-        "rewards": []
-      }
-    ]
-  }
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "基础挑战",
+                        "count": 2
+                    },
+                    {
+                        "name": "进阶挑战①",
+                        "count": 4
+                    },
+                    {
+                        "name": "进阶挑战②",
+                        "count": 6
+                    }
+                ]
+            }
+        ],
+        "categories": [],
+        "signSlogan": "本文正在参加[「金石计划」](https://juejin.cn/post/7207698564641996856/)",
+        "signLink": "https://juejin.cn/post/7207698564641996856/",
+        "tagNames": [
+            "掘金·金石计划"
+        ],
+        "wordCount": "650",
+        "theme": ""
+    },
+    {
+        "key": "人工智能创作者扶持计划",
+        "desc": "人工智能领域的创作者集结令来啦~",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c604bbcf1805429594be8309d6b5ead2~tplv-k3u1fbpfcp-watermark.image",
+        "startTimeStamp": 1678636800000,
+        "title": "人工智能创作者扶持计划",
+        "docLink": "https://juejin.cn/post/7209850311259471930",
+        "category": "技术专题",
+        "endTimeStamp": 1681056000000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "categories": [],
+        "signSlogan": "本文正在参加 人工智能创作者扶持计划",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "600",
+        "theme": ""
+    }
 ]
