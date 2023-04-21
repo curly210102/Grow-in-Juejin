@@ -173,13 +173,15 @@ async function syncArticleDetails(userId: string, articleList: IArticle[], local
             );
         }).map(({ id }) => id);
     const articleDetails = await batchRequestData(articleDetailRequestData, fetchArticleDetail, 10)
-    articleDetails.forEach(({ article_info }) => {
+    articleDetails.forEach(({ article_info, theme_list }) => {
         const { article_id, mark_content, mtime } = article_info;
+        const themeNames = new Set(theme_list.map(theme => theme.theme?.name).filter(name => !!name));
         const content = nm(mark_content).trim();
         newArticleContentMap.set(article_id, {
             fragment: content.slice(0, 300) + "\n" + content.slice(-200),
             count: countWords(mark_content),
             modifiedTimeStamp: +mtime * 1000,
+            themeNames: [...themeNames]
         });
     });
 

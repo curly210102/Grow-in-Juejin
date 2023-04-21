@@ -33,8 +33,13 @@ const InvalidStatus2Text = {
   word_count: "未达字数",
   slogan_fit: "暗号文本不符",
   link_fit: "暗号链接不符",
-  tag_fit: "未选择指定标签"
+  tag_fit: "未选择指定标签",
+  theme_fit: "未添加指定话题"
 };
 
 
 </script>
+
+<style>
+@import url("@/style.css");
+</style>

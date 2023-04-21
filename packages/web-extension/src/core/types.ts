@@ -6,6 +6,7 @@ export interface IActivity {
     title: string;
     docLink: string;
     category: string;
+    theme: string;
     endTimeStamp?: number;
     rewards: [
         {
@@ -14,6 +15,7 @@ export interface IActivity {
                 name: string;
                 count: number;
             }>;
+            categories?: string[]
         },
         {
             type: "count";
@@ -21,6 +23,7 @@ export interface IActivity {
                 name: string;
                 count: number;
             }>;
+            categories?: string[];
         }
     ];
     categories: string[];
@@ -87,6 +90,7 @@ export interface IArticleContentItem {
     count: number;
     modifiedTimeStamp: number;
     fragment: string;
+    themeNames: string[]
 }
 
 export type ArticleContentMap = Map<string, IArticleContentItem>
@@ -99,5 +103,6 @@ export type TypeInvalidSummary = {
         | "word_count"
         | "slogan_fit"
         | "link_fit"
-        | "tag_fit">
+        | "tag_fit" 
+        | "theme_fit">
 };

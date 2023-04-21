@@ -73,7 +73,7 @@ export const fetchUserArticles = async (
                 body: JSON.stringify({
                     user_id: userId,
                     cursor,
-                    sort_type: 2,
+                    sort_type: 2
                 }),
                 headers: {
                     "User-agent": window.navigator.userAgent,
@@ -104,7 +104,11 @@ export async function fetchArticleDetail(articleId: string): Promise<{
         article_id: string,
         mark_content: string,
         mtime: string
-    }
+    },
+    theme_list: [] | Array<{theme: {
+        theme_id: string,
+        name: string
+    }}>
 }> {
     try {
         const res = await fetch(
@@ -113,6 +117,7 @@ export async function fetchArticleDetail(articleId: string): Promise<{
                 method: "POST",
                 body: JSON.stringify({
                     article_id: articleId,
+                    need_theme: true
                 }),
                 headers: {
                     "User-agent": window.navigator.userAgent,
