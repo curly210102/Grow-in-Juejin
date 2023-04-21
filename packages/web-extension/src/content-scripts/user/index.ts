@@ -24,9 +24,9 @@ function renderFeatures(myUserId?: string) {
     const loops: ReturnType<typeof loopObserver>[] = [];
 
     loops.push(loopObserver(() => renderUserGrowTrending(myUserId)));
-    // if (myUserId && userId === myUserId) {
-        loops.push(loopObserver(() => renderJoinedActivities(userId)));
-    // }
+    if (myUserId && userId === myUserId) {
+        loops.push(loopObserver(() => renderJoinedActivities(myUserId)));
+    }
 
     return {
         abort() {
