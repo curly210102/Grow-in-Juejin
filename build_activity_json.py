@@ -102,7 +102,7 @@ def parseActivityRecordsToList(records=[]):
 
 
 def parseActivityRewardToRewardList(records=[]):
-    list = [{
+    rules = [{
         "type": "days",
         "rewards": []
     }, {
@@ -110,23 +110,43 @@ def parseActivityRewardToRewardList(records=[]):
         "rewards": []
     }]
 
+    customRule = {}
+
     if records:
         for record in records:
             fields = record["fields"]
+            categories = fields.get("指定分类")
             if fields.get("最小天数"):
-                list[0]["rewards"].append({
+                rewards = rules[0]["rewards"]
+                if isinstance(categories, list):
+                    categories.sort()
+                    key = "days-"+",".join(categories)
+                    if key not in customRule:
+                        customRule[key] = {"type": "days",
+                                           "rewards": [], "categories": categories}
+                    rewards = customRule[key]["rewards"]
+                rewards.append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
                     "count": int(fields.get("最小天数"))
                 })
             elif fields.get("数量"):
-                list[1]["rewards"].append({
+                rewards = rules[1]["rewards"]
+                if isinstance(categories, list):
+                    categories.sort()
+                    key = "count-"+",".join(categories)
+                    if key not in customRule:
+                        customRule[key] = {"type": "count",
+                                           "rewards": [], "categories": categories}
+                    rewards = customRule[key]["rewards"]
+                rewards.append({
                     "name": convertMultilineTextToString(fields.get("等级名")),
                     "count": int(fields.get("数量"))
                 })
-    for i, item in enumerate(list):
+    rules.extend(customRule.values())
+    for i, item in enumerate(rules):
         item["rewards"] = sorted(item.get("rewards"),
                                  key=lambda reward: reward.get("count"))
-    return list
+    return rules
 
 
 def parseActivityRuleMap(records=[]):
@@ -136,12 +156,14 @@ def parseActivityRuleMap(records=[]):
         "signLink": "",
         "tagNames": [],
         "wordCount": 0,
+        "theme": ""
     }
     for record in records:
         fields = record["fields"]
         ruleMap["categories"] = fields.get("分类") or []
         ruleMap["tagNames"] = fields.get("标签") or []
         ruleMap["wordCount"] = fields.get("字数") or 0
+        ruleMap["theme"] = fields.get("话题") or ""
         ruleMap["signSlogan"] = convertMultilineTextToString(
             fields.get("关键词"))
         ruleMap["signLink"] = extractLinkFromMultilineText(fields.get("关键词"))
@@ -160,12 +182,12 @@ async def fetchAndBuildDictionary():
 
     activityRewardsTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblWGtMT5fgnRQ9s", "vewj8t6vAm", {
         "filter": f'CurrentValue.[所属活动]="{key}"',
-        "field_names": '["等级名", "最小天数", "数量"]'
+        "field_names": '["等级名", "最小天数", "数量", "指定分类"]'
     }) for key in relatedKeys])
 
     activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblawuUZtQTY7Tq4", "vewo5RWnaX", {
         "filter": f'CurrentValue.[所属活动]="{key}"',
-        "field_names": '["关键词", "分类", "字数", "标签"]'
+        "field_names": '["关键词", "分类", "字数", "标签", "话题"]'
     }) for key in relatedKeys])
 
     activityRewardsResp = await activityRewardsTasks

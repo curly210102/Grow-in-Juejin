@@ -11,13 +11,51 @@
         "rewards": [
             {
                 "type": "days",
-                "rewards": []
+                "rewards": [
+                    {
+                        "name": "第一关",
+                        "count": 10
+                    },
+                    {
+                        "name": "第二关",
+                        "count": 20
+                    },
+                    {
+                        "name": "第三关",
+                        "count": 30
+                    }
+                ]
             },
             {
                 "type": "count",
-                "rewards": []
+                "rewards": [
+                    {
+                        "name": "玩法一：超强输出达人",
+                        "count": 42
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "玩法二：“人工智能”投稿达人",
+                        "count": 35
+                    }
+                ],
+                "categories": [
+                    "人工智能"
+                ]
             }
-        ]
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [
+            "掘金·日新计划"
+        ],
+        "wordCount": "500",
+        "theme": ""
     },
     {
         "key": "金石计划第3期",
@@ -57,7 +95,8 @@
         "tagNames": [
             "掘金·金石计划"
         ],
-        "wordCount": "650"
+        "wordCount": "650",
+        "theme": ""
     },
     {
         "key": "人工智能创作者扶持计划",
