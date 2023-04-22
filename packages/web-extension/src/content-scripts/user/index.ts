@@ -25,7 +25,7 @@ function renderFeatures(myUserId?: string) {
 
     loops.push(loopObserver(() => renderUserGrowTrending(myUserId)));
     if (myUserId && userId === myUserId) {
-        loops.push(loopObserver(() => renderJoinedActivities(myUserId)));
+        loops.push(loopObserver(() => renderJoinedActivities(userId)));
     }
 
     return {

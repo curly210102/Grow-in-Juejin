@@ -11,7 +11,14 @@ export default defineConfig({
       "@": path.resolve(__dirname, "src"),
     },
   },
-  plugins: [vue(),
+  plugins: [vue({
+    template: {
+      compilerOptions: {
+        // 将所有带短横线的标签名都视为自定义元素
+        isCustomElement: (tag) => tag.includes('-') && tag.startsWith("gij-")
+      }
+    }
+  }),
   crx({ manifest }),],
   build: {
     rollupOptions: {

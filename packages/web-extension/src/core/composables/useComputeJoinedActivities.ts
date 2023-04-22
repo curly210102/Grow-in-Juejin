@@ -101,7 +101,7 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
     })
 
     const joinedActivities = computed(() => {
-        return activities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0 || activityStats.value[key]?.invalidSummaries.length > 0) || (endTimeStamp && endTimeStamp >= Date.now())).map(({
+        return activities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0) || (endTimeStamp && endTimeStamp >= Date.now())).map(({
             key,
             title,
             docLink,

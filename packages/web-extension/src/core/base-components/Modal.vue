@@ -34,7 +34,7 @@ const { title } = defineProps<{
                         enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
                         leave-to="opacity-0 scale-95">
                         <DialogPanel
-                            class="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all w-[560px] max-w-full">
+                            class="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all w-[560px] max-w-full relative">
                             <XCircleIcon
                                 class="h-6 w-6 text-slate-300 hover:text-slate-400 absolute right-2 top-2 cursor-pointer"
                                 @click="emit('close')" />
@@ -54,3 +54,9 @@ const { title } = defineProps<{
         </Dialog>
     </TransitionRoot>
 </template>
+
+
+<style>
+@tailwind components;
+@tailwind utilities;
+</style>

@@ -39,7 +39,3 @@ const InvalidStatus2Text = {
 
 
 </script>
-
-<style>
-@import url("@/style.css");
-</style>

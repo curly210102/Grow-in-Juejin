@@ -9,6 +9,6 @@ const CustomUserTrace = defineCustomElement(ClientUserTrace)
 export { CustomJoinedActivity, CustomUserTrace }
 
 export function register() {
-    customElements.define('joined-activity', CustomJoinedActivity)
-    customElements.define('user-trace', CustomUserTrace)
+    customElements.define('gij-joined-activity', CustomJoinedActivity)
+    customElements.define('gij-user-trace', CustomUserTrace)
 }

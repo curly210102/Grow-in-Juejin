@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { inject, ref, Ref, toRef } from "vue";
+import { inject, ref, toRef } from "vue";
 import SectionHeader from "../base-components/SectionHeader.vue"
 import useComputeJoinedActivities from "../composables/useComputeJoinedActivities";
-import { IActivity, IArticle, IArticleContentItem } from "../types";
+import { IActivity } from "../types";
 import { articleContentInjectionKey, articleListInjectionKey, IArticleContentInjectContentType, IArticleListInjectContentType } from "../utils/injectionKeys";
 import ActivityCard from "./ActivityCard.vue";
 
