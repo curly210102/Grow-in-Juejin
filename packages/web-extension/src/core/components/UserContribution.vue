@@ -4,7 +4,7 @@ import { time as chartTime } from "echarts";
 import { computed, inject, ref, unref, watch, watchEffect } from "vue";
 import { ActionType, UserActions } from "../types";
 import calculateContribution from "../utils/calculateContribution";
-import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_DAY } from "../utils/date";
+import { addOneYear, getFullYearRange, getLastYearRange, MS_OF_7DAY, MS_OF_DAY } from "../utils/date";
 import SectionHeader from "../base-components/SectionHeader.vue"
 import Heatmap from "../base-components/Heatmap.vue"
 import Select, { Item } from "../base-components/Select.vue"
@@ -138,7 +138,7 @@ const selectedDailyActionSummation = computed(() => {
 const dailyActionSummation = computed(() => selectedDailyActionSummation.value ?? rangeActionSummation.value);
 
 const echartsRange = computed(() => {
-    return [`${chartTime.format(range.value[0], '{yyyy}-{MM}-{dd}', false)}`, `${chartTime.format(range.value[1], '{yyyy}-{MM}-{dd}', false)}`];
+    return [`${chartTime.format(range.value[1] - Math.ceil((range.value[1] - range.value[0]) / MS_OF_7DAY) * MS_OF_7DAY, '{yyyy}-{MM}-{dd}', false)}`, `${chartTime.format(range.value[1], '{yyyy}-{MM}-{dd}', false)}`];
 })
 
 

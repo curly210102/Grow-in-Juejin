@@ -116,7 +116,7 @@ const option = computed<Option>(() => ({
         cellSize: ['auto', 12],
         range: props.range,
         splitLine: {
-            show: false
+            show: false,
         },
         itemStyle: {
             borderWidth: 2,
