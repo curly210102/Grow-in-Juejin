@@ -7,11 +7,12 @@ function addNavbarEntry() {
     if (oldEntry) {
         oldEntry.remove();
     }
-    const notificationEntry = document.querySelector("#juejin > div.view-container > div > header > div > nav > ul > ul > li.nav-item.notification");
+    const notificationEntry = document.querySelector("#juejin > div.view-container > div > header > div > nav > ul > ul > li.nav-item.notification") as HTMLElement;
     if (notificationEntry) {
-        const growingEntry = notificationEntry.cloneNode() as Element;
+        const growingEntry = notificationEntry.cloneNode() as HTMLElement;
         growingEntry.id = "entry-gij"
         growingEntry.classList.remove("notification");
+        growingEntry.style.padding = "0 0.5rem";
         growingEntry.innerHTML = `<a href="${chrome.runtime.getURL(entryPath)}" target="__blank" title="Grow in Juejin" style="width: 22px; height: 22px; color: #8a919f">${entryIcon}</a>`;
         notificationEntry.insertAdjacentElement("beforebegin", growingEntry);
     }
