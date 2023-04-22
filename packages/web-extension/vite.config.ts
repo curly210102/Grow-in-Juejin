@@ -5,7 +5,7 @@ import manifest from './manifest.json' assert { type: 'json' } // Node >=17
 import * as path from 'path'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({command}) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
@@ -26,5 +26,6 @@ export default defineConfig({
         dashboard: 'src/app/index.html',
       },
     },
+    minify: command === "serve" ? false : true
   },
-})
+}))
