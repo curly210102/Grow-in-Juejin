@@ -44,7 +44,7 @@ onMounted(() => {
             articleList.value = changes[StorageKey.ARTICLE_LIST].newValue?.[userId.value] ?? [];
         }
         if (changes[StorageKey.ARTICLE_CONTENTS]) {
-            articleContent.value = new Map(Object.entries(changes[StorageKey.ARTICLE_CONTENTS].newValue?.[userId.value] ?? []));
+            articleContent.value = new Map(changes[StorageKey.ARTICLE_CONTENTS].newValue?.[userId.value] ?? []);
         }
     })
 })
@@ -69,6 +69,7 @@ provide(articleContentInjectionKey, readonly(articleContent));
 
 </script>
 <template>
-    <iframe :src="frameURL" ref="frame" class="gij-w-0 gij-h-0 gij-hidden" sandbox="allow-scripts allow-same-origin"></iframe>
+    <iframe :src="frameURL" ref="frame" class="gij-w-0 gij-h-0 gij-hidden"
+        sandbox="allow-scripts allow-same-origin"></iframe>
     <slot></slot>
 </template>

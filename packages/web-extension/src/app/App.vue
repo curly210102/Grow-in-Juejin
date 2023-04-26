@@ -16,7 +16,7 @@ const user = ref<IUser | null>(null);
 
 (async () => {
   try {
-    const currentUser = await initUserProfile();
+    const currentUser = await initUserProfile("3257181332842973");
     user.value = currentUser;
   } catch (error: any) {
     errorInfo.value = error
