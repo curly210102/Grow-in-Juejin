@@ -35,7 +35,7 @@ const selected = toRef(attrs, "modelValue") as Ref<Item>;
             <transition leave-active-class="gij-transition gij-duration-100 gij-ease-in" leave-from-class="gij-opacity-100"
                 leave-to-class="gij-opacity-0">
                 <ListboxOptions
-                    class="gij-absolute gij-mt-1 gij-max-h-60 gij-w-full gij-overflow-auto gij-rounded-md gij-bg-white gij-py-1 gij-shadow-lg gij-ring-1 gij-ring-black gij-ring-opacity-5 gij-outline-none gij-text-xs">
+                    class="gij-absolute gij-mt-1 gij-max-h-60 gij-w-full gij-overflow-auto gij-rounded-md gij-bg-white gij-py-1 gij-shadow-lg gij-ring-1 gij-ring-black gij-ring-opacity-5 focus:gij-outline-none gij-text-xs">
                     <ListboxOption v-slot="{ active, selected }" v-for="item in items" :key="item.key" :value="item"
                         as="template">
                         <li :class="[

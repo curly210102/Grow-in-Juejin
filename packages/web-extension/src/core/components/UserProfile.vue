@@ -21,9 +21,9 @@ const summary = computed(() => ([
 </script>
 
 <template>
-  <div class="gij-flex gij-flex-col gij-gap-4 gij-flex-row gij-items-center gij-justify-between">
+  <div class="gij-flex gij-flex-col gij-gap-4 sm:gij-flex-row sm:gij-items-center sm:gij-justify-between">
     <div class="gij-flex gij-items-center gij-gap-4">
-      <img :src="user.avatar" class="gij-rounded-full gij-w-14 gij-h-14 gij-w-16 gij-h-16" :alt="user.userName"
+      <img :src="user.avatar" class="gij-rounded-full gij-w-14 gij-h-14 sm:gij-w-16 sm:gij-h-16" :alt="user.userName"
         :title="user.userName" />
       <div class="gij-py-2 gij-space-y-2">
         <div class="gij-flex gij-items-center">
@@ -32,12 +32,13 @@ const summary = computed(() => ([
               }}</a></strong>
           <slot name="status"></slot>
         </div>
-        <p v-if="user.description" class="gij-describe gij-content-['「'] gij-content-['」']">{{ user.description }}</p>
+        <p v-if="user.description" class="gij-describe before:gij-content-['「'] after:gij-content-['」']">{{
+          user.description }}</p>
       </div>
     </div>
     <div class="gij-flex gij-px-2 gij-justify-between gij-text-center gij-gap-6">
       <div v-for="{ title, count } in summary">
-        <strong class="gij-text-xl gij-font-mono gij-tracking-wide gij-mb-1 gij-text-2xl">{{ count }}</strong>
+        <strong class="gij-text-xl gij-font-mono gij-tracking-wide sm:gij-mb-1 sm:gij-text-2xl">{{ count }}</strong>
         <div class="gij-describe">{{ title }}</div>
       </div>
     </div>

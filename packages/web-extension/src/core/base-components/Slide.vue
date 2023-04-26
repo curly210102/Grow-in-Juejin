@@ -39,7 +39,7 @@ watch(items, (v) => {
                     transform: activeIndex < i ? `translateX(calc(100% - ${(items.length - i) * HANDLER_WIDTH}px))` : `translateX(0)`
                 }">
             <div class="gij-relative gij-h-full">
-                <div class="gij-absolute gij-bg-white gij-px-2 gij-py-3 gij-rounded-l-md gij-border gij-border-r-0 gij-shadow-sm gij-cursor-pointer gij-text-xs gij-text-slate-400 gij-font-semibold"
+                <div class="gij-absolute gij-bg-white gij-px-2 gij-py-3 gij-rounded-l-md gij-border gij-border-r-0 gij-shadow-sm gij-cursor-pointer gij-text-xs gij-text-slate-400 hover:gij-font-semibold"
                     :class="[activeIndex === i ? `gij-font-medium gij-text-slate-600` : `gij-font-light`]" :style="{
                             width: `${HANDLER_WIDTH + 4}px`
                         }" @click="activeIndex = i">

@@ -36,10 +36,11 @@ const { title } = defineProps<{
                         <DialogPanel
                             class="gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-white gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative">
                             <XCircleIcon
-                                class="gij-h-6 gij-w-6 gij-text-slate-300 gij-text-slate-400 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
+                                class="gij-h-6 gij-w-6 gij-text-slate-300 hover:gij-text-slate-400 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
                                 @click="emit('close')" />
 
-                            <DialogTitle as="h3" class="gij-text-lg gij-font-medium gij-leading-6 gij-text-slate-800 gij-mb-2" v-if="title">
+                            <DialogTitle as="h3"
+                                class="gij-text-lg gij-font-medium gij-leading-6 gij-text-slate-800 gij-mb-2" v-if="title">
                                 {{ title }}
                             </DialogTitle>
 

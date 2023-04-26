@@ -10,7 +10,6 @@ import Navigator from './Navigator.vue';
 import CrossOriginHack from './CrossOriginHack.vue';
 import { IUser } from '@/core/types';
 import { ArrowPathIcon } from '@heroicons/vue/20/solid'
-import { FunnelChart } from 'echarts/charts';
 import generateUniqueId from '@/core/utils/uniqueId';
 
 
@@ -84,7 +83,6 @@ const updateView = (route: string) => {
       <KeepAlive>
         <component :is="currentView" />
       </KeepAlive>
-
     </div>
   </CrossOriginHack>
 </template>

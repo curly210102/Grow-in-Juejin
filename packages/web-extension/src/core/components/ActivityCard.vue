@@ -43,12 +43,13 @@ function openDetectResultModal() {
     <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between">
         <div>
             <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-2">
-                <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis"><a :href="activity.docLink"
-                        target="_blank" :title="activity.title">{{
+                <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis"><a
+                        :href="activity.docLink" target="_blank" :title="activity.title">{{
                             activity.title
                         }}</a>
                 </div>
-                <div class="gij-text-sm gij-font-semibold gij-text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
+                <div class="gij-text-sm gij-font-semibold gij-text-slate-500"
+                    v-if="activity.startTimeStamp && activity.endTimeStamp">
                     {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(isStartOfDay(activity.endTimeStamp) ?
                         activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</div>
             </div>
@@ -73,7 +74,8 @@ function openDetectResultModal() {
                             <span class="gij-text-slate-800/60 gij-ml-auto">🎯 {{ reward.nextLevel }}</span>
                         </div>
                     </Progress>
-                    <div class="gij-text-slate-400 gij-font-light gij-text-right gij-text-xs gij-px-2" v-if="reward.nextTarget">
+                    <div class="gij-text-slate-400 gij-font-light gij-text-right gij-text-xs gij-px-2"
+                        v-if="reward.nextTarget">
                         {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `${reward.categories ?
                             reward.categories.join("/") + "领域" : ""}累计投稿 ${reward.nextTarget} 篇` }}
                     </div>
@@ -93,12 +95,12 @@ function openDetectResultModal() {
                 </div>
             </div>
             <div v-if="activity.invalid.length" class="gij-text-slate-400 gij-text-xs gij-mt-2">
-                ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a class="gij-text-blue-400 gij-cursor-pointer gij-text-blue-500"
+                ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a
+                    class="gij-text-blue-400 gij-cursor-pointer hover:gij-text-blue-500"
                     @click="openDetectResultModal">查看</a>
             </div>
         </div>
         <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModal"
             :invalid-summaries="activity.invalid">
         </ActivityDetectResultModal>
-    </div>
-</template>
+</div></template>
