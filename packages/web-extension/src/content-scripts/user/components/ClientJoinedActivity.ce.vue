@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import { ArticleContentMap, IActivity, IArticle } from '@/core/types';
 import ActivityCard from "@/core/components/ActivityCard.vue"
-import useComputeJoinedActivities from '@/core/composables/useComputeJoinedActivities';
+import useComputeJoinedArticleActivities from '@/core/composables/useComputeJoinedArticleActivities';
 import initUserArticles from '@/core/clientRequests/initUserArticles';
 import { computed, ref, Ref, watchEffect } from 'vue';
 import { extCode } from '@/constant';
@@ -33,7 +33,7 @@ watchEffect(async () => {
     }
 });
 
-const joinedActivities = useComputeJoinedActivities(activitiesRef,
+const joinedActivities = useComputeJoinedArticleActivities(activitiesRef,
     articleListRef,
     articleContentMapRef);
 

@@ -3,10 +3,12 @@ import { ActivityStatus } from "../components/ActivityCard.vue";
 import { IActivity, ArticleContentMap, IArticle, TypeInvalidSummary } from "../types";
 import { format } from "../utils/date";
 
-export default function useComputeJoinedActivities(activities: Ref<IActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>) {
+export default function useComputeJoinedArticleActivities(activities: Ref<IActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>) {
+
+    const articleActivities = computed(() => activities.value.filter(a => ['更文活动', "技术专题"].includes(a.category)))
 
     const activityStats = computed(() => {
-        const stats = Object.fromEntries(activities.value.map(a => [a.key, {
+        const stats = Object.fromEntries(articleActivities.value.map(a => [a.key, {
             view: 0,
             digg: 0,
             collect: 0,
@@ -17,7 +19,7 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
             countByCategory: {} as Record<string, number>
         }]))
 
-        const sortedActivities = [...activities.value].sort((a1, a2) => a1.endTimeStamp && a2.endTimeStamp ? a1.endTimeStamp - a2.endTimeStamp : (a1.endTimeStamp ? 1 : a2.endTimeStamp ? -1 : 0));
+        const sortedActivities = [...articleActivities.value].sort((a1, a2) => a1.endTimeStamp && a2.endTimeStamp ? a1.endTimeStamp - a2.endTimeStamp : (a1.endTimeStamp ? 1 : a2.endTimeStamp ? -1 : 0));
 
         articleList.value.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id }) => {
             const articleContentInfo = articleContentMap.value.get(id);
@@ -101,7 +103,7 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
     })
 
     const joinedActivities = computed(() => {
-        return activities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0) || (endTimeStamp && endTimeStamp >= Date.now())).map(({
+        return articleActivities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0) || (endTimeStamp && endTimeStamp >= Date.now())).map(({
             key,
             title,
             docLink,
