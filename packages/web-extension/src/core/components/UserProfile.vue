@@ -21,23 +21,24 @@ const summary = computed(() => ([
 </script>
 
 <template>
-  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <div class="flex items-center gap-4">
-      <img :src="user.avatar" class="rounded-full w-14 h-14 sm:w-16 sm:h-16" :alt="user.userName"
+  <div class="gij-flex gij-flex-col gij-gap-4 gij-flex-row gij-items-center gij-justify-between">
+    <div class="gij-flex gij-items-center gij-gap-4">
+      <img :src="user.avatar" class="gij-rounded-full gij-w-14 gij-h-14 gij-w-16 gij-h-16" :alt="user.userName"
         :title="user.userName" />
-      <div class="py-2 space-y-2">
-        <div class="flex items-center">
-          <strong class="text-xl tracking-wide block mr-2"><a :href="`https://juejin.cn/user/${user.userId}`"
-              target="_blank" class="text-slate-800">{{ user.userName }}</a></strong>
+      <div class="gij-py-2 gij-space-y-2">
+        <div class="gij-flex gij-items-center">
+          <strong class="gij-text-xl gij-tracking-wide gij-block gij-mr-2"><a
+              :href="`https://juejin.cn/user/${user.userId}`" target="_blank" class="gij-text-slate-800">{{ user.userName
+              }}</a></strong>
           <slot name="status"></slot>
         </div>
-        <p v-if="user.description" class="describe before:content-['「'] after:content-['」']">{{ user.description }}</p>
+        <p v-if="user.description" class="gij-describe gij-content-['「'] gij-content-['」']">{{ user.description }}</p>
       </div>
     </div>
-    <div class="flex px-2 justify-between text-center gap-6">
+    <div class="gij-flex gij-px-2 gij-justify-between gij-text-center gij-gap-6">
       <div v-for="{ title, count } in summary">
-        <strong class="text-xl font-mono tracking-wide sm:mb-1 sm:text-2xl">{{ count }}</strong>
-        <div class="describe">{{ title }}</div>
+        <strong class="gij-text-xl gij-font-mono gij-tracking-wide gij-mb-1 gij-text-2xl">{{ count }}</strong>
+        <div class="gij-describe">{{ title }}</div>
       </div>
     </div>
   </div>

@@ -2,5 +2,5 @@
 export default {}
 </script>
 <template>
-    <div class="bg-white"></div>
+    <div class="gij-bg-white"></div>
 </template>

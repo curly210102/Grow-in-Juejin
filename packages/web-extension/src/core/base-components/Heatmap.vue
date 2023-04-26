@@ -177,6 +177,6 @@ watch(range, () => {
 </script>
 <template>
     <!-- height:144px for web component -->
-    <v-chart class="echarts block min-w-0 w-full h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize
+    <v-chart class="gij-echarts gij-block gij-min-w-0 gij-w-full gij-h-36" :option="option" :onSelectchanged="handleSelectChanged" autoresize
         style="height:144px" ref="chart" />
 </template>

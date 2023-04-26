@@ -24,12 +24,12 @@ const joinedActivities = useComputeJoinedActivities(activities, articleList, art
 <template>
     <SectionHeader title="正在参与的活动">
     </SectionHeader>
-    <div class="grid gap-2 grid-cols-2" v-if="joinedActivities.length">
-        <ActivityCard v-for="activity in joinedActivities" class="card" :activity="activity">
+    <div class="gij-grid gij-gap-2 gij-grid-cols-2" v-if="joinedActivities.length">
+        <ActivityCard v-for="activity in joinedActivities" class="gij-card" :activity="activity">
         </ActivityCard>
     </div>
-    <div v-else class="border rounded-md border-gray-200/80 bg-gray-100/50 text-slate-400 text-sm text-center p-4">
-        <a href="https://github.com/curly210102/grow-in-juejin/issues/new" target="_blank" class="block">
+    <div v-else class="gij-border gij-rounded-md gij-border-gray-200/80 gij-bg-gray-100/50 gij-text-slate-400 gij-text-sm gij-text-center gij-p-4">
+        <a href="https://github.com/curly210102/grow-in-juejin/issues/new" target="_blank" class="gij-block">
             未检测到正在参与的活动，如有差异请提交
             Issue
         </a>

@@ -74,12 +74,12 @@ const updateView = (route: string) => {
   <CrossOriginHack>
     <UserProfile :user="user">
       <template v-slot:status v-if="isDataLoading">
-        <ArrowPathIcon class="animate-spin-slow w-4 h-4 text-slate-400 mr-1">
+        <ArrowPathIcon class="gij-animate-spin-slow gij-w-4 gij-h-4 gij-text-slate-400 gij-mr-1">
         </ArrowPathIcon>
-        <div class="text-slate-400/60 text-xs">数据加载中，请耐心等待</div>
+        <div class="gij-text-slate-400/60 gij-text-xs">数据加载中，请耐心等待</div>
       </template>
     </UserProfile>
-    <div class="mt-8 relative mb-20">
+    <div class="gij-mt-8 gij-relative gij-mb-20">
       <Navigator :routes="routes" @change="updateView" />
       <KeepAlive>
         <component :is="currentView" />

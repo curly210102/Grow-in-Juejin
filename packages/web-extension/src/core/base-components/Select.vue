@@ -22,31 +22,33 @@ const selected = toRef(attrs, "modelValue") as Ref<Item>;
   
 <template>
     <Listbox>
-        <div class="relative z-10">
+        <div class="gij-relative gij-z-10">
             <ListboxButton
-                class="relative w-full rounded-lg bg-gray-300/10 py-1 pl-3 pr-10 text-left text-xs text-slate-400 shadow-inner">
-                <span class="block truncate">{{ selected.text }}</span>
-                <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
-                    <ChevronUpDownIcon class="h-4 w-4 text-slate-400" aria-hidden="true" />
+                class="gij-relative gij-w-full gij-rounded-lg gij-bg-gray-300/10 gij-py-1 gij-pl-3 gij-pr-10 gij-text-left gij-text-xs gij-text-slate-400 gij-shadow-inner">
+                <span class="gij-block gij-truncate">{{ selected.text }}</span>
+                <span
+                    class="gij-pointer-events-none gij-absolute gij-inset-y-0 gij-right-0 gij-flex gij-items-center gij-pr-2">
+                    <ChevronUpDownIcon class="gij-h-4 gij-w-4 gij-text-slate-400" aria-hidden="true" />
                 </span>
             </ListboxButton>
 
-            <transition leave-active-class="transition duration-100 ease-in" leave-from-class="opacity-100"
-                leave-to-class="opacity-0">
+            <transition leave-active-class="gij-transition gij-duration-100 gij-ease-in" leave-from-class="gij-opacity-100"
+                leave-to-class="gij-opacity-0">
                 <ListboxOptions
-                    class="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-xs">
+                    class="gij-absolute gij-mt-1 gij-max-h-60 gij-w-full gij-overflow-auto gij-rounded-md gij-bg-white gij-py-1 gij-shadow-lg gij-ring-1 gij-ring-black gij-ring-opacity-5 gij-outline-none gij-text-xs">
                     <ListboxOption v-slot="{ active, selected }" v-for="item in items" :key="item.key" :value="item"
                         as="template">
                         <li :class="[
-                            active ? 'bg-blue-100/50 text-blue-500' : 'text-slate-800',
-                            'relative cursor-default select-none py-2 pl-10 pr-4',
-                        ]">
+                                active ? 'gij-bg-blue-100/50 gij-text-blue-500' : 'gij-text-slate-800',
+                                'gij-relative gij-cursor-default gij-select-none gij-py-2 gij-pl-10 gij-pr-4',
+                            ]">
                             <span :class="[
-                                selected ? 'font-medium' : 'font-normal',
-                                'block truncate',
-                            ]">{{ item.text }}</span>
-                            <span v-if="selected" class="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-500">
-                                <CheckIcon class="h-5 w-5" aria-hidden="true" />
+                                    selected ? 'gij-font-medium' : 'gij-font-normal',
+                                    'gij-block gij-truncate',
+                                ]">{{ item.text }}</span>
+                            <span v-if="selected"
+                                class="gij-absolute gij-inset-y-0 gij-left-0 gij-flex gij-items-center gij-pl-3 gij-text-blue-500">
+                                <CheckIcon class="gij-h-5 gij-w-5" aria-hidden="true" />
                             </span>
                         </li>
                     </ListboxOption>

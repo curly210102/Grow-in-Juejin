@@ -146,25 +146,25 @@ const echartsRange = computed(() => {
 </script>
 <template>
     <SectionHeader :class="headerClass" title="社区活跃度">
-        <div class="w-28">
+        <div class="gij-w-28">
             <Select :items="rangeItems" v-model="selected" />
         </div>
     </SectionHeader>
-    <div class="bg-white shadow-card rounded-lg">
-        <div class="p-3">
+    <div class="gij-bg-white gij-shadow-card gij-rounded-lg">
+        <div class="gij-p-3">
             <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index"
                 :loading="syncing" />
         </div>
-        <div class="bg-gray-100 border border-t-0 rounded-b-lg shadow-inner pb-5 pt-4 px-8"
+        <div class="gij-bg-gray-100 gij-border gij-border-t-0 gij-rounded-b-lg gij-shadow-inner gij-pb-5 gij-pt-4 gij-px-8"
             v-if="dailyActionSummation && !hideSummation">
-            <p class="text-sm text-slate-500">
+            <p class="gij-text-sm gij-text-slate-500">
                 {{ dailyActionSummation.dateText }}，产生 {{ dailyActionSummation.total }} 个贡献
                 <template v-if="dailyActionSummation.score">
                     ，活跃度 {{ dailyActionSummation.score }}
                 </template>
             </p>
-            <hr class="divider mt-2 mb-3" />
-            <div class="grid grid-cols-3 gap-x-4 gap-y-2 text-sm">
+            <hr class="gij-divider gij-mt-2 gij-mb-3" />
+            <div class="gij-grid gij-grid-cols-3 gij-gap-x-4 gij-gap-y-2 gij-text-sm">
                 <div>
                     🚀 发布 <strong>{{ dailyActionSummation.actions[ActionType.POST] ?? 0 }}</strong> 篇文章
                 </div>

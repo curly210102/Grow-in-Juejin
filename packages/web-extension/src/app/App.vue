@@ -26,7 +26,7 @@ const user = ref<IUser | null>(null);
 </script>
 
 <template>
-  <div class="max-w-3xl mx-auto py-6 pl-6 pr-8">
+  <div class="gij-max-w-3xl gij-mx-auto gij-py-6 gij-pl-6 gij-pr-8">
     <Warning v-if="errorInfo" :error-info="errorInfo" />
     <Main v-else-if="user" :user="user" />
     <div v-else>

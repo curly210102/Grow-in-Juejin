@@ -1,12 +1,12 @@
 <template>
   <Modal title="文章检测结果" description="仅做基础检查，最终结果以掘金官方统计为准">
-    <div class="grid grid-cols-[1fr,auto] text-sm mt-4 gap-4">
+    <div class="gij-grid gij-grid-cols-[1fr,auto] gij-text-sm gij-mt-4 gij-gap-4">
       <template v-for="{ id, title, status } in summaries">
-        <a class="text-blue-400 hover:text-blue-500 cursor-pointer focus:outline-0" :href="`https://juejin.cn/post/${id}`"
+        <a class="gij-text-blue-400 gij-text-blue-500 gij-cursor-pointer gij-outline-0" :href="`https://juejin.cn/post/${id}`"
           target="_blank">{{
             title
           }}</a>
-        <ul class="space-y-1">
+        <ul class="gij-space-y-1">
           <ol v-for="invalidStatus in status">
             {{ InvalidStatus2Text[invalidStatus] }}
           </ol>

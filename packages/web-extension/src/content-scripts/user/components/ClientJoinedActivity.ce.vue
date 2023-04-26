@@ -39,7 +39,7 @@ const joinedActivities = useComputeJoinedActivities(activitiesRef,
 
 </script>
 <template>
-    <div v-if="joinedActivities.length" class="space-y-2">
+    <div v-if="joinedActivities.length" class="gij-space-y-2">
         <ActivityCard v-for="activity in joinedActivities" :activity="activity" class="juejin-card">
         </ActivityCard>
     </div>

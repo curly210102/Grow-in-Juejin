@@ -8,13 +8,13 @@ const steps = toRef(props, "steps")
 
 </script>
 <template>
-    <div class="relative rounded-full p-2 border bg-gray-300/10 w-full overflow-hidden shadow-inner min-h-[6px]">
-        <div class="absolute top-1 left-1 right-1 bottom-1">
-            <div class="rounded-full bg-gradient-to-r from-blue-500 to-blue-400 h-full"
+    <div class="gij-relative gij-rounded-full gij-p-2 gij-border gij-bg-gray-300/10 gij-w-full gij-overflow-hidden gij-shadow-inner gij-min-h-[6px]">
+        <div class="gij-absolute gij-top-1 gij-left-1 gij-right-1 gij-bottom-1">
+            <div class="gij-rounded-full gij-bg-gradient-to-r gij-from-blue-500 gij-to-blue-400 gij-h-full"
                 :style="{ width: `${steps * 100}%` }">
             </div>
         </div>
-        <span class="relative top-1/2 -translate-y-1/2 text-xs font-semibold">
+        <span class="gij-relative gij-top-1/2 -gij-translate-y-1/2 gij-text-xs gij-font-semibold">
             <slot></slot>
         </span>
     </div>

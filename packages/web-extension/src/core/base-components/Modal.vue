@@ -22,28 +22,28 @@ const { title } = defineProps<{
 
 <template>
     <TransitionRoot appear as="template">
-        <Dialog as="div" @close="emit('close')" class="relative z-[999] ">
+        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] gij-">
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
                 leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
-                <div class="fixed inset-0 bg-black bg-opacity-25" />
+                <div class="gij-fixed gij-inset-0 gij-bg-black gij-bg-opacity-25" />
             </TransitionChild>
 
-            <div class="fixed inset-0 overflow-y-auto">
-                <div class="flex min-h-full items-center justify-center p-4 text-center">
+            <div class="gij-fixed gij-inset-0 gij-overflow-y-auto">
+                <div class="gij-flex gij-min-h-full gij-items-center gij-justify-center gij-p-4 gij-text-center">
                     <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95"
                         enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100"
                         leave-to="opacity-0 scale-95">
                         <DialogPanel
-                            class="transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all w-[560px] max-w-full relative">
+                            class="gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-white gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative">
                             <XCircleIcon
-                                class="h-6 w-6 text-slate-300 hover:text-slate-400 absolute right-2 top-2 cursor-pointer"
+                                class="gij-h-6 gij-w-6 gij-text-slate-300 gij-text-slate-400 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
                                 @click="emit('close')" />
 
-                            <DialogTitle as="h3" class="text-lg font-medium leading-6 text-slate-800 mb-2" v-if="title">
+                            <DialogTitle as="h3" class="gij-text-lg gij-font-medium gij-leading-6 gij-text-slate-800 gij-mb-2" v-if="title">
                                 {{ title }}
                             </DialogTitle>
 
-                            <DialogDescription v-if="description" class="text-sm text-slate-400 mb-2">
+                            <DialogDescription v-if="description" class="gij-text-sm gij-text-slate-400 gij-mb-2">
                                 {{ description }}
                             </DialogDescription>
                             <slot></slot>

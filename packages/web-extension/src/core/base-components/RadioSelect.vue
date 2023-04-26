@@ -1,9 +1,9 @@
 <template>
     <RadioGroup
-        class="inline-flex items-center rounded-l-full rounded-r-full bg-gray-300/10 text-xs text-slate-400 p-1 shadow-inner">
-        <RadioGroupOption v-for="item in items" v-slot="{ checked }" :value="item" :key="item.key" class="group">
+        class="gij-inline-flex gij-items-center gij-rounded-l-full gij-rounded-r-full gij-bg-gray-300/10 gij-text-xs gij-text-slate-400 gij-p-1 gij-shadow-inner">
+        <RadioGroupOption v-for="item in items" v-slot="{ checked }" :value="item" :key="item.key" class="gij-group">
             <div
-                :class="['py-0.5 px-3 cursor-pointe rounded-md group-first:rounded-l-full group-last:rounded-r-full', checked ? 'bg-white shadow' : 'cursor-pointer text-slate-400']">
+                :class="['gij-py-0.5 gij-px-3 gij-cursor-pointe gij-rounded-md group-first:gij-rounded-l-full group-last:gij-rounded-r-full', checked ? 'gij-bg-white gij-shadow' : 'gij-cursor-pointer gij-text-slate-400']">
                 {{
                     item.text }}</div>
         </RadioGroupOption>

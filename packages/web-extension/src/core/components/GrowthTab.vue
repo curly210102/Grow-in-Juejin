@@ -8,7 +8,7 @@ import UserGrowTrending from './UserGrowTrending.vue';
 </script>
 
 <template>
-    <div class="space-y-8">
+    <div class="gij-space-y-8">
         <div>
             <UserContribution />
         </div>

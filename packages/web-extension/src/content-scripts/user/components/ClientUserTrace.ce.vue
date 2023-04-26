@@ -34,7 +34,7 @@ provide(userInjectionKey, readonly(ref(userId)));
 provide(articleListInjectionKey, articleList);
 </script>
 <template>
-    <div class="space-y-2">
+    <div class="gij-space-y-2">
         <UserContribution hideSummation />
         <UserGrowTrending />
     </div>

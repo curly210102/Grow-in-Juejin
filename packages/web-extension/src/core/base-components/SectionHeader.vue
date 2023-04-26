@@ -4,8 +4,8 @@ const { title } = defineProps<{
 }>()
 </script>
 <template>
-    <div class="flex justify-between space-x-2 items-end mb-3">
-        <div class="text-slate-400  text-xs inline-block border-l-2 border-blue-400 pl-2">
+    <div class="gij-flex gij-justify-between gij-space-x-2 gij-items-end gij-mb-3">
+        <div class="gij-text-slate-400 gij- gij-text-xs gij-inline-block gij-border-l-2 gij-border-blue-400 gij-pl-2">
             {{
                 title
             }}</div>

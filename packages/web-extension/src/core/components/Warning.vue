@@ -38,16 +38,16 @@ watch(copyResult, (value) => {
 </script>
 <template>
     <div
-        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-8 min-w-[360px] max-w-full bg-gray-200/20 border rounded-md max-h-screen overflow-auto">
-        <h1 class="text-lg mb-2">
+        class="gij-absolute gij-top-1/2 gij-left-1/2 -gij-translate-x-1/2 -gij-translate-y-1/2 gij-p-8 gij-min-w-[360px] gij-max-gij-gij-gij-w-full gij-bg-gray-200/20 gij-border gij-rounded-md gij-max-h-screen gij-overflow-auto">
+        <h1 class="gij-text-lg gij-mb-2">
             呀！出错了
         </h1>
-        <div v-if="errorInfo?.message === 'User Login'" class="space-y-4">
+        <div v-if="errorInfo?.message === 'User Login'" class="gij-gij-space-y-4">
             <p>
                 要先去掘金登录哦～
             </p>
             <Button class="w-full">
-                <a href="https://juejin.cn" class="block">
+                <a href="https://juejin.cn" class="gij-gij-gij-block">
                     去登录
                 </a>
             </Button>
@@ -64,8 +64,8 @@ watch(copyResult, (value) => {
                     去掘金发评论
                 </a>
             </Button>
-            <p class="relative">
-                <Button class="absolute top-2 right-2 text-xs" @click="copyErrorMessage">
+            <p class="gij-relative">
+                <Button class="gij-absolute gij-top-2 gij-right-2 gij-text-xs" @click="copyErrorMessage">
                     {{ copyResult === "success" ? "✅ 复制成功" : copyResult === "fail" ? "❌ 复制失败" : "复制错误信息" }}
                 </Button>
             <div ref="errorStack">

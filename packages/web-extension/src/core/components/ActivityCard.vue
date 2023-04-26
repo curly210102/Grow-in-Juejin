@@ -40,40 +40,40 @@ function openDetectResultModal() {
 
 </script>
 <template>
-    <div class="p-6 space-y-5 pb-10 flex flex-col justify-between">
+    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between">
         <div>
-            <div class="flex items-center flex-wrap gap-2">
-                <div class="flex-1 text-md font-semibold whitespace-nowrap text-ellipsis"><a :href="activity.docLink"
+            <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-2">
+                <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis"><a :href="activity.docLink"
                         target="_blank" :title="activity.title">{{
                             activity.title
                         }}</a>
                 </div>
-                <div class="text-sm font-semibold text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
+                <div class="gij-text-sm gij-font-semibold gij-text-slate-500" v-if="activity.startTimeStamp && activity.endTimeStamp">
                     {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(isStartOfDay(activity.endTimeStamp) ?
                         activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</div>
             </div>
-            <div class="text-xs text-slate-400/60 mt-2 whitespace-pre-wrap">
+            <div class="gij-text-xs gij-text-slate-400/60 gij-mt-2 gij-whitespace-pre-wrap">
                 {{ activity.desc }}
             </div>
         </div>
 
         <div>
-            <div class="flex items-center">
+            <div class="gij-flex gij-items-center">
                 <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
-                    class="flex-1 text-center text-3xl font-bold font-mono">
+                    class="gij-flex-1 gij-text-center gij-text-3xl gij-font-bold gij-font-mono">
                     <span>{{ count }}</span>
-                    <span class="text-slate-400 text-xs">{{ unit }}</span>
+                    <span class="gij-text-slate-400 gij-text-xs">{{ unit }}</span>
                 </div>
             </div>
-            <div class="space-y-3">
-                <div v-for="reward in activity.rewards" class="space-y-1">
+            <div class="gij-space-y-3">
+                <div v-for="reward in activity.rewards" class="gij-space-y-1">
                     <Progress :steps="Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count)))">
-                        <div class="flex gap-2 px-1">
-                            <span v-if="reward.currentLevel" class="text-white/90">{{ reward.currentLevel }} 🎉</span>
-                            <span class="text-slate-800/60 ml-auto">🎯 {{ reward.nextLevel }}</span>
+                        <div class="gij-flex gij-gap-2 gij-px-1">
+                            <span v-if="reward.currentLevel" class="gij-text-white/90">{{ reward.currentLevel }} 🎉</span>
+                            <span class="gij-text-slate-800/60 gij-ml-auto">🎯 {{ reward.nextLevel }}</span>
                         </div>
                     </Progress>
-                    <div class="text-slate-400 font-light text-right text-xs px-2" v-if="reward.nextTarget">
+                    <div class="gij-text-slate-400 gij-font-light gij-text-right gij-text-xs gij-px-2" v-if="reward.nextTarget">
                         {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `${reward.categories ?
                             reward.categories.join("/") + "领域" : ""}累计投稿 ${reward.nextTarget} 篇` }}
                     </div>
@@ -81,19 +81,19 @@ function openDetectResultModal() {
             </div>
         </div>
         <div>
-            <div class="flex gap-2 flex-wrap justify-between">
+            <div class="gij-flex gij-gap-2 gij-flex-wrap gij-justify-between">
                 <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
-                    class="text-center overflow-hidden">
-                    <div class="text-xl opacity-90 font-mono  truncate text-ellipsis" :alt="count">
+                    class="gij-text-center gij-overflow-hidden">
+                    <div class="gij-text-xl gij-opacity-90 gij-font-mono gij- gij-truncate gij-text-ellipsis" :alt="count">
                         {{ count }}
                     </div>
-                    <div class="text-slate-400 text-sm whitespace-nowrap">
+                    <div class="gij-text-slate-400 gij-text-sm gij-whitespace-nowrap">
                         {{ label }}
                     </div>
                 </div>
             </div>
-            <div v-if="activity.invalid.length" class="text-slate-400 text-xs mt-2">
-                ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a class="text-blue-400 cursor-pointer hover:text-blue-500"
+            <div v-if="activity.invalid.length" class="gij-text-slate-400 gij-text-xs gij-mt-2">
+                ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a class="gij-text-blue-400 gij-cursor-pointer gij-text-blue-500"
                     @click="openDetectResultModal">查看</a>
             </div>
         </div>
