@@ -59,7 +59,7 @@ function openDetectResultModal() {
         </div>
 
         <div>
-            <div class="gij-flex gij-items-center">
+            <div class="gij-flex gij-items-center gij-mb-3">
                 <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
                     class="gij-flex-1 gij-text-center gij-text-3xl gij-font-bold gij-font-mono">
                     <span>{{ count }}</span>
@@ -69,8 +69,15 @@ function openDetectResultModal() {
             <div class="gij-space-y-3">
                 <div v-for="reward in activity.rewards" class="gij-space-y-1">
                     <Progress :steps="Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count)))">
-                        <div class="gij-flex gij-gap-2 gij-px-1">
-                            <span v-if="reward.currentLevel" class="gij-text-white/90">{{ reward.currentLevel }} 🎉</span>
+                        <div class="gij-flex gij-gap-2 gij-px-1 gij-group">
+                            <div class="gij-hidden group-hover:gij-block gij-text-white/90">
+                                {{ Math.floor(Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count))) *
+                                    100)
+                                }}%
+                            </div>
+                            <div v-if="reward.currentLevel" class="gij-text-white/90 group-hover:gij-hidden">
+                                {{ reward.currentLevel }} 🎉
+                            </div>
                             <span class="gij-text-slate-800/60 gij-ml-auto">🎯 {{ reward.nextLevel }}</span>
                         </div>
                     </Progress>
@@ -103,4 +110,5 @@ function openDetectResultModal() {
         <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModal"
             :invalid-summaries="activity.invalid">
         </ActivityDetectResultModal>
-</div></template>
+    </div>
+</template>

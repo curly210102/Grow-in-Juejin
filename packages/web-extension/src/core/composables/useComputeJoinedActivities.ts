@@ -53,7 +53,7 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
                             activityStat.comment += comment_count;
                             activityStat.articleCount += 1;
                             activityStat.dates.add(format(publishTime, "YYYY-MM-DD"))
-                            if (activityStat.countByCategory[category]) {
+                            if (!activityStat.countByCategory[category]) {
                                 activityStat.countByCategory[category] = 0
                             }
                             activityStat.countByCategory[category]++;
@@ -131,7 +131,6 @@ export default function useComputeJoinedActivities(activities: Ref<IActivity[]>,
             rewards.forEach(({ type, rewards, categories }) => {
                 const count = categories ? categories.reduce((total, category) => total + (stat?.countByCategory[category] ?? 0), 0) : activityStatus[type === "days" ? "dayCount" : "articleCount"]
                 const nextRewardIndex = rewards.findIndex(reward => reward.count > count);
-
                 const currentReward = nextRewardIndex < 0 ? rewards.slice(-1)[0] : rewards[nextRewardIndex - 1];
                 const nextReward = rewards[nextRewardIndex];
 
