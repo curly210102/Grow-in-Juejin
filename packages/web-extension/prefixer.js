@@ -31,7 +31,6 @@ function addPrefixToSingleFile(fileName) {
     const regex = /[^:]class="([^"]+)"|:class="[^']*'([^'+])'"/g;
     let match = regex.exec(data);
     while (match != null) {
-      console.log(match[1]);
       const classList = match[1].split(" ");
       const transformedList = classList.map((item) => {
         if (item.startsWith(prefix)) {
@@ -53,7 +52,6 @@ function addPrefixToSingleFile(fileName) {
         console.error(err);
         return;
       }
-      console.log(`The file ${fileName} has been updated.`);
     });
   });
 }
