@@ -91,7 +91,7 @@ export const fetchUserArticles = async (
 export const fetchActivities = async (): Promise<Array<IActivity>> => {
     try {
         const res = await fetch(
-            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
+            "http://localhost:1234/activity.json"
         ).then((res) => res.json());
         return res;
     } catch (error) {

@@ -35,6 +35,7 @@
   ],
   "permissions": ["unlimitedStorage", "storage"],
   "host_permissions": [
+    "http://localhost:1234/activity.json",
     "https://api.juejin.cn/*",
     "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
   ],

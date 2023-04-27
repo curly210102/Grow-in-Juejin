@@ -35,6 +35,17 @@ def convertMultilineTextToString(mlText):
     return str
 
 
+def convertMultilineTextToTextArray(mlText):
+    arr = []
+    if mlText:
+        for line in mlText:
+            if line["type"] == "url":
+                arr.push(f'[{line["text"]}]({line["link"]})')
+            else:
+                arr.push(line["text"])
+    return arr
+
+
 def extractLinkFromMultilineText(mlText):
     link = ""
     if mlText:
@@ -170,9 +181,9 @@ def parseActivityRuleMap(records=[]):
     return ruleMap
 
 
-async def fetchAndBuildDictionary():
+async def fetchActivitiesAndBuildList():
     today = str(datetime.date.today()-datetime.timedelta(days=14))
-    result = await requestTableRecords(APP_TOKEN, "tblM2kMhEmywUdD2", "vewD9xQ8SV", {
+    result = await requestTableRecords(APP_TOKEN, "tbl5P7tQ0sfJel1B", "vewD9xQ8SV", {
         "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
         "sort": '["结束时间 DESC"]'
     })
@@ -198,8 +209,68 @@ async def fetchAndBuildDictionary():
             rewardList = parseActivityRewardToRewardList(
                 activityRewardsResp[i].get("items"))
             item["rewards"] = rewardList
-        if activityRulesResp[i].get("items"):
+        if activityRulesResp[i] and activityRulesResp[i].get("items"):
             ruleMap = parseActivityRuleMap(activityRulesResp[i].get("items"))
+            item.update(ruleMap)
+
+    return list
+
+
+def parsePinActivityRuleMap(records=[]):
+    ruleMap = {
+        "topic": "",
+        "theme": "",
+        "jcode": False,
+        "keywords": [],
+        "subStartTime": 0,
+        "subEndTime": 0,
+        "subLink": ""
+    }
+    for record in records:
+        fields = record["fields"]
+        ruleMap["topic"] = fields.get("话题") or ""
+        ruleMap["theme"] = fields.get("圈子") or ""
+        ruleMap["jcode"] = fields.get("代码") or False
+        ruleMap["keywords"] = convertMultilineTextToTextArray(
+            fields.get("内容关键词")) or []
+        ruleMap["subStartTime"] = fields.get("子活动起始日期") or 0
+        ruleMap["subEndTime"] = fields.get("子活动结束日期") or 0
+        ruleMap["subLink"] = extractLinkFromMultilineText(
+            fields.get("子活动链接")) or ""
+    return ruleMap
+
+
+async def fetchPinActivitiesAndBuildList():
+    today = str(datetime.date.today()-datetime.timedelta(days=14))
+    result = await requestTableRecords(APP_TOKEN, "tblBJIlND8Yx6eUp", "vewD9xQ8SV", {
+        "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
+        "sort": '["结束时间 DESC"]'
+    })
+    list = parseActivityRecordsToList(result.get("items"))
+
+    relatedKeys = [item["key"] for item in list]
+
+    activityRewardsTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tbl3heBikj4xtqBG", "vewj8t6vAm", {
+        "filter": f'CurrentValue.[所属活动]="{key}"',
+        "field_names": '["奖励", "最小天数", "数量"]'
+    }) for key in relatedKeys])
+
+    activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblvzVVzHLPaqXS4", "vewo5RWnaX", {
+        "filter": f'CurrentValue.[所属活动]="{key}"',
+        "field_names": '["话题", "圈子", "代码", "内容关键词", "子活动起始日期", "子活动介绍日期", "子活动链接"]'
+    }) for key in relatedKeys])
+
+    activityRewardsResp = await activityRewardsTasks
+    activityRulesResp = await activityRulesTasks
+
+    for i, item in enumerate(list):
+        if activityRewardsResp[i]:
+            rewardList = parseActivityRewardToRewardList(
+                activityRewardsResp[i].get("items"))
+            item["rewards"] = rewardList
+        if activityRulesResp[i] and activityRulesResp[i].get("items"):
+            ruleMap = parsePinActivityRuleMap(
+                activityRulesResp[i].get("items"))
             item.update(ruleMap)
 
     return list
@@ -207,8 +278,11 @@ async def fetchAndBuildDictionary():
 
 async def main():
     if (requestAccessToken()):
-        dictionary = await fetchAndBuildDictionary()
-        json_object = json.dumps(dictionary, indent=4, ensure_ascii=False)
+        aList = await fetchActivitiesAndBuildList()
+        pinList = await fetchPinActivitiesAndBuildList()
+        merged_list = aList + pinList
+        list = sorted(merged_list, key=lambda x: x['endTimeStamp'])
+        json_object = json.dumps(list, indent=4, ensure_ascii=False)
         with open("activity.json", "w", encoding="utf-8") as outfile:
             outfile.write(json_object)
     else:

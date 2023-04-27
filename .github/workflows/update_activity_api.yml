@@ -40,10 +40,17 @@ jobs:
           cat activity.json
       - name: Install jq for Bash
         run: sudo apt-get update && sudo apt-get install -y jq
-      - name: Update Gitee File
+      - name: Update Gitee File on main branch
+        if: github.ref == 'refs/heads/main'
         env:
           GITEE_ACCESS_TOKEN: ${{ secrets.GITEE_ACCESS_TOKEN }}
         run: sh ./sync_to_gitee.sh
+        shell: bash
+      - name: Update Gitee File on other branch
+        if: github.ref != 'refs/heads/main'
+        env:
+          GITEE_ACCESS_TOKEN: ${{ secrets.GITEE_ACCESS_TOKEN }}
+        run: sh ./sync_to_gitee.sh dev
         shell: bash
       - name: Commit and push if changed
         run: |-

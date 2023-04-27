@@ -13,7 +13,7 @@ const activities = inject<Ref<IActivity[]>>(activityInjectionKey, ref([]));
 const ongoingActivities = computed(() => {
     return activities.value.filter(a => {
         const now = getCurrent();
-        return !a.endTimeStamp || a.endTimeStamp >= now
+        return (!a.endTimeStamp || a.endTimeStamp >= now) && a.figure
     })
 })
 
