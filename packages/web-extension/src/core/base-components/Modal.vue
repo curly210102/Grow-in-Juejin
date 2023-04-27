@@ -16,13 +16,15 @@ const emit = defineEmits<{
 const { title } = defineProps<{
     title?: string,
     description?: string
+    customPanel?: boolean
+    panelClass?: string
 }>()
 
 </script>
 
 <template>
     <TransitionRoot appear as="template">
-        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] gij-">
+        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] modal">
             <TransitionChild as="template" enter="gij-duration-300 gij-ease-out" enter-from="gij-opacity-0"
                 enter-to="gij-opacity-100" leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100"
                 leave-to="opacity-0">
@@ -30,13 +32,16 @@ const { title } = defineProps<{
             </TransitionChild>
 
             <div class="gij-fixed gij-inset-0 gij-overflow-y-auto">
-                <div class="gij-flex gij-min-h-full gij-items-center gij-justify-center gij-p-4 gij-text-center">
+                <div class="gij-flex gij-min-h-screen gij-items-center gij-justify-center gij-p-4 gij-text-center">
                     <TransitionChild as="template" enter="gij-duration-300 gij-ease-out"
                         enter-from="gij-opacity-0 gij-scale-95" enter-to="gij-opacity-100 gij-scale-100"
                         leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100 gij-scale-100"
                         leave-to="gij-opacity-0 gij-scale-95">
-                        <DialogPanel
-                            class="gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-white gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative">
+                        <DialogPanel v-if="customPanel" :class="['gij-p-6 gij-w-10/12', panelClass]">
+                            <slot></slot>
+                        </DialogPanel>
+                        <DialogPanel v-else
+                            :class="['gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-white gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative gij-max-h-[calc(100vh-2rem)] gij-overflow-y-auto', panelClass]">
                             <XCircleIcon
                                 class="gij-h-6 gij-w-6 gij-text-slate-300 hover:gij-text-slate-400 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
                                 @click="emit('close')" />
@@ -60,5 +65,9 @@ const { title } = defineProps<{
 
 
 <style>
-@tailwind components;
-@tailwind utilities;</style>
+@import url("@/gij-style.css");
+
+.modal * {
+    box-sizing: border-box;
+}
+</style>

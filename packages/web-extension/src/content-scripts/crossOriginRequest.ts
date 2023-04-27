@@ -1,6 +1,5 @@
 import { extCode, frameURL } from "@/constant";
 import initUserArticles from "@/core/clientRequests/initUserArticles";
-import generateUniqueId from "@/core/utils/uniqueId";
 
 
 export default async function crossOriginRequest() {

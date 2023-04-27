@@ -7,7 +7,8 @@ import { articleContentInjectionKey, articleListInjectionKey, IArticleContentInj
 import ActivityCard from "./ActivityCard.vue";
 
 const props = defineProps<{
-    activities: IActivity[]
+    activities: IActivity[],
+    hideTitle?: boolean
 }>()
 
 const activities = toRef(props, "activities");
@@ -22,9 +23,9 @@ const joinedActivities = useComputeJoinedArticleActivities(activities, articleLi
 </script>
 
 <template>
-    <SectionHeader title="正在参与的活动">
+    <SectionHeader title="正在参与的活动" v-if="!hideTitle">
     </SectionHeader>
-    <div class="gij-grid gij-gap-2 gij-grid-cols-2" v-if="joinedActivities.length">
+    <div class="gij-grid gij-gap-8 gij-grid-cols-2" v-if="joinedActivities.length">
         <ActivityCard v-for="activity in joinedActivities" class="gij-card" :activity="activity">
         </ActivityCard>
     </div>
