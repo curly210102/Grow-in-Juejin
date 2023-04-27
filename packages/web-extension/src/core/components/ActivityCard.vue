@@ -40,11 +40,11 @@ function openDetectResultModal() {
 
 </script>
 <template>
-    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between">
+    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-white">
         <div>
             <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-2">
                 <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis"><a
-                        :href="activity.docLink" target="_blank" :title="activity.title">{{
+                        :href="activity.docLink" target="_blank" :title="activity.title" :tabindex="-1">{{
                             activity.title
                         }}</a>
                 </div>
