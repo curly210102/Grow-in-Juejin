@@ -1,83 +1,5 @@
 [
     {
-        "key": "金石计划第3期",
-        "desc": "优质大咖挑战，瓜分万元现金奖池",
-        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
-        "startTimeStamp": 1678204800000,
-        "title": "金石计划第三期",
-        "docLink": "https://juejin.cn/post/7207698564641996856",
-        "category": "更文活动",
-        "endTimeStamp": 1682092800000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": [
-                    {
-                        "name": "基础挑战",
-                        "count": 2
-                    },
-                    {
-                        "name": "进阶挑战①",
-                        "count": 4
-                    },
-                    {
-                        "name": "进阶挑战②",
-                        "count": 6
-                    }
-                ]
-            }
-        ],
-        "categories": [],
-        "signSlogan": "本文正在参加[「金石计划」](https://juejin.cn/post/7207698564641996856/)",
-        "signLink": "https://juejin.cn/post/7207698564641996856/",
-        "tagNames": [
-            "掘金·金石计划"
-        ],
-        "wordCount": "650",
-        "theme": ""
-    },
-    {
-        "key": "2023沸点-我的五一计划",
-        "startTimeStamp": 1682265600000,
-        "title": "我的五一计划清单",
-        "docLink": "https://juejin.cn/pin/7225525540248289338",
-        "category": "沸点活动",
-        "endTimeStamp": 1683129600000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ]
-    },
-    {
-        "key": "码上掘金编程比赛",
-        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e249331870b44fdf89afeb4561ca7a8e~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
-        "startTimeStamp": 1680796800000,
-        "title": "码上掘金编程比赛",
-        "docLink": "https://juejin.cn/challenge/6?utm_source=JCode&section=intro",
-        "category": "码上掘金",
-        "endTimeStamp": 1683475200000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ]
-    },
-    {
         "key": "2023 年 4 月更文",
         "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be871d91b1034205a9d84ae133ac9bf3~tplv-k3u1fbpfcp-zoom-1.png",
@@ -132,5 +54,83 @@
         "tagNames": [],
         "wordCount": "500",
         "theme": "4月日新计划更文活动"
+    },
+    {
+        "key": "码上掘金编程比赛",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e249331870b44fdf89afeb4561ca7a8e~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1680796800000,
+        "title": "码上掘金编程比赛",
+        "docLink": "https://juejin.cn/challenge/6?utm_source=JCode&section=intro",
+        "category": "码上掘金",
+        "endTimeStamp": 1683475200000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ]
+    },
+    {
+        "key": "2023沸点-我的五一计划",
+        "startTimeStamp": 1682265600000,
+        "title": "我的五一计划清单",
+        "docLink": "https://juejin.cn/pin/7225525540248289338",
+        "category": "沸点活动",
+        "endTimeStamp": 1683129600000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ]
+    },
+    {
+        "key": "金石计划第3期",
+        "desc": "优质大咖挑战，瓜分万元现金奖池",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1678204800000,
+        "title": "金石计划第三期",
+        "docLink": "https://juejin.cn/post/7207698564641996856",
+        "category": "更文活动",
+        "endTimeStamp": 1682092800000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "基础挑战",
+                        "count": 2
+                    },
+                    {
+                        "name": "进阶挑战①",
+                        "count": 4
+                    },
+                    {
+                        "name": "进阶挑战②",
+                        "count": 6
+                    }
+                ]
+            }
+        ],
+        "categories": [],
+        "signSlogan": "本文正在参加[「金石计划」](https://juejin.cn/post/7207698564641996856/)",
+        "signLink": "https://juejin.cn/post/7207698564641996856/",
+        "tagNames": [
+            "掘金·金石计划"
+        ],
+        "wordCount": "650",
+        "theme": ""
     }
 ]
