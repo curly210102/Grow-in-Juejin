@@ -16,13 +16,14 @@ const emit = defineEmits<{
 const { title } = defineProps<{
     title?: string,
     description?: string
+    customPanel?: boolean
 }>()
 
 </script>
 
 <template>
     <TransitionRoot appear as="template">
-        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] gij-">
+        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999]">
             <TransitionChild as="template" enter="gij-duration-300 gij-ease-out" enter-from="gij-opacity-0"
                 enter-to="gij-opacity-100" leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100"
                 leave-to="opacity-0">
@@ -35,7 +36,10 @@ const { title } = defineProps<{
                         enter-from="gij-opacity-0 gij-scale-95" enter-to="gij-opacity-100 gij-scale-100"
                         leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100 gij-scale-100"
                         leave-to="gij-opacity-0 gij-scale-95">
-                        <DialogPanel
+                        <DialogPanel v-if="customPanel" class="gij-p-6 gij-w-10/12 gij-max-w-[712px]">
+                            <slot></slot>
+                        </DialogPanel>
+                        <DialogPanel v-else
                             class="gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-white gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative">
                             <XCircleIcon
                                 class="gij-h-6 gij-w-6 gij-text-slate-300 hover:gij-text-slate-400 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
@@ -61,4 +65,5 @@ const { title } = defineProps<{
 
 <style>
 @tailwind components;
-@tailwind utilities;</style>
+@tailwind utilities;
+</style>

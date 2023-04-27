@@ -3,26 +3,17 @@
 
 import ActivityOngoing from "./ActivityOngoing.vue";
 import ActivityJoined from "./ActivityJoined.vue";
-import { getCurrent } from "../utils/date";
 import { activityInjectionKey } from "../utils/injectionKeys";
-import { computed, inject, ref, Ref } from "vue";
+import { inject, ref, Ref } from "vue";
 import { IActivity } from "../types";
 
-const activities = inject<Ref<IActivity[]>>(activityInjectionKey, ref([]));
-
-const ongoingActivities = computed(() => {
-    return activities.value.filter(a => {
-        const now = getCurrent();
-        return !a.endTimeStamp || a.endTimeStamp >= now
-    })
-})
-
+const activities = inject<Ref<IActivity[]>>(activityInjectionKey, ref([]))
 
 </script>
 <template>
     <div class="gij-space-y-14">
         <div>
-            <ActivityOngoing :items="ongoingActivities" />
+            <ActivityOngoing :activities="activities" />
         </div>
         <div>
             <ActivityJoined :activities="activities" />

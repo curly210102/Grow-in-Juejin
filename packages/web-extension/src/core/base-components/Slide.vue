@@ -31,7 +31,7 @@ watch(items, (v) => {
 
 </script>
 <template>
-    <div class="gij-relative gij-h-72 gij-overflow-hidden">
+    <div class="gij-relative gij-h-[288px] gij-overflow-hidden">
         <div v-for="({ category, title, figure, docLink, desc }, i) of items"
             class="gij-absolute gij-h-full gij-bg-transparent gij-transition-transform" :style="{
                     width: `calc(100% - ${i * HANDLER_WIDTH}px)`,
@@ -39,7 +39,7 @@ watch(items, (v) => {
                     transform: activeIndex < i ? `translateX(calc(100% - ${(items.length - i) * HANDLER_WIDTH}px))` : `translateX(0)`
                 }">
             <div class="gij-relative gij-h-full">
-                <div class="gij-absolute gij-bg-white gij-px-2 gij-py-3 gij-rounded-l-md gij-border gij-border-r-0 gij-shadow-sm gij-cursor-pointer gij-text-xs gij-text-slate-400 hover:gij-font-semibold"
+                <div class="gij-absolute gij-bg-white gij-px-[8px] gij-py-3 gij-rounded-l-md gij-border gij-border-r-0 gij-shadow-sm gij-cursor-pointer gij-text-[12px] gij-text-slate-400 hover:gij-font-semibold gij-box-border gij-border-solid gij-border-gray-200"
                     :class="[activeIndex === i ? `gij-font-medium gij-text-slate-600` : `gij-font-light`]" :style="{
                             width: `${HANDLER_WIDTH + 4}px`
                         }" @click="activeIndex = i">
