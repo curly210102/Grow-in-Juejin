@@ -40,9 +40,9 @@ def convertMultilineTextToTextArray(mlText):
     if mlText:
         for line in mlText:
             if line["type"] == "url":
-                arr.push(f'[{line["text"]}]({line["link"]})')
+                arr.append(f'[{line["text"]}]({line["link"]})')
             else:
-                arr.push(line["text"])
+                arr.append(line["text"])
     return arr
 
 
@@ -112,7 +112,7 @@ def parseActivityRecordsToList(records=[]):
     return list
 
 
-def parseActivityRewardToRewardList(records=[]):
+def parseActivityRewardToRewardList(records=[], fieldNames={}):
     rules = [{
         "type": "days",
         "rewards": []
@@ -137,7 +137,7 @@ def parseActivityRewardToRewardList(records=[]):
                                            "rewards": [], "categories": categories}
                     rewards = customRule[key]["rewards"]
                 rewards.append({
-                    "name": convertMultilineTextToString(fields.get("等级名")),
+                    "name": convertMultilineTextToString(fields.get(fieldNames["reward"])),
                     "count": int(fields.get("最小天数"))
                 })
             elif fields.get("数量"):
@@ -150,7 +150,7 @@ def parseActivityRewardToRewardList(records=[]):
                                            "rewards": [], "categories": categories}
                     rewards = customRule[key]["rewards"]
                 rewards.append({
-                    "name": convertMultilineTextToString(fields.get("等级名")),
+                    "name": convertMultilineTextToString(fields.get(fieldNames["reward"])),
                     "count": int(fields.get("数量"))
                 })
     rules.extend(customRule.values())
@@ -207,7 +207,7 @@ async def fetchActivitiesAndBuildList():
     for i, item in enumerate(list):
         if activityRewardsResp[i]:
             rewardList = parseActivityRewardToRewardList(
-                activityRewardsResp[i].get("items"))
+                activityRewardsResp[i].get("items"), {"reward": "等级名"})
             item["rewards"] = rewardList
         if activityRulesResp[i] and activityRulesResp[i].get("items"):
             ruleMap = parseActivityRuleMap(activityRulesResp[i].get("items"))
@@ -216,17 +216,18 @@ async def fetchActivitiesAndBuildList():
     return list
 
 
-def parsePinActivityRuleMap(records=[]):
-    ruleMap = {
-        "topic": "",
-        "theme": "",
-        "jcode": False,
-        "keywords": [],
-        "subStartTime": 0,
-        "subEndTime": 0,
-        "subLink": ""
-    }
+def parsePinActivityRuleList(records=[]):
+    ruleList = []
     for record in records:
+        ruleMap = {
+            "topic": "",
+            "theme": "",
+            "jcode": False,
+            "keywords": [],
+            "subStartTime": 0,
+            "subEndTime": 0,
+            "subLink": ""
+        }
         fields = record["fields"]
         ruleMap["topic"] = fields.get("话题") or ""
         ruleMap["theme"] = fields.get("圈子") or ""
@@ -237,7 +238,8 @@ def parsePinActivityRuleMap(records=[]):
         ruleMap["subEndTime"] = fields.get("子活动结束日期") or 0
         ruleMap["subLink"] = extractLinkFromMultilineText(
             fields.get("子活动链接")) or ""
-    return ruleMap
+        ruleList.append(ruleMap)
+    return ruleList
 
 
 async def fetchPinActivitiesAndBuildList():
@@ -257,7 +259,7 @@ async def fetchPinActivitiesAndBuildList():
 
     activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblvzVVzHLPaqXS4", "vewo5RWnaX", {
         "filter": f'CurrentValue.[所属活动]="{key}"',
-        "field_names": '["话题", "圈子", "代码", "内容关键词", "子活动起始日期", "子活动介绍日期", "子活动链接"]'
+        "field_names": '["话题", "圈子", "代码", "内容关键词", "子活动起始日期", "子活动结束日期", "子活动链接"]'
     }) for key in relatedKeys])
 
     activityRewardsResp = await activityRewardsTasks
@@ -266,12 +268,12 @@ async def fetchPinActivitiesAndBuildList():
     for i, item in enumerate(list):
         if activityRewardsResp[i]:
             rewardList = parseActivityRewardToRewardList(
-                activityRewardsResp[i].get("items"))
+                activityRewardsResp[i].get("items"), {"reward": "奖励"})
             item["rewards"] = rewardList
         if activityRulesResp[i] and activityRulesResp[i].get("items"):
-            ruleMap = parsePinActivityRuleMap(
+            ruleList = parsePinActivityRuleList(
                 activityRulesResp[i].get("items"))
-            item.update(ruleMap)
+            item["rules"] = ruleList
 
     return list
 

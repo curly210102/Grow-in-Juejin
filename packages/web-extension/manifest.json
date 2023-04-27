@@ -35,9 +35,8 @@
   ],
   "permissions": ["unlimitedStorage", "storage"],
   "host_permissions": [
-    "http://localhost:1234/activity.json",
     "https://api.juejin.cn/*",
-    "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
+    "https://gitee.com/curlly-brackets/grow-in-juejin/raw/*/activity.json"
   ],
   "author": "water.curly@outlook.com",
   "homepage_url": "https://grow-in-juejin.curlybrackets.space",

@@ -91,7 +91,22 @@ export const fetchUserArticles = async (
 export const fetchActivities = async (): Promise<Array<IActivity>> => {
     try {
         const res = await fetch(
-            "http://localhost:1234/activity.json"
+            import.meta.env.DEV ? 
+            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/activity.json" :
+            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
+        ).then((res) => res.json());
+        return res;
+    } catch (error) {
+        throw new Error("Request Failed");
+    }
+};
+
+export const fetchTopics = async (): Promise<Array<IActivity>> => {
+    try {
+        const res = await fetch(
+            import.meta.env.DEV ? 
+            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/topics.json" :
+            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/topics.json"
         ).then((res) => res.json());
         return res;
     } catch (error) {

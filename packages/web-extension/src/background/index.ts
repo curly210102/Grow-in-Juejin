@@ -1,5 +1,6 @@
 import { entryPath, extCode } from "@/constant"
 import initActivities from "@/core/clientRequests/initActivities";
+import initTopics from "@/core/clientRequests/initTopics";
 chrome.action.onClicked.addListener(() => {
     chrome.tabs.create({
         url: chrome.runtime.getURL(entryPath),
@@ -14,7 +15,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.
             return true;
         }
-
+        if (message.content === "requestTopics") {
+            initTopics().then(sendResponse);
+            // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.
+            return true;
+        }
     }
 })
 
