@@ -281,7 +281,8 @@ async def main():
         aList = await fetchActivitiesAndBuildList()
         pinList = await fetchPinActivitiesAndBuildList()
         merged_list = aList + pinList
-        list = sorted(merged_list, key=lambda x: x['endTimeStamp'])
+        list = sorted(
+            merged_list, key=lambda x: x['endTimeStamp'], reverse=True)
         json_object = json.dumps(list, indent=4, ensure_ascii=False)
         with open("activity.json", "w", encoding="utf-8") as outfile:
             outfile.write(json_object)
