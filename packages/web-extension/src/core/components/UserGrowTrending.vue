@@ -299,7 +299,7 @@ const option = computed<Option>(() => ({
 </script>
 <template>
     <template v-if="articleList.length">
-        <SectionHeader title="成长之路">
+        <SectionHeader title="成长趋势">
             <RadioSelect :items="unitItems" v-model="unit" />
         </SectionHeader>
         <div class="gij-card gij-relative">

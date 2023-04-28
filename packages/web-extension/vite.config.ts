@@ -24,6 +24,7 @@ export default defineConfig(({command}) => ({
     rollupOptions: {
       input: {
         dashboard: 'src/app/index.html',
+        preferences: "src/preferences/index.html"
       },
     },
     minify: command === "serve" ? false : true
