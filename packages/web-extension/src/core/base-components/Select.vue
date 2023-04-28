@@ -22,7 +22,7 @@ const selected = toRef(attrs, "modelValue") as Ref<Item>;
   
 <template>
     <Listbox>
-        <div class="gij-relative gij-z-10">
+        <div class="gij-relative">
             <ListboxButton
                 class="gij-relative gij-w-full gij-rounded-lg gij-bg-gray-300/10 gij-py-1 gij-pl-3 gij-pr-10 gij-text-left gij-text-xs gij-text-slate-400 gij-shadow-inner">
                 <span class="gij-block gij-truncate">{{ selected.text }}</span>
@@ -35,7 +35,7 @@ const selected = toRef(attrs, "modelValue") as Ref<Item>;
             <transition leave-active-class="gij-transition gij-duration-100 gij-ease-in" leave-from-class="gij-opacity-100"
                 leave-to-class="gij-opacity-0">
                 <ListboxOptions
-                    class="gij-absolute gij-mt-1 gij-max-h-60 gij-w-full gij-overflow-auto gij-rounded-md gij-bg-white gij-py-1 gij-shadow-lg gij-ring-1 gij-ring-black gij-ring-opacity-5 focus:gij-outline-none gij-text-xs">
+                    class="gij-absolute gij-mt-1 gij-max-h-60 gij-w-full gij-overflow-auto gij-rounded-md gij-bg-white gij-py-1 gij-shadow-lg gij-ring-1 gij-ring-black gij-ring-opacity-5 focus:gij-outline-none gij-text-xs gij-z-10">
                     <ListboxOption v-slot="{ active, selected }" v-for="item in items" :key="item.key" :value="item"
                         as="template">
                         <li :class="[

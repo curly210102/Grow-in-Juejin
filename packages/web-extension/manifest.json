@@ -15,7 +15,8 @@
     "128": "src/logo/icon128.png"
   },
   "action": {
-    "default_title": "打开 Grow in Juejin"
+    "default_title": "配置 Grow in 掘金",
+    "default_popup": "src/preferences/index.html"
   },
   "content_scripts": [
     {

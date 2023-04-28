@@ -22,7 +22,8 @@ export default async function initUserProfile(userId?: string) {
         description,
         followerCount: follower_count,
         postCount: post_article_count,
-        likeCount: got_digg_count
+        likeCount: got_digg_count,
+        lastVisitedActivityTime: localUserProfile.lastVisitedActivityTime
     }
 
     if (currentUserProfile.userId !== localUserProfile.userId) {

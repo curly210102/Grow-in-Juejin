@@ -97,6 +97,7 @@ def parseActivityRecordsToList(records=[]):
             # 判断 endTimeStamp 是否为东八区一天的起始时
             if obj.get("endTimeStamp") and obj["endTimeStamp"] % 28800000 == 0:
                 obj["endTimeStamp"] += 86400000  # 加上 24 小时的时间戳
+            obj["lastModifiedTime"] = record["last_modified_time"]
             list.append(obj)
     return list
 
@@ -174,7 +175,8 @@ async def fetchAndBuildDictionary():
     today = str(datetime.date.today()-datetime.timedelta(days=14))
     result = await requestTableRecords(APP_TOKEN, "tblM2kMhEmywUdD2", "vewD9xQ8SV", {
         "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
-        "sort": '["结束时间 DESC"]'
+        "sort": '["结束时间 DESC"]',
+        "automatic_fields": True
     })
     list = parseActivityRecordsToList(result.get("items"))
 

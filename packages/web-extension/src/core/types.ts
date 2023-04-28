@@ -31,6 +31,7 @@ export interface IActivity {
     signLink: string;
     tagNames: string[];
     wordCount: number;
+    lastModifiedTime: number;
 }
 
 export interface IUser {
@@ -40,7 +41,8 @@ export interface IUser {
     description: string,
     followerCount: number,
     postCount: number,
-    likeCount: number
+    likeCount: number,
+    lastVisitedActivityTime: number
 }
 
 export enum ActionType {
@@ -66,7 +68,9 @@ export enum StorageKey {
     "ARTICLE_CONTENTS" = "articleContents",
     "PINS" = "pins",
     "ACTIVITIES" = "activities",
-    "ARTICLE_CACHE" = "articleCache"
+    "ARTICLE_CACHE" = "articleCache",
+    "PREFERENCE" = "preference",
+    "PERSISTENCE_STATE" = "persistenceState"
 }
 
 export interface IArticle {
@@ -105,4 +109,27 @@ export type TypeInvalidSummary = {
         | "link_fit"
         | "tag_fit" 
         | "theme_fit">
+};
+
+
+export enum PreferenceKey {
+    CONTRIBUTION_OF_MINE,
+    CONTRIBUTION_OF_OTHERS,
+    TRENDING_OF_MINE,
+    TRENDING_OF_OTHERS,
+    ACTIVITIES_OF_MINE,
+    BADGE_OF_NEW_ACTIVITY,
+}
+
+export enum PreferenceValue {
+    SHOW,
+    HIDE,
+    COLLAPSE
+}
+
+export type Preferences = Partial<Record<PreferenceKey, PreferenceValue | boolean>>;
+
+
+export type PersistenceState = {
+    "lastVisitedActivityTime": number
 };

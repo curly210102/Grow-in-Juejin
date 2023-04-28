@@ -6,4 +6,8 @@
     @apply gij-font-sans;
     @apply gij-text-slate-700;
   }
+
+  *:focus {
+    @apply gij-outline-blue-100;
+  }
 }

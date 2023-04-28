@@ -1,42 +1,40 @@
 <script lang='ts' setup>
-import { syncArticleList } from '@/core/clientRequests/initUserArticles';
-import UserGrowTrending from '@/core/components/UserGrowTrending.vue';
-import { IArticle, StorageKey } from '@/core/types';
-import { articleListInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
-import { loadLocalStorage } from '@/core/utils/storage';
-import { provide, readonly, Ref, ref } from 'vue';
+import ClientGrowTrending from './ClientGrowTrending.vue';
+import { PreferenceKey, PreferenceValue } from '@/core/types';
+import { userInjectionKey } from '@/core/utils/injectionKeys';
+import { computed, provide, readonly, ref } from 'vue';
 import UserContribution from '@/core/components/UserContribution.vue';
+import useClientPreferences from '@/content-scripts/useClientPreferences';
+import ClientCollapseToggle from './ClientCollapseToggle.vue';
 
 const { userId, inMyPage } = defineProps<{
     userId: string,
     inMyPage: boolean
 }>();
-const articleList = ref<Ref<IArticle[]>>(ref([]));
 
 provide(userInjectionKey, readonly(ref(userId)));
 
-(async () => {
-    if (inMyPage) {
-        loadLocalStorage(StorageKey.ARTICLE_LIST).then(data => {
-            articleList.value = data?.[userId] ?? []
-        })
-        chrome.storage.local.onChanged.addListener((changes) => {
-            if (changes[StorageKey.ARTICLE_LIST]) {
-                articleList.value = changes[StorageKey.ARTICLE_LIST].newValue?.[userId] ?? [];
-            }
-        })
-    } else {
-        articleList.value = await syncArticleList(userId);
-    }
-})()
+const isContributionCollapsed = ref(true);
+const isTrendingCollapsed = ref(true);
+const preferences = useClientPreferences();
+const pref = computed(() => ({
+    contribution: preferences.value[inMyPage ? PreferenceKey.CONTRIBUTION_OF_MINE : PreferenceKey.CONTRIBUTION_OF_OTHERS],
+    trending: preferences.value[inMyPage ? PreferenceKey.TRENDING_OF_MINE : PreferenceKey.TRENDING_OF_OTHERS]
+}))
 
-
-provide(articleListInjectionKey, articleList);
 </script>
 <template>
     <div class="gij-space-y-2">
-        <UserContribution hideSummation />
-        <UserGrowTrending />
+        <ClientCollapseToggle v-if="pref.contribution === PreferenceValue.COLLAPSE" v-model="isContributionCollapsed">社区活跃度
+        </ClientCollapseToggle>
+        <UserContribution hideSummation
+            v-if="pref.contribution === undefined || pref.contribution === PreferenceValue.SHOW || (pref.contribution === PreferenceValue.COLLAPSE && !isContributionCollapsed)" />
+
+        <ClientCollapseToggle v-if="pref.trending === PreferenceValue.COLLAPSE" v-model="isTrendingCollapsed">成长趋势
+        </ClientCollapseToggle>
+        <ClientGrowTrending
+            v-if="pref.trending === undefined || pref.trending === PreferenceValue.SHOW || (pref.trending === PreferenceValue.COLLAPSE && !isTrendingCollapsed)"
+            :inMyPage="inMyPage" :userId="userId" />
     </div>
 </template>
 <style>
