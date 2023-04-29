@@ -140,8 +140,7 @@ const option = computed<Option>(() => {
                 fontSize: 10,
                 formatter: function (param) {
                     // ...
-                    if (chartTime.format(rangeStartTime, "{MM}", false) === param.MM) {
-
+                    if (chartTime.format(rangeStartTime, "{yy}-{MM}", false) === `${param.yy}-${param.MM}`) {
                         if (daysOfMonth(rangeStartTime) - getDate(rangeStartTime) <= 7) {
                             return ''
                         }
