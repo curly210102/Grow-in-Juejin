@@ -248,7 +248,8 @@ async def fetchPinActivitiesAndBuildList():
     today = str(datetime.date.today()-datetime.timedelta(days=14))
     result = await requestTableRecords(APP_TOKEN, "tblBJIlND8Yx6eUp", "vewD9xQ8SV", {
         "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
-        "sort": '["结束时间 DESC"]'
+        "sort": '["结束时间 DESC"]',
+        "automatic_fields": True
     })
     list = parseActivityRecordsToList(result.get("items"))
 
