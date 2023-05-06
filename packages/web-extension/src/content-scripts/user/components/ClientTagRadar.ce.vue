@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import UserGrowTrending from '@/core/components/UserGrowTrending.vue';
+import UserTagRadar from '@/core/components/UserTagRadar.vue';
 import { IArticle, StorageKey } from '@/core/types';
 import { articleListInjectionKey } from '@/core/utils/injectionKeys';
 import { loadLocalStorage } from '@/core/utils/storage';
@@ -11,6 +11,7 @@ const { userId } = defineProps<{
     userId: string,
 }>();
 
+
 loadLocalStorage(StorageKey.ARTICLE_LIST).then(data => {
     articleList.value = data?.[userId] ?? []
 })
@@ -20,9 +21,14 @@ chrome.storage.local.onChanged.addListener((changes) => {
     }
 })
 
+
 provide(articleListInjectionKey, articleList);
 
 </script>
 <template>
-    <UserGrowTrending />
+    <UserTagRadar />
 </template>
+
+<style>
+@import url("@/style.css");
+</style>

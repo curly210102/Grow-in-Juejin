@@ -1,7 +1,8 @@
 import initUserProfile from "@/core/clientRequests/initUserProfile";
 import { getCurrentUserId } from "../utils/getInformation";
 import onRouteChange from "../utils/onRouteChange";
-import { CustomJoinedActivity, CustomUserTrace, register } from "./components";
+import { CustomJoinedActivity, CustomUserTagRadar, CustomUserTrace, register } from "./components";
+import { initUserArticleList } from "@/core/clientRequests/initUserArticles";
 
 register();
 main();
@@ -24,9 +25,12 @@ function renderFeatures(myUserId?: string) {
     const loops: ReturnType<typeof loopObserver>[] = [];
 
     loops.push(loopObserver(() => renderUserGrowTrending(myUserId)));
+    loops.push(loopObserver(() => renderUserTagRadar()));
     if (myUserId && userId === myUserId) {
         loops.push(loopObserver(() => renderJoinedActivities(userId)));
     }
+
+    initUserArticleList(userId);
 
     return {
         abort() {
@@ -38,9 +42,9 @@ function renderFeatures(myUserId?: string) {
 
 function renderJoinedActivities(myUserId: string) {
     const userId = getCurrentUserId();
-    const followBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.follow-block.block.shadow");
+    const moreBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.more-block.block");
     const container = document.querySelector<HTMLDivElement>("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div");
-    if (container && followBlock && myUserId === userId) {
+    if (container && moreBlock && myUserId === userId) {
         container.style.bottom = "10px";
         container.style.overflow = "auto";
         container.style.marginRight = "-1rem";
@@ -49,7 +53,7 @@ function renderJoinedActivities(myUserId: string) {
         activityBlock.append(new CustomJoinedActivity({
             userId
         }));
-        followBlock.insertAdjacentElement("afterend", activityBlock);
+        moreBlock.insertAdjacentElement("beforebegin", activityBlock);
         return true;
     }
     return false
@@ -73,6 +77,25 @@ function renderUserGrowTrending(myUserId?: string) {
     }
 
     return false;
+}
+
+function renderUserTagRadar() {
+    const userId = getCurrentUserId();
+    const followBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.follow-block.block.shadow");
+    const container = document.querySelector<HTMLDivElement>("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div");
+    if (container && followBlock) {
+        container.style.bottom = "10px";
+        container.style.overflow = "auto";
+        container.style.marginRight = "-1rem";
+        container.style.paddingRight = "1rem";
+        const activityBlock = document.createElement("div");
+        activityBlock.append(new CustomUserTagRadar({
+            userId
+        }));
+        followBlock.insertAdjacentElement("afterend", activityBlock);
+        return true;
+    }
+    return false
 }
 
 function loopObserver(job: () => boolean, maxTimes: number = 5) {

@@ -28,13 +28,13 @@ const pref = computed(() => ({
         <ClientCollapseToggle v-if="pref.contribution === PreferenceValue.COLLAPSE" v-model="isContributionCollapsed">社区活跃度
         </ClientCollapseToggle>
         <UserContribution hideSummation
-            v-if="pref.contribution === undefined || pref.contribution === PreferenceValue.SHOW || (pref.contribution === PreferenceValue.COLLAPSE && !isContributionCollapsed)" />
+            v-if="pref.contribution === PreferenceValue.SHOW || (pref.contribution === PreferenceValue.COLLAPSE && !isContributionCollapsed)" />
 
         <ClientCollapseToggle v-if="pref.trending === PreferenceValue.COLLAPSE" v-model="isTrendingCollapsed">成长趋势
         </ClientCollapseToggle>
         <ClientGrowTrending
-            v-if="pref.trending === undefined || pref.trending === PreferenceValue.SHOW || (pref.trending === PreferenceValue.COLLAPSE && !isTrendingCollapsed)"
-            :inMyPage="inMyPage" :userId="userId" />
+            v-if="pref.trending === PreferenceValue.SHOW || (pref.trending === PreferenceValue.COLLAPSE && !isTrendingCollapsed)"
+            :userId="userId" />
     </div>
 </template>
 <style>

@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import useClientPreferences from '@/content-scripts/useClientPreferences';
 import ClientJoinedActivity from './ClientJoinedActivity.vue';
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import { PreferenceKey, PreferenceValue } from '@/core/types';
 
 
