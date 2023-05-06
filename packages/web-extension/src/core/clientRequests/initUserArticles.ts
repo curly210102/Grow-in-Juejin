@@ -31,6 +31,14 @@ export default async function initUserArticles(userId: string, earliestTime: num
     return data;
 }
 
+export async function initUserArticleList (userId: string) {
+    const localArticles = await loadLocalStorage([StorageKey.ARTICLE_LIST]).then(data => {
+        return data[StorageKey.ARTICLE_LIST]?.[userId] ?? []
+    });
+
+    return await syncArticleList(userId, localArticles)
+}
+
 
 // 1. 请求最近的10篇文章
 // 2. 根据数量差和活动时间访问拉取文章
@@ -52,7 +60,7 @@ async function sync(userId: string, earliestTime: number, localRawData: {
     }
 }
 
-export async function syncArticleList(userId: string, localArticleList: IArticle[] = [], earliestTime: number = 0) {
+async function syncArticleList(userId: string, localArticleList: IArticle[] = [], earliestTime: number = 0) {
     // 请求最近的一批
     const { cursor, data, count, has_more } = await fetchUserArticles(userId, "0");
     const lastArticleList = data || [];
