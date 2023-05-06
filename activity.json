@@ -1,5 +1,53 @@
 [
     {
+        "key": "2023欢喜迎兔年",
+        "startTimeStamp": 1683129600000,
+        "title": "欢喜迎兔年",
+        "docLink": "https://juejin.cn/pin/7189184399185805373",
+        "category": "沸点活动",
+        "endTimeStamp": 1684944000000,
+        "lastModifiedTime": 1683370842000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": [
+                    {
+                        "name": "2000矿石",
+                        "count": 1
+                    },
+                    {
+                        "name": "mini流体暴力熊",
+                        "count": 5
+                    },
+                    {
+                        "name": "宇航员小夜灯",
+                        "count": 10
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "http://#欢喜迎兔年#",
+                    "text": "#欢喜迎兔年#"
+                },
+                "theme": [
+                    "今日新鲜事"
+                ],
+                "jcode": true,
+                "keywords": [],
+                "subStartTime": 0,
+                "subEndTime": 0,
+                "subLink": ""
+            }
+        ]
+    },
+    {
         "key": "2023 年 4 月更文",
         "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be871d91b1034205a9d84ae133ac9bf3~tplv-k3u1fbpfcp-zoom-1.png",

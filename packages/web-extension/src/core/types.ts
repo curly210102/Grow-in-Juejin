@@ -1,3 +1,15 @@
+export interface IActivityRule {
+    "topic": {
+        "link": string,
+        "text": string
+    };
+    "theme": Array<string>;
+    "jcode": boolean;
+    "keywords": Array<string>;
+    "subStartTime": number;
+    "subEndTime": number;
+    "subLink": string
+}
 export interface IActivity {
     key: string;
     desc?: string;
@@ -32,16 +44,17 @@ export interface IActivity {
     tagNames: string[];
     wordCount: number;
     lastModifiedTime: number;
+    rules?: Array<IActivityRule>
 }
 
 export interface IUser {
-    userId: string,
-    userName: string,
-    avatar: string,
-    description: string,
-    followerCount: number,
-    postCount: number,
-    likeCount: number,
+    userId: string;
+    userName: string;
+    avatar: string;
+    description: string;
+    followerCount: number;
+    postCount: number;
+    likeCount: number;
     lastVisitedActivityTime: number
 }
 
@@ -108,7 +121,7 @@ export type TypeInvalidSummary = {
         | "word_count"
         | "slogan_fit"
         | "link_fit"
-        | "tag_fit" 
+        | "tag_fit"
         | "theme_fit">
 };
 

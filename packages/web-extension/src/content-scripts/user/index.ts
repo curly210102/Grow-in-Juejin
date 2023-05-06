@@ -11,13 +11,21 @@ async function main() {
     // 进入页面后先检查用户是否已切换，确保 storage 中存的都是当前用户的数据
     const { userId: myUserId } = await initUserProfile()
 
-    let currentRenderWork = renderFeatures(myUserId);
+    let currentRenderWork = renderWhenEnterUserProfilePage(myUserId);
     onRouteChange(() => {
         if (currentRenderWork) {
             currentRenderWork.abort();
         }
-        renderFeatures(myUserId);
+        currentRenderWork = renderWhenEnterUserProfilePage(myUserId);
     });
+}
+
+function renderWhenEnterUserProfilePage(myUserId?: string) {
+    if (/https:\/\/juejin\.cn\/user\/\d+/.test(window.location.href)) {
+        return renderFeatures(myUserId);
+    } else {
+        return null;
+    }
 }
 
 function renderFeatures(myUserId?: string) {
