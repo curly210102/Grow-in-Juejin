@@ -55,47 +55,5 @@
         "tagNames": [],
         "wordCount": "500",
         "theme": "4月日新计划更文活动"
-    },
-    {
-        "key": "金石计划第3期",
-        "desc": "优质大咖挑战，瓜分万元现金奖池",
-        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/6eac60384a024c858f29404792ccd544~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
-        "startTimeStamp": 1678204800000,
-        "title": "金石计划第三期",
-        "docLink": "https://juejin.cn/post/7207698564641996856",
-        "category": "更文活动",
-        "endTimeStamp": 1682092800000,
-        "lastModifiedTime": 1682686826000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": [
-                    {
-                        "name": "基础挑战",
-                        "count": 2
-                    },
-                    {
-                        "name": "进阶挑战①",
-                        "count": 4
-                    },
-                    {
-                        "name": "进阶挑战②",
-                        "count": 6
-                    }
-                ]
-            }
-        ],
-        "categories": [],
-        "signSlogan": "本文正在参加[「金石计划」](https://juejin.cn/post/7207698564641996856/)",
-        "signLink": "https://juejin.cn/post/7207698564641996856/",
-        "tagNames": [
-            "掘金·金石计划"
-        ],
-        "wordCount": "650",
-        "theme": ""
     }
 ]
