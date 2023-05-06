@@ -12,8 +12,8 @@ const pinActivities = computed(() => {
         return {
             title, docLink, startTimeStamp, endTimeStamp, rules, rewards,
             stat: {
-                dayCount: 0,
-                messageCount: 0
+                dayCount: 1,
+                messageCount: 2
             }
         }
     })
@@ -23,7 +23,8 @@ const pinActivities = computed(() => {
 
 </script>
 <template>
-    <div class="gij-bg-white gij-card gij-space-y-2">
-        <PinActivityItem v-for="activity of pinActivities" :activity="activity"></PinActivityItem>
+    <div class="gij-bg-white gij-card gij-divide-y gij-divide-gray-100">
+        <PinActivityItem v-for="activity of pinActivities" :activity="activity" class="gij-py-2"></PinActivityItem>
+
     </div>
 </template>

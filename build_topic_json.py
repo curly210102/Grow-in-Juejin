@@ -13,7 +13,7 @@ def build_topic_json():
         response = requests.post(url, headers=headers, json=data)
         response_data = response.json()
         for item in response_data['data']:
-            all_data[item['topic']['title']] = item['topic_id']
+            all_data[item['topic']['title'].strip()] = item['topic_id']
         has_more = response_data['has_more']
         data['cursor'] = response_data['cursor']
 
