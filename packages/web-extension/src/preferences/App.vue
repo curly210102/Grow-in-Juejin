@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { onErrorCaptured, ref } from 'vue';
+import { Component, onErrorCaptured, ref } from 'vue';
 import { RectangleGroupIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
 
 import Warning from "@/core/components/Warning.vue"
@@ -15,7 +15,15 @@ onErrorCaptured((err) => {
   errorInfo.value = err
 })
 
-const groups = [{
+const groups: Array<{
+  title: string,
+  icon: Component,
+  sections: Array<Array<{
+    label: string,
+    options: { "text": string, key: PreferenceValue }[],
+    key: PreferenceKey
+  }>>
+}> = [{
   title: "个人主页",
   icon: UserCircleIcon,
   sections: [
@@ -113,7 +121,7 @@ const groups = [{
     [{
       label: "有新活动浮标显示小红点",
       key: PreferenceKey.BADGE_OF_NEW_ACTIVITY,
-      options: null
+      options: []
     }]
   ]
 }]
@@ -148,9 +156,9 @@ const [preferences, updatePreference] = usePreferences();
           <template v-for="item in section">
             <label class="gij-text-right" :for="`${item.key}`">{{ item.label }}</label>
             <div class="gij-text-left">
-              <Select v-if="item.options" :items="item.options"
-                :modelValue="(preferences[item.key] && item.options.find(o => o.key === preferences[item.key])) || item.options[0]"
-                @update:modelValue="(value) => updatePreference(item.key, value.key)" />
+              <Select v-if="item.options.length" :items="item.options"
+                :modelValue="(preferences[item.key] && item.options.find((o: any) => o.key === preferences[item.key])) || item.options[0]"
+                @update:modelValue="(value: any) => updatePreference(item.key, value.key)" />
               <div v-else class=" gij-flex gij-items-center">
                 <input type="checkbox" class="gij-accent-blue-500" v-model="preferences[item.key]" :id="`${item.key}`" />
               </div>

@@ -100,7 +100,7 @@ const option = computed<Option>(() => {
                         const regex = /[\u4e00-\u9fa5]{1,4}|.{1,10}/g;
                         return name.match(regex)?.join("\n") ?? "";
                     } else {
-                        return name;
+                        return name ?? "";
                     }
                 }
             },
@@ -139,6 +139,8 @@ const option = computed<Option>(() => {
                     if (index == 7) {
                         return '90';
                     }
+
+                    return "";
                 }
             },
         },
@@ -163,7 +165,7 @@ const option = computed<Option>(() => {
                         label: {
                             show: true,
                             formatter(param) {
-                                return Math.min(100, tagValues[param.dimensionIndex ?? 0])
+                                return Math.min(100, tagValues[param.dimensionIndex ?? 0]).toString();
                             },
                             position: "insideTop",
                             fontSize: 8,
