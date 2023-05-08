@@ -74,6 +74,27 @@ const groups = [{
       key: PreferenceKey.TRENDING_OF_OTHERS
     }],
     [{
+      label: "偏好分布（我的主页）",
+      options: [{
+        "text": "显示",
+        "key": PreferenceValue.SHOW
+      }, {
+        "text": "隐藏",
+        "key": PreferenceValue.HIDE
+      }],
+      key: PreferenceKey.TAG_RADAR_OF_MINE
+    }, {
+      label: "偏好分布（他人主页）",
+      options: [{
+        "text": "显示",
+        "key": PreferenceValue.SHOW
+      }, {
+        "text": "隐藏",
+        "key": PreferenceValue.HIDE
+      }],
+      key: PreferenceKey.TAG_RADAR_OF_OTHERS
+    }],
+    [{
       label: "我的活动进度",
       options: [{
         "text": "显示",

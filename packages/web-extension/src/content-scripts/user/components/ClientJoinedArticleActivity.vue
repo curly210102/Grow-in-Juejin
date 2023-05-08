@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-import { ArticleContentMap, IActivity, IArticle } from '@/core/types';
+import { ArticleContentMap, IArticleActivity, IArticle } from '@/core/types';
 import ActivityCard from "@/core/components/ActivityCard.vue"
 import useComputeJoinedArticleActivities from '@/core/composables/useComputeJoinedArticleActivities';
 import initUserArticles from '@/core/clientRequests/initUserArticles';
@@ -10,12 +10,12 @@ const { userId } = defineProps<{
     userId: string
 }>();
 
-const activitiesRef: Ref<IActivity[]> = ref([])
+const activitiesRef: Ref<IArticleActivity[]> = ref([])
 
 chrome.runtime.sendMessage({
     to: "Grow in Juejin Background",
     code: extCode,
-    content: "requestActivities"
+    content: "requestArticleActivities"
 }).then((data) => {
     activitiesRef.value = data;
 })

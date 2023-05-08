@@ -1,5 +1,6 @@
 import { extCode, frameURL } from "@/constant";
 import initUserArticles from "@/core/clientRequests/initUserArticles";
+import initUserPins from "@/core/clientRequests/initUserPins";
 
 
 export default async function crossOriginRequest() {
@@ -26,7 +27,7 @@ export default async function crossOriginRequest() {
                                 content: "Sync",
                             });
 
-                            initUserArticles(message.userId, message.earliestTime).then(() => { syncLocked = false }).finally(() => {
+                            initUserArticles(message.userId, message.earliestArticleActivityTime).then(() => { syncLocked = false }).finally(() => {
                                 chrome.runtime.sendMessage({
                                     to: "Grow in Juejin",
                                     code: extCode,
@@ -36,6 +37,9 @@ export default async function crossOriginRequest() {
                             })
                         })()
                     }
+                }
+                else if (message.action === "syncPinList") {
+                    initUserPins(message.userId, message.earliestPinActivityTime)
                 }
             }
 

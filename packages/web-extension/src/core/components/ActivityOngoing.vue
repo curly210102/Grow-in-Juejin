@@ -27,7 +27,7 @@ export default defineComponent({
             return this.activities.filter(a => {
                 const now = getCurrent();
                 return (!a.endTimeStamp || a.endTimeStamp >= now) && a.figure
-            })
+            }).sort((a, b) => a.startTimeStamp - b.startTimeStamp)
         }
     }
 })

@@ -1,25 +1,16 @@
-export interface IActivityRule {
-    "topic": {
-        "link": string,
-        "text": string
-    };
-    "theme": Array<string>;
-    "jcode": boolean;
-    "keywords": Array<string>;
-    "subStartTime": number;
-    "subEndTime": number;
-    "subLink": string
-}
 export interface IActivity {
     key: string;
     desc?: string;
     figure?: string;
-    startTimeStamp?: number;
+    startTimeStamp: number;
     title: string;
     docLink: string;
     category: string;
+    endTimeStamp: number;
+    lastModifiedTime: number;
+}
+export interface IArticleActivity extends IActivity {
     theme: string;
-    endTimeStamp?: number;
     rewards: [
         {
             type: "days";
@@ -43,8 +34,39 @@ export interface IActivity {
     signLink: string;
     tagNames: string[];
     wordCount: number;
-    lastModifiedTime: number;
-    rules?: Array<IActivityRule>
+}
+
+export interface IPinActivity extends IActivity {
+    rewards: [
+        {
+            type: "days";
+            rewards: Array<{
+                name: string;
+                count: number;
+            }>;
+        },
+        {
+            type: "count";
+            rewards: Array<{
+                name: string;
+                count: number;
+            }>;
+        }
+    ];
+    rules?: Array<IPinActivityRule>
+}
+
+export interface IPinActivityRule {
+    "topic": {
+        "link": string,
+        "text": string
+    };
+    "theme": Array<string>;
+    "jcode": boolean;
+    "keywords": Array<string>;
+    "subStartTime": number;
+    "subEndTime": number;
+    "subLink": string
 }
 
 export interface IUser {
@@ -80,9 +102,12 @@ export enum StorageKey {
     "ARTICLE_LIST" = "articleList",
     "ARTICLE_CONTENTS" = "articleContents",
     "PINS" = "pins",
-    "ACTIVITIES" = "activities",
+    "ARTICLE_ACTIVITIES" = "activities",
+    "PIN_ACTIVITIES" = "pinActivities",
+    "OTHER_ACTIVITIES" = "otherActivities",
     "ARTICLE_CACHE" = "articleCache",
     "TOPICS" = "pinTopics",
+    "PIN_LIST" = "pinList",
     "PREFERENCE" = "preference",
     "PERSISTENCE_STATE" = "persistenceState"
 }
@@ -126,6 +151,16 @@ export type TypeInvalidSummary = {
 };
 
 
+export interface IPin {
+    id: string,
+    theme: string,
+    topic: string,
+    jcode: boolean,
+    content: string,
+    publishTime: number
+}
+
+
 export enum PreferenceKey {
     CONTRIBUTION_OF_MINE,
     CONTRIBUTION_OF_OTHERS,
@@ -133,6 +168,8 @@ export enum PreferenceKey {
     TRENDING_OF_OTHERS,
     ACTIVITIES_OF_MINE,
     BADGE_OF_NEW_ACTIVITY,
+    TAG_RADAR_OF_MINE,
+    TAG_RADAR_OF_OTHERS,
 }
 
 export enum PreferenceValue {

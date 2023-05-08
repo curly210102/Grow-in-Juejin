@@ -1,19 +1,19 @@
 <script lang='ts' setup>
 import { extCode } from '@/constant';
-import { IActivity } from '@/core/types';
-import { Ref, computed, ref } from 'vue';
+import { IPinActivity } from '@/core/types';
+import { Ref, ref } from 'vue';
 import PinActivityList from "@/core/components/PinActivityList.vue"
 
 const { userId } = defineProps<{
     userId: string
 }>();
 
-const activitiesRef: Ref<IActivity[]> = ref([])
+const activitiesRef: Ref<IPinActivity[]> = ref([])
 
 chrome.runtime.sendMessage({
     to: "Grow in Juejin Background",
     code: extCode,
-    content: "requestActivities",
+    content: "requestPinActivities",
 }).then((data) => {
     activitiesRef.value = data;
 })
@@ -23,7 +23,7 @@ chrome.runtime.sendMessage({
 </script>
 <template>
     <div>
-        <PinActivityList :activities="activitiesRef"></PinActivityList>
+        <PinActivityList :activities="activitiesRef" :userId="userId"></PinActivityList>
     </div>
 </template>
 

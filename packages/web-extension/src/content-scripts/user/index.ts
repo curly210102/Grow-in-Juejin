@@ -1,7 +1,7 @@
 import initUserProfile from "@/core/clientRequests/initUserProfile";
 import { getCurrentUserId } from "../utils/getInformation";
 import onRouteChange from "../utils/onRouteChange";
-import { CustomJoinedActivity, CustomUserTagRadar, CustomUserTrace, register } from "./components";
+import { CustomJoinedArticleActivity, CustomUserTagRadar, CustomUserTrace, register } from "./components";
 import { initUserArticleList } from "@/core/clientRequests/initUserArticles";
 
 register();
@@ -33,9 +33,9 @@ function renderFeatures(myUserId?: string) {
     const loops: ReturnType<typeof loopObserver>[] = [];
 
     loops.push(loopObserver(() => renderUserGrowTrending(myUserId)));
-    loops.push(loopObserver(() => renderUserTagRadar()));
+    loops.push(loopObserver(() => renderUserTagRadar(myUserId)));
     if (myUserId && userId === myUserId) {
-        loops.push(loopObserver(() => renderJoinedActivities(userId)));
+        loops.push(loopObserver(() => renderJoinedActivities()));
     }
 
     initUserArticleList(userId);
@@ -48,17 +48,17 @@ function renderFeatures(myUserId?: string) {
     }
 }
 
-function renderJoinedActivities(myUserId: string) {
+function renderJoinedActivities() {
     const userId = getCurrentUserId();
     const moreBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.more-block.block");
     const container = document.querySelector<HTMLDivElement>("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div");
-    if (container && moreBlock && myUserId === userId) {
+    if (container && moreBlock) {
         container.style.bottom = "10px";
         container.style.overflow = "auto";
         container.style.marginRight = "-1rem";
         container.style.paddingRight = "1rem";
         const activityBlock = document.createElement("div");
-        activityBlock.append(new CustomJoinedActivity({
+        activityBlock.append(new CustomJoinedArticleActivity({
             userId
         }));
         moreBlock.insertAdjacentElement("beforebegin", activityBlock);
@@ -87,18 +87,27 @@ function renderUserGrowTrending(myUserId?: string) {
     return false;
 }
 
-function renderUserTagRadar() {
+function renderUserTagRadar(myUserId?: string) {
     const userId = getCurrentUserId();
+    const summaryBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.stat-block");
     const followBlock = document.querySelector("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div > div.follow-block.block.shadow");
     const container = document.querySelector<HTMLDivElement>("#juejin > div.view-container > main > div.view.user-view > div.minor-area > div");
-    if (container && followBlock) {
+    if (container && followBlock && summaryBlock) {
         container.style.bottom = "10px";
         container.style.overflow = "auto";
         container.style.marginRight = "-1rem";
         container.style.paddingRight = "1rem";
-        const activityBlock = document.createElement("div");
+        const activityBlock = summaryBlock.cloneNode(true) as HTMLDivElement;
+        const titleBlock = activityBlock.querySelector(".block-title");
+        if (titleBlock) {
+            titleBlock.innerHTML = "偏好分布";
+            activityBlock.innerHTML = titleBlock.outerHTML;
+        } else {
+            activityBlock.innerHTML = "";
+        }
         activityBlock.append(new CustomUserTagRadar({
-            userId
+            userId,
+            inMyPage: myUserId === userId
         }));
         followBlock.insertAdjacentElement("afterend", activityBlock);
         return true;

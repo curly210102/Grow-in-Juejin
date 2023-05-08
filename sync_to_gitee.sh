@@ -23,4 +23,6 @@ function sync_file() {
 }
 
 sync_file  "activity.json"
+sync_file  "pin_activity.json"
+sync_file  "other_activity.json"
 sync_file  "topics.json"

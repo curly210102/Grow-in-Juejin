@@ -106,6 +106,8 @@ def parseActivityRecordsToList(records=[]):
             obj = {mapping_dict[k]: convertMultilineTextToString(
                 v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
             # 判断 endTimeStamp 是否为东八区一天的起始时
+            if (obj.get("startTimeStamp") is None or obj.get("endTimeStamp") is None):
+                continue
             if obj.get("endTimeStamp") and obj["endTimeStamp"] % 28800000 == 0:
                 obj["endTimeStamp"] += 86400000  # 加上 24 小时的时间戳
             obj["lastModifiedTime"] = record["last_modified_time"]
@@ -182,9 +184,9 @@ def parseActivityRuleMap(records=[]):
     return ruleMap
 
 
-async def fetchActivitiesAndBuildList():
+async def fetchArticleActivitiesAndBuildList():
     today = str(datetime.date.today()-datetime.timedelta(days=14))
-    result = await requestTableRecords(APP_TOKEN, "tbl5P7tQ0sfJel1B", "vewD9xQ8SV", {
+    result = await requestTableRecords(APP_TOKEN, "tblM2kMhEmywUdD2", "vewD9xQ8SV", {
         "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
         "sort": '["结束时间 DESC"]',
         "automatic_fields": True
@@ -277,20 +279,54 @@ async def fetchPinActivitiesAndBuildList():
             ruleList = parsePinActivityRuleList(
                 activityRulesResp[i].get("items"))
             item["rules"] = ruleList
+        item["category"] = "沸点活动"
 
     return list
 
 
+async def fetchOtherActivitiesAndBuildList():
+    today = str(datetime.date.today())
+    result = await requestTableRecords(APP_TOKEN, "tbl5P7tQ0sfJel1B", "vewD9xQ8SV", {
+        "filter": f'OR(CurrentValue.[结束时间]>=TODATE("{today}"),CurrentValue.[结束时间]="")',
+        "sort": '["结束时间 DESC"]',
+        "automatic_fields": True
+    })
+    list = parseActivityRecordsToList(result.get("items"))
+    return list
+
+
+async def buildActivityJSON():
+    aList = await fetchArticleActivitiesAndBuildList()
+    list = sorted(
+        aList, key=lambda x: x['endTimeStamp'], reverse=True)
+    json_object = json.dumps(list, indent=4, ensure_ascii=False)
+    with open("activity.json", "w", encoding="utf-8") as outfile:
+        outfile.write(json_object)
+
+
+async def buildPinActivityJSON():
+    pList = await fetchPinActivitiesAndBuildList()
+    list = sorted(
+        pList, key=lambda x: x['endTimeStamp'], reverse=True)
+    json_object = json.dumps(list, indent=4, ensure_ascii=False)
+    with open("pin_activity.json", "w", encoding="utf-8") as outfile:
+        outfile.write(json_object)
+
+
+async def buildOtherActivityJSON():
+    pList = await fetchOtherActivitiesAndBuildList()
+    list = sorted(
+        pList, key=lambda x: x['endTimeStamp'], reverse=True)
+    json_object = json.dumps(list, indent=4, ensure_ascii=False)
+    with open("other_activity.json", "w", encoding="utf-8") as outfile:
+        outfile.write(json_object)
+
+
 async def main():
     if (requestAccessToken()):
-        aList = await fetchActivitiesAndBuildList()
-        pinList = await fetchPinActivitiesAndBuildList()
-        merged_list = aList + pinList
-        list = sorted(
-            merged_list, key=lambda x: x['endTimeStamp'], reverse=True)
-        json_object = json.dumps(list, indent=4, ensure_ascii=False)
-        with open("activity.json", "w", encoding="utf-8") as outfile:
-            outfile.write(json_object)
+        await buildActivityJSON()
+        await buildPinActivityJSON()
+        await buildOtherActivityJSON()
     else:
         raise AuthenticationError("FeiShu request access token")
 

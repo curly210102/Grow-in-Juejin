@@ -1,8 +1,17 @@
 import { readonly, Ref } from "vue";
-import { ArticleContentMap, IArticle } from "../types";
+import { ArticleContentMap, IActivity, IArticle, IArticleActivity, IPinActivity } from "../types";
 
 export const userInjectionKey = Symbol();
 export const activityInjectionKey = Symbol();
+export type IActivityInjectContentType = {
+    article: Array<IArticleActivity>,
+    pin: Array<IPinActivity>,
+    other: Array<IActivity>
+}
+export const pinActivityInjectionKey = Symbol();
+export const pinTopicInjectionKey = Symbol();
+export type IPinTopicInjectContentType = Ref<Record<string, string>>;
+export const pinListInjectionKey = Symbol();
 
 export const articleListInjectionKey = Symbol();
 export type IArticleListInjectContentType = Ref<IArticle[]>;

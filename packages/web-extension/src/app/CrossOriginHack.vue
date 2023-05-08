@@ -1,27 +1,34 @@
 <script lang='ts' setup>
-import useFetchActivities from '@/core/composables/useFetchActivities';
-import { IArticle, IArticleContentItem, StorageKey } from '@/core/types';
-import { activityInjectionKey, articleContentInjectionKey, articleListInjectionKey, defaultSyncInjectContent, ISyncInjectContentType, syncInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
+
+import { IArticle, IArticleContentItem, IPin, StorageKey } from '@/core/types';
+import { activityInjectionKey, articleContentInjectionKey, pinListInjectionKey, articleListInjectionKey, defaultSyncInjectContent, ISyncInjectContentType, pinTopicInjectionKey, syncInjectionKey, userInjectionKey } from '@/core/utils/injectionKeys';
 import { loadLocalStorage } from '@/core/utils/storage';
-import { inject, onMounted, provide, ref, unref, watchEffect, readonly } from 'vue';
+import { inject, onMounted, provide, ref, unref, watchEffect, readonly, computed } from 'vue';
 import { extCode, frameURL } from "../constant"
+import initTopics from '@/core/clientRequests/initTopics';
+import useFetchAllActivities from '@/core/composables/useFetchAllActivities';
 
 
 const frame = ref<HTMLIFrameElement | null>(null);
 const userId = inject(userInjectionKey, ref(""));
 const tabId = ref();
 
-const activities = useFetchActivities()
+const activities = useFetchAllActivities()
 const articleList = ref<IArticle[]>([]);
 const articleContent = ref<Map<string, IArticleContentItem>>(new Map());
+const pinList = ref<IPin[]>([]);
+const topics = ref<Record<string, string>>({});
 
 const syncBoardCast = inject<ISyncInjectContentType>(syncInjectionKey, defaultSyncInjectContent);
 
 
-loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS]).then(data => {
+initTopics().then(v => topics.value = v);
+
+loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS, StorageKey.PIN_LIST]).then(data => {
     if (data) {
         articleList.value = data[StorageKey.ARTICLE_LIST]?.[userId.value] ?? [];
         articleContent.value = new Map(Object.entries(data[StorageKey.ARTICLE_CONTENTS]?.[userId.value] ?? []));
+        pinList.value = data[StorageKey.PIN_LIST] ?? [];
     }
 })
 
@@ -46,17 +53,31 @@ onMounted(() => {
         if (changes[StorageKey.ARTICLE_CONTENTS]) {
             articleContent.value = new Map(changes[StorageKey.ARTICLE_CONTENTS].newValue?.[userId.value] ?? []);
         }
+        if (changes[StorageKey.PIN_LIST]) {
+            pinList.value = changes[StorageKey.PIN_LIST].newValue ?? [];
+        }
     })
 })
 
+const earliestPinActivityTime = computed(() => Math.min(...unref(activities.pin).map(a => a.startTimeStamp ?? Infinity)))
 watchEffect(() => {
-    const earliestStartTime = Math.min(...unref(activities).map(a => a.startTimeStamp ?? Infinity));
+    if (tabId.value) {
+        chrome.tabs.sendMessage(tabId.value, {
+            action: "syncPinList",
+            userId: userId.value,
+            earliestPinActivityTime: earliestPinActivityTime.value
+        })
+    }
+})
 
+const earliestArticleActivityTime = computed(() => Math.min(...unref(activities.article).map(a => a.startTimeStamp ?? Infinity)))
+
+watchEffect(() => {
     if (tabId.value) {
         chrome.tabs.sendMessage(tabId.value, {
             action: "sync",
             userId: userId.value,
-            earliestTime: earliestStartTime
+            earliestArticleActivityTime: earliestArticleActivityTime.value
         })
     }
 })
@@ -65,6 +86,8 @@ watchEffect(() => {
 provide(activityInjectionKey, readonly(activities));
 provide(articleListInjectionKey, readonly(articleList));
 provide(articleContentInjectionKey, readonly(articleContent));
+provide(pinListInjectionKey, readonly(pinList));
+provide(pinTopicInjectionKey, readonly(topics));
 
 
 </script>

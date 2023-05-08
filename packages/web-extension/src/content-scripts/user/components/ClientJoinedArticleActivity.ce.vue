@@ -1,6 +1,6 @@
 <script lang='ts' setup>
 import useClientPreferences from '@/content-scripts/useClientPreferences';
-import ClientJoinedActivity from './ClientJoinedActivity.vue';
+import ClientJoinedArticleActivity from './ClientJoinedArticleActivity.vue';
 import { computed } from 'vue';
 import { PreferenceKey, PreferenceValue } from '@/core/types';
 
@@ -15,7 +15,7 @@ const { userId } = defineProps<{
 
 </script>
 <template>
-    <ClientJoinedActivity v-if="shouldRender" :user-id="userId" />
+    <ClientJoinedArticleActivity v-if="shouldRender" :user-id="userId" />
 </template>
 
 <style>

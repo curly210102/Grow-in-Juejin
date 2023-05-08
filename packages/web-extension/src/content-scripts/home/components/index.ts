@@ -1,14 +1,11 @@
 import { defineCustomElement } from 'vue'
-import ClientActivityOngoing from './ClientActivityOngoing.ce.vue'
-import ClientActivityJoint from './ClientActivityJoint.ce.vue'
+import ClientActivityFloating from './ClientActivityFloating.ce.vue'
 
-const CustomActivityOngoing = defineCustomElement(ClientActivityOngoing)
-const CustomActivityJoint = defineCustomElement(ClientActivityJoint)
+const CustomActivityFloating = defineCustomElement(ClientActivityFloating)
 
 // 分别导出元素
-export { CustomActivityOngoing, CustomActivityJoint }
+export { CustomActivityFloating }
 
 export function register() {
-    customElements.define('gij-ongoing-activity', CustomActivityOngoing)
-    customElements.define('gij-joint-activity', CustomActivityJoint)
+    customElements.define('gij-floating-activity', CustomActivityFloating)
 }

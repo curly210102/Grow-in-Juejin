@@ -1,12 +1,9 @@
 import { computed, Ref } from "vue"
 import { ActivityStatus } from "../components/ActivityCard.vue";
-import { IActivity, ArticleContentMap, IArticle, TypeInvalidSummary } from "../types";
+import { IArticleActivity, ArticleContentMap, IArticle, TypeInvalidSummary } from "../types";
 import { format } from "../utils/date";
 
-export default function useComputeJoinedArticleActivities(activities: Ref<IActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>) {
-
-    const articleActivities = computed(() => activities.value.filter(a => ['更文活动', "技术专题"].includes(a.category)))
-
+export default function useComputeJoinedArticleActivities(articleActivities: Ref<IArticleActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>) {
     const activityStats = computed(() => {
         const stats = Object.fromEntries(articleActivities.value.map(a => [a.key, {
             view: 0,

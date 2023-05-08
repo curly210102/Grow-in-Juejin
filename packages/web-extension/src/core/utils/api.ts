@@ -1,4 +1,4 @@
-import { ActionType, IActivity } from "../types";
+import { ActionType, IArticleActivity } from "../types";
 
 export const fetchUserProfile = async (userId?: string | null) => {
     try {
@@ -88,12 +88,12 @@ export const fetchUserArticles = async (
 };
 
 
-export const fetchActivities = async (): Promise<Array<IActivity>> => {
+export const fetchActivities = async (): Promise<Array<IArticleActivity>> => {
     try {
         const res = await fetch(
-            import.meta.env.DEV ? 
-            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/activity.json" :
-            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
+            import.meta.env.DEV ?
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/activity.json" :
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/activity.json"
         ).then((res) => res.json());
         return res;
     } catch (error) {
@@ -101,12 +101,38 @@ export const fetchActivities = async (): Promise<Array<IActivity>> => {
     }
 };
 
-export const fetchTopics = async (): Promise<Array<IActivity>> => {
+export const fetchPinActivities = async (): Promise<Array<IArticleActivity>> => {
     try {
         const res = await fetch(
-            import.meta.env.DEV ? 
-            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/topics.json" :
-            "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/topics.json"
+            import.meta.env.DEV ?
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/pin_activity.json" :
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/pin_activity.json"
+        ).then((res) => res.json());
+        return res;
+    } catch (error) {
+        throw new Error("Request Failed");
+    }
+};
+
+export const fetchOtherActivities = async (): Promise<Array<IArticleActivity>> => {
+    try {
+        const res = await fetch(
+            import.meta.env.DEV ?
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/other_activity.json" :
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/other_activity.json"
+        ).then((res) => res.json());
+        return res;
+    } catch (error) {
+        throw new Error("Request Failed");
+    }
+};
+
+export const fetchTopics = async (): Promise<Array<IArticleActivity>> => {
+    try {
+        const res = await fetch(
+            import.meta.env.DEV ?
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/topics.json" :
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/topics.json"
         ).then((res) => res.json());
         return res;
     } catch (error) {
@@ -120,10 +146,12 @@ export async function fetchArticleDetail(articleId: string): Promise<{
         mark_content: string,
         mtime: string
     },
-    theme_list: [] | Array<{theme: {
-        theme_id: string,
-        name: string
-    }}>
+    theme_list: [] | Array<{
+        theme: {
+            theme_id: string,
+            name: string
+        }
+    }>
 }> {
     try {
         const res = await fetch(
@@ -150,3 +178,51 @@ export async function fetchArticleDetail(articleId: string): Promise<{
         throw new Error("Request Failed");
     }
 }
+
+
+export const fetchUserPins = async (
+    userId: string,
+    cursor: string,
+    limit: number = 100
+): Promise<{
+    cursor: string;
+    data: Array<{
+        msg_id: string,
+        msg_Info: {
+            ctime: string,
+            mtime: string,
+            content: string,
+        },
+        topic: {
+            title: string
+        },
+        theme: {
+            name: string
+        },
+        jcode_info: null | {}
+    }>;
+    has_more: boolean;
+    count: number;
+}> => {
+    try {
+        const res = await fetch(
+            `https://api.juejin.cn/content_api/v1/short_msg/query_list`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    user_id: userId,
+                    cursor,
+                    limit,
+                    sort_type: 4
+                }),
+                headers: {
+                    "User-agent": window.navigator.userAgent,
+                    "content-type": "application/json"
+                },
+            }
+        ).then((res) => res.json());
+        return res;
+    } catch (error) {
+        throw new Error("Request Failed");
+    }
+};

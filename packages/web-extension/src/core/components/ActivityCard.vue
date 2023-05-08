@@ -1,11 +1,11 @@
 <script lang='ts' setup>
 import { ref } from 'vue';
 import Progress from '../base-components/Progress.vue';
-import { IActivity, TypeInvalidSummary } from '../types'
+import { IArticleActivity, TypeInvalidSummary } from '../types'
 import { format, isStartOfDay, MS_OF_DAY } from "../utils/date";
 import ActivityDetectResultModal from "./ActivityDetectResultModal.vue";
 
-export type ActivityStatus = Pick<IActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title"> & {
+export type ActivityStatus = Pick<IArticleActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title"> & {
     view: number,
     digg: number,
     collect: number,
