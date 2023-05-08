@@ -2,7 +2,7 @@
 
 owner="curlly-brackets"
 repo="grow-in-juejin"
-branch="$1"
+branch=${1:-master}
 # 读取环境变量中的GITEE_ACCESS_TOKEN赋值给access_token
 access_token=$GITEE_ACCESS_TOKEN
 
