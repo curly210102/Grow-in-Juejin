@@ -1,4 +1,4 @@
-import initTopics from "@/core/clientRequests/initTopics";
+import onRouteChange from "../utils/onRouteChange";
 import { CustomActivityFloating, register } from "./components";
 
 register();
@@ -15,5 +15,10 @@ function addActivityFloating() {
 
 export default function renderGlobalComponent() {
     addActivityFloating();
+    onRouteChange(function () {
+        if (!document.querySelector("gij-floating-activity")) {
+            addActivityFloating();
+        }
+    });
 }
 

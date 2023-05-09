@@ -28,6 +28,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.
             return true;
         }
+        if (message.content === "requestPinActivities") {
+            initPinActivities().then(sendResponse)
+            // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.
+            return true;
+        }
         if (message.content === "requestTopics") {
             initTopics().then(sendResponse);
             // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.

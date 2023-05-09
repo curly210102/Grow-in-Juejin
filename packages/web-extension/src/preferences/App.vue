@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-import { Component, onErrorCaptured, ref } from 'vue';
+import { FunctionalComponent, onErrorCaptured, ref } from 'vue';
 import { RectangleGroupIcon, UserCircleIcon } from '@heroicons/vue/24/outline'
 
 import Warning from "@/core/components/Warning.vue"
@@ -17,7 +17,7 @@ onErrorCaptured((err) => {
 
 const groups: Array<{
   title: string,
-  icon: Component,
+  icon: FunctionalComponent,
   sections: Array<Array<{
     label: string,
     options: { "text": string, key: PreferenceValue }[],

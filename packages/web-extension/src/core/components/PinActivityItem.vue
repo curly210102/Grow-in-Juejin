@@ -153,7 +153,7 @@ const activityRule = computed(() => {
                         ][topicList.indexOf(theme)],
                     ]" v-for="theme of activityRule.theme">
                         <a :href="`https://juejin.cn/pin/club/${topics[theme]}`" target="_blank"
-                            class="gij-text-white hover:gij-text-slate-600" :tabindex="-1">
+                            class="gij-text-white hover:gij-text-slate-700" :tabindex="-1">
                             {{ theme }}
                         </a>
                     </div>

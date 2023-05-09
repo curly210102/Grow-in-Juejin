@@ -47,14 +47,17 @@ function renderCurrentActivities() {
 
         const activityBlock = listBlock.cloneNode(true) as HTMLDivElement;
         const titleBlock = activityBlock.querySelector(".title")
-        if (titleBlock) {
+        const hotListBlock = activityBlock.querySelector(".hot_list");
+        if (titleBlock && hotListBlock) {
             titleBlock.innerHTML = "沸点活动";
-            activityBlock.innerHTML = titleBlock?.outerHTML;
-            activityBlock.append(new CustomPinActivities({
+            hotListBlock.innerHTML = "";
+            hotListBlock.append(new CustomPinActivities({
                 userId
             }));
             userBlock.insertAdjacentElement("afterend", activityBlock);
             return true;
+        } else {
+            return false;
         }
     }
     return false

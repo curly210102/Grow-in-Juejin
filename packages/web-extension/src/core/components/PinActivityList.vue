@@ -1,16 +1,19 @@
 <script lang="ts" setup>
-import { Ref, computed, inject, ref } from "vue";
+import { Ref, computed, inject, ref, toRefs } from "vue";
 import { IPinActivityRule, IPin, IPinActivity } from "../types";
 import PinActivityItem from "./PinActivityItem.vue";
 import { format } from "../utils/date";
 import { pinListInjectionKey } from "../utils/injectionKeys";
 
-const { activities } = defineProps<{
+const props = defineProps<{
     activities: IPinActivity[];
 }>();
 
+const { activities } = toRefs(props);
+
+
 const pinActivities = computed(() => {
-    return activities
+    return activities.value
         .sort(
             (a1, a2) => a2.startTimeStamp - a1.startTimeStamp
         )
