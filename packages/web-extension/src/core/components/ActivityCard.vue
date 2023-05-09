@@ -37,7 +37,9 @@ function openDetectResultModal() {
     isDetectResultModalOpen.value = true
 }
 
-
+function calculateProgress(reward: ActivityStatus["rewards"][0]) {
+    return Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count)))
+}
 </script>
 <template>
     <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-white">
@@ -68,10 +70,11 @@ function openDetectResultModal() {
             </div>
             <div class="gij-space-y-3">
                 <div v-for="reward in activity.rewards" class="gij-space-y-1">
-                    <Progress :steps="Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count)))">
+                    <Progress :steps="calculateProgress(reward)">
                         <div class="gij-flex gij-gap-2 gij-px-1 gij-group">
-                            <div class="gij-hidden group-hover:gij-block gij-text-white/90">
-                                {{ Math.floor(Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count))) *
+                            <div
+                                :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-slate/90" : "gij-text-white/90"]'>
+                                {{ Math.floor(calculateProgress(reward) *
                                     100)
                                 }}%
                             </div>

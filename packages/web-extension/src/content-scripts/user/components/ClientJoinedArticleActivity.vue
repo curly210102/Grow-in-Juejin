@@ -35,7 +35,9 @@ watchEffect(async () => {
 
 const joinedActivities = useComputeJoinedArticleActivities(activitiesRef,
     articleListRef,
-    articleContentMapRef);
+    articleContentMapRef, {
+    includeOngoingActivity: false
+});
 
 
 </script>

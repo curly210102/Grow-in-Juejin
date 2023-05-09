@@ -3,7 +3,11 @@ import { ActivityStatus } from "../components/ActivityCard.vue";
 import { IArticleActivity, ArticleContentMap, IArticle, TypeInvalidSummary } from "../types";
 import { format } from "../utils/date";
 
-export default function useComputeJoinedArticleActivities(articleActivities: Ref<IArticleActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>) {
+export default function useComputeJoinedArticleActivities(articleActivities: Ref<IArticleActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>, options: {
+    includeOngoingActivity: boolean
+} = {
+        includeOngoingActivity: true
+    }) {
     const activityStats = computed(() => {
         const stats = Object.fromEntries(articleActivities.value.map(a => [a.key, {
             view: 0,
@@ -100,7 +104,7 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
     })
 
     const joinedActivities = computed(() => {
-        return articleActivities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0) || (endTimeStamp && endTimeStamp >= Date.now())).map(({
+        return articleActivities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0) || (options.includeOngoingActivity && endTimeStamp && endTimeStamp >= Date.now())).map(({
             key,
             title,
             docLink,
