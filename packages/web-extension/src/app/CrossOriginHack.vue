@@ -27,7 +27,7 @@ initTopics().then(v => topics.value = v);
 loadLocalStorage([StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS, StorageKey.PIN_LIST]).then(data => {
     if (data) {
         articleList.value = data[StorageKey.ARTICLE_LIST]?.[userId.value] ?? [];
-        articleContent.value = new Map(Object.entries(data[StorageKey.ARTICLE_CONTENTS]?.[userId.value] ?? []));
+        articleContent.value = new Map(data[StorageKey.ARTICLE_CONTENTS]?.[userId.value] ?? []);
         pinList.value = data[StorageKey.PIN_LIST] ?? [];
     }
 })

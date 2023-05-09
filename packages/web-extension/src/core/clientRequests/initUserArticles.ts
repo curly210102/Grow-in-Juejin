@@ -31,7 +31,7 @@ export default async function initUserArticles(userId: string, earliestTime: num
     return data;
 }
 
-export async function initUserArticleList (userId: string) {
+export async function initUserArticleList(userId: string) {
     const localArticles = await loadLocalStorage([StorageKey.ARTICLE_LIST]).then(data => {
         return data[StorageKey.ARTICLE_LIST]?.[userId] ?? []
     });
@@ -183,7 +183,7 @@ async function syncArticleDetails(userId: string, articleList: IArticle[], local
     const articleDetails = await batchRequestData(articleDetailRequestData, fetchArticleDetail, 10)
     articleDetails.forEach(({ article_info, theme_list }) => {
         const { article_id, mark_content, mtime } = article_info;
-        const themeNames = new Set(theme_list.map(theme => theme.theme?.name).filter(name => !!name));
+        const themeNames = new Set((theme_list ?? []).map(theme => theme.theme?.name).filter(name => !!name));
         const content = nm(mark_content).trim();
         newArticleContentMap.set(article_id, {
             fragment: content.slice(0, 300) + "\n" + content.slice(-200),

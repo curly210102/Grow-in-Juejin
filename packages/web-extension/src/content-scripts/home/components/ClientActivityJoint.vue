@@ -33,7 +33,7 @@ chrome.runtime.sendMessage({
 loadLocalStorage([StorageKey.PIN_LIST, StorageKey.ARTICLE_LIST, StorageKey.ARTICLE_CONTENTS, StorageKey.USER]).then(data => {
     userId.value = data[StorageKey.USER]?.userId;
     articleList.value = data[StorageKey.ARTICLE_LIST]?.[userId.value] ?? [];
-    articleContent.value = new Map(Object.entries(data[StorageKey.ARTICLE_CONTENTS]?.[userId.value] ?? []));
+    articleContent.value = new Map(data[StorageKey.ARTICLE_CONTENTS]?.[userId.value] ?? []);
     pinList.value = data[StorageKey.PIN_LIST] ?? [];
 })
 
