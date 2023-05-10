@@ -60,7 +60,7 @@ export interface IPinActivityRule {
     "topic": {
         "link": string,
         "text": string
-    };
+    } | null;
     "theme": Array<string>;
     "jcode": boolean;
     "keywords": Array<string>;
