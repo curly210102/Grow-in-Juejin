@@ -25,8 +25,8 @@ function isFitActivityRule(pin: IPin, rule?: IPinActivityRule) {
     if (!rule) {
         return false;
     }
-    const themeFit = (rule.topic.text ?? rule.topic) === pin.theme.trim();
-    const topicFit = !rule.theme || rule.theme.includes(pin.topic.trim());
+    const themeFit = !rule.topic || rule.topic.text === pin.theme.trim();
+    const topicFit = !rule.theme.length || rule.theme.includes(pin.topic.trim());
     const jcodeFit = !rule.jcode || pin.jcode;
     const contentFit =
         !rule.keywords.length ||

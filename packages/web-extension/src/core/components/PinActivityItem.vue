@@ -127,7 +127,7 @@ const activityRule = computed(() => {
                         activityRule.topic.text
                     }}#</a>
                 </div>
-                <div v-if="activityRule.theme">
+                <div v-if="activityRule.theme.length">
                     圈子：
                     <div :class="[
                         'gij-rounded-full gij-text-xs gij-p-[2px] gij-px-2 gij-inline-block',
