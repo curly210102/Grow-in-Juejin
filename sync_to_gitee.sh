@@ -6,14 +6,14 @@ branch=${1:-master}
 # 读取环境变量中的GITEE_ACCESS_TOKEN赋值给access_token
 access_token=$GITEE_ACCESS_TOKEN
 
-function sync_file {
+sync_file {
     path=$1
 
     # Get the operating system name
     os=$(uname -s)
 
     # Set the base64 command line argument based on the operating system
-    if [[ "$os" == "Darwin" ]]; then
+    if [ "$os" == "Darwin" ]; then
         argument="-b 0"
     else
         argument="-w 0"
