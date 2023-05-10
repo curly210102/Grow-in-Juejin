@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 })
 
 chrome.runtime.onInstalled.addListener(function (details) {
-    if (details.reason == "update" && (details.previousVersion && details.previousVersion < "0.4.1")) {
+    if (details.reason == "update" && (details.previousVersion && details.previousVersion < "0.5.0")) {
         chrome.storage.local.clear();
     }
 });
