@@ -233,8 +233,11 @@ def parsePinActivityRuleList(records=[]):
             "subLink": ""
         }
         fields = record["fields"]
-        ruleMap["topic"] = fields.get("话题") or ""
-        ruleMap["theme"] = fields.get("圈子") or ""
+        topic = fields.get("话题")
+        if (isLink(topic)):
+            topic["text"] = topic["text"].strip("#")
+        ruleMap["topic"] = topic or None
+        ruleMap["theme"] = fields.get("圈子") or []
         ruleMap["jcode"] = fields.get("代码") or False
         ruleMap["keywords"] = convertMultilineTextToTextArray(
             fields.get("内容关键词")) or []

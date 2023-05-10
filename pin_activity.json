@@ -1,29 +1,15 @@
 [
     {
-        "key": "2023欢喜迎兔年",
-        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/162ab10d004d48d08cc678617a43f942~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
-        "startTimeStamp": 1683129600000,
-        "title": "欢喜迎兔年",
-        "docLink": "https://juejin.cn/pin/7189184399185805373",
-        "endTimeStamp": 1684944000000,
-        "lastModifiedTime": 1683516965000,
+        "key": "工作中做得最正确的一件事",
+        "startTimeStamp": 1683475200000,
+        "title": "工作中做得最正确的一件事",
+        "docLink": "https://juejin.cn/pin/7230707102493376573",
+        "endTimeStamp": 1684080000000,
+        "lastModifiedTime": 1683613121000,
         "rewards": [
             {
                 "type": "days",
-                "rewards": [
-                    {
-                        "name": "2000矿石",
-                        "count": 1
-                    },
-                    {
-                        "name": "mini流体暴力熊",
-                        "count": 5
-                    },
-                    {
-                        "name": "宇航员小夜灯",
-                        "count": 10
-                    }
-                ]
+                "rewards": []
             },
             {
                 "type": "count",
@@ -32,11 +18,12 @@
         ],
         "rules": [
             {
-                "topic": "",
-                "theme": [
-                    "今日新鲜事"
-                ],
-                "jcode": true,
+                "topic": {
+                    "link": "https://juejin.cn/pin/topic/7230703551264079928",
+                    "text": "工作中做得最正确的一件事"
+                },
+                "theme": [],
+                "jcode": false,
                 "keywords": [],
                 "subStartTime": 0,
                 "subEndTime": 0,
@@ -68,7 +55,7 @@
                     "link": "https://juejin.cn/pin/topic/7091973867685543936",
                     "text": "我的五一计划清单"
                 },
-                "theme": "",
+                "theme": [],
                 "jcode": false,
                 "keywords": [
                     "当然是选择出去旅游\n",
@@ -110,7 +97,7 @@
         ],
         "rules": [
             {
-                "topic": "",
+                "topic": null,
                 "theme": [
                     "打工人的日常",
                     "读书会"
@@ -122,7 +109,7 @@
                 "subLink": ""
             },
             {
-                "topic": "",
+                "topic": null,
                 "theme": [
                     "理财交流圈",
                     "游戏玩家俱乐部"
@@ -134,7 +121,7 @@
                 "subLink": ""
             },
             {
-                "topic": "",
+                "topic": null,
                 "theme": [
                     "搞笑段子",
                     "今天学到了"
@@ -146,7 +133,7 @@
                 "subLink": ""
             },
             {
-                "topic": "",
+                "topic": null,
                 "theme": [
                     "舌尖上的沸点",
                     "今日新鲜事"
