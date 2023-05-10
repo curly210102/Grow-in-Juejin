@@ -1,5 +1,34 @@
 [
     {
+        "key": "人工智能作者签约季",
+        "desc": "本次主要招募深耕人工智能领域的图文创作者进行签约",
+        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/80c7ce4fd58848df8c339464c954ac89~tplv-k3u1fbpfcp-zoom-1.png",
+        "startTimeStamp": 1683648000000,
+        "title": "掘金签约季｜人工智能创作者扶持计划",
+        "docLink": "https://juejin.cn/post/7231072499218710584",
+        "category": "签约作者",
+        "endTimeStamp": 1686844800000,
+        "lastModifiedTime": 1683702466000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "categories": [
+            "人工智能"
+        ],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "800",
+        "theme": "人工智能创作扶持计划"
+    },
+    {
         "key": "2023 年 4 月更文",
         "desc": "限定：活动开始时创作等级为 Lv0-Lv4 的用户",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be871d91b1034205a9d84ae133ac9bf3~tplv-k3u1fbpfcp-zoom-1.png",
