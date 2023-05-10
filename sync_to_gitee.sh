@@ -10,7 +10,7 @@ function sync_file() {
     path=$1
 
     # 读取activity.json的内容，进行base64编码得到encodedContent
-    encodedContent=$(cat ${path} | base64 -b 0)
+    encodedContent=$(cat ${path} | base64 -w 0)
 
     # 请求https://gitee.com/api/v5/repos/{owner}/{repo}/contents/{path}?access_token={access_token}获取响应数据中的sha值
     response=$(curl -s -X GET "https://gitee.com/api/v5/repos/${owner}/${repo}/contents/${path}?access_token=${access_token}&ref=${branch}")
