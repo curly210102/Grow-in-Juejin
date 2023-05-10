@@ -17,7 +17,7 @@
         展示社区活跃度
         </td>
         <td>
-追踪创作成长轨迹
+追踪成长轨迹
         </td>
     </tr>
     <tr>
@@ -26,7 +26,7 @@
     </tr>
     <tr>
         <td>当前可参与的社区活动</td>
-        <td>追踪参与中的活动进度</td>
+        <td>追踪更文活动进度</td>
     </tr>
     <tr>
         <td><img src="./preset/features/ongoingActivity.png"/></td>
@@ -34,9 +34,17 @@
     </tr>
     <tr>
         <td>活动文章合规检测</td>
+        <td>追踪沸点活动进度</td>
     </tr>
     <tr>
         <td><img src="./preset/features/articleDetector.png"/></td>
+        <td><img src="./preset/features/pinActivity.png"/></td>
+    </tr>
+    <tr>
+        <td>偏好维度展示</td>
+    </tr>
+    <tr>
+        <td><img src="./preset/features/radar.png"/></td>
     </tr>
 </table>
 
@@ -45,7 +53,6 @@
 - [Chrome 应用商店](https://chrome.google.com/webstore/detail/grow-in-%E6%8E%98%E9%87%91/kiejcjemfigohhmeielfbifkikkiefeg/related?hl=zh-TW&authuser=0)
 - [Edge 应用商店](https://microsoftedge.microsoft.com/addons/detail/grow-in-%E6%8E%98%E9%87%91/ookedghbbdhcjopmnhfabdghmkjdoace?hl=en-US)
 - [安装包下载](https://gitee.com/curlly-brackets/grow-in-juejin-web-extension/releases/download/v0.3.0/grow-in-juejin.zip)
-
 
 ## 反馈&参与
 
