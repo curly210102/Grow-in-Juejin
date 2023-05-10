@@ -6,7 +6,7 @@ branch=${1:-master}
 # 读取环境变量中的GITEE_ACCESS_TOKEN赋值给access_token
 access_token=$GITEE_ACCESS_TOKEN
 
-function sync_file() {
+function sync_file {
     path=$1
 
     # Get the operating system name
