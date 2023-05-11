@@ -127,44 +127,24 @@ const activityRule = computed(() => {
                         activityRule.topic.text
                     }}#</a>
                 </div>
-                <div v-if="activityRule.theme.length">
+                <div v-if="activityRule.theme.length" class="gij-inline-flex gij-gap-1 gij-flex-wrap gij-items-center">
                     圈子：
-                    <div :class="[
-                        'gij-rounded-full gij-text-xs gij-p-[2px] gij-px-2 gij-inline-block',
-                        [
-                            'gij-bg-zinc-400',
-                            'gij-bg-neutral-500',
-                            'gij-bg-stone-600',
-                            'gij-bg-teal-600',
-                            'gij-bg-red-500',
-                            'gij-bg-rose-400',
-                            'gij-bg-pink-600',
-                            'gij-bg-purple-400',
-                            'gij-bg-violet-500',
-                            'gij-bg-indigo-600',
-                            'gij-bg-blue-600',
-                            'gij-bg-sky-600',
-                            'gij-bg-cyan-600',
-                            'gij-bg-emerald-600',
-                            'gij-bg-lime-600',
-                            'gij-bg-amber-400',
-                            'gij-bg-orange-600',
-                            'gij-bg-yellow-600',
-                        ][topicList.indexOf(theme)],
-                    ]" v-for="theme of activityRule.theme">
-                        <a :href="`https://juejin.cn/pin/club/${topics[theme]}`" target="_blank"
-                            class="gij-text-white hover:gij-text-slate-700" :tabindex="-1">
+                    <div class="
+                        gij-rounded-full gij-text-xs gij-p-[2px] gij-px-2  gij-bg-blue-400 hover:gij-bg-blue-500"
+                        v-for="theme of activityRule.theme ">
+                        <a :href="`https://juejin.cn/pin/club/${topics[theme]}`" target="_blank" class="!gij-text-white"
+                            :tabindex="- 1">
                             {{ theme }}
                         </a>
                     </div>
                 </div>
                 <div v-if="activityRule.jcode">需要：添加码上掘金代码</div>
                 <div v-if="activityRule.subLink">
-                    <a :href="activityRule.subLink" target="_blank" :tabindex="-1">子活动链接</a>
+                    <a :href="activityRule.subLink" target="_blank" :tabindex="- 1">子活动链接</a>
                 </div>
             </div>
             <div v-if="activityProgress.progress.length" class="gij-space-y-1 gij-pb-2">
-                <div v-for="progress in activityProgress.progress"
+                <div v-for=" progress  in  activityProgress.progress "
                     class="gij-relative gij-space-y-1 gij-text-xs gij-text-slate-500">
                     <div class="gij-flex gij-gap-2 gij-mb-1">
                         <div v-if="progress.currentLevel">

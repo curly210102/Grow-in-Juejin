@@ -56,6 +56,16 @@ def extractLinkFromMultilineText(mlText):
     return link
 
 
+def endOfTheDay(time):
+    # 判断 endTimeStamp 是否为东八区一天的起始时
+    if isinstance(time, int) is False:
+        return 0
+    elif time and time % 28800000 == 0:
+        return time + 86400000  # 加上 24 小时的时间戳
+    else:
+        return time
+
+
 def requestAccessToken():
     url = "https://open.feishu.cn/open-apis/auth/v3/tenant_access_token/internal"
     body = {
@@ -105,11 +115,9 @@ def parseActivityRecordsToList(records=[]):
         for record in records:
             obj = {mapping_dict[k]: convertMultilineTextToString(
                 v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
-            # 判断 endTimeStamp 是否为东八区一天的起始时
             if (obj.get("startTimeStamp") is None or obj.get("endTimeStamp") is None):
                 continue
-            if obj.get("endTimeStamp") and obj["endTimeStamp"] % 28800000 == 0:
-                obj["endTimeStamp"] += 86400000  # 加上 24 小时的时间戳
+            obj["endTimeStamp"] = endOfTheDay(obj["endTimeStamp"])
             obj["lastModifiedTime"] = record["last_modified_time"]
             list.append(obj)
     return list
@@ -242,7 +250,7 @@ def parsePinActivityRuleList(records=[]):
         ruleMap["keywords"] = convertMultilineTextToTextArray(
             fields.get("内容关键词")) or []
         ruleMap["subStartTime"] = fields.get("子活动起始日期") or 0
-        ruleMap["subEndTime"] = fields.get("子活动结束日期") or 0
+        ruleMap["subEndTime"] = endOfTheDay(fields.get("子活动结束日期"))
         ruleMap["subLink"] = extractLinkFromMultilineText(
             fields.get("子活动链接")) or ""
         ruleList.append(ruleMap)
