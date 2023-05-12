@@ -22,7 +22,6 @@
     {
       "matches": ["https://juejin.cn/**"],
       "js": [
-        "./node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js",
         "src/content-scripts/home/index.ts",
         "src/content-scripts/user/index.ts",
         "src/content-scripts/pins/index.ts"
