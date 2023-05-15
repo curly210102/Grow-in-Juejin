@@ -52,6 +52,41 @@
         "category": "沸点活动"
     },
     {
+        "key": "聊一聊AIGC",
+        "startTimeStamp": 1684080000000,
+        "title": "聊一聊 AIGC",
+        "docLink": "https://juejin.cn/pin/7233293144451956797",
+        "endTimeStamp": 1684684800000,
+        "lastModifiedTime": 1684149459000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/pin/topic/7208019195810807845",
+                    "text": "https://juejin.cn/pin/topic/7208019195810807845"
+                },
+                "theme": [
+                    "AIGC交流圈"
+                ],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 1684080000000,
+                "subEndTime": 1684684800000,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "工作中做得最正确的一件事",
         "startTimeStamp": 1683475200000,
         "title": "工作中做得最正确的一件事",
