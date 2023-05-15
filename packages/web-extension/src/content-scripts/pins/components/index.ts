@@ -1,6 +1,6 @@
+import '@webcomponents/webcomponentsjs/webcomponents-bundle'
 import { defineCustomElement } from 'vue'
 import ClientPinActivities from './ClientPinActivities.ce.vue'
-import '@webcomponents/webcomponentsjs/webcomponents-bundle'
 
 const CustomPinActivities = defineCustomElement(ClientPinActivities)
 

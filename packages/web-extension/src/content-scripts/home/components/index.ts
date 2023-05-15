@@ -1,6 +1,6 @@
+import '@webcomponents/webcomponentsjs/webcomponents-bundle'
 import { defineCustomElement } from 'vue'
 import ClientActivityFloating from './ClientActivityFloating.ce.vue'
-import '@webcomponents/webcomponentsjs/webcomponents-bundle'
 
 const CustomActivityFloating = defineCustomElement(ClientActivityFloating)
 

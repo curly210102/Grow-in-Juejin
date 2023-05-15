@@ -3,7 +3,6 @@ import { getCurrentUserId } from "../utils/getInformation";
 import onRouteChange from "../utils/onRouteChange";
 import { CustomJoinedArticleActivity, CustomUserTagRadar, CustomUserTrace, register } from "./components";
 import { initUserArticleList } from "@/core/clientRequests/initUserArticles";
-import '@webcomponents/webcomponentsjs/webcomponents-bundle'
 
 register();
 main();

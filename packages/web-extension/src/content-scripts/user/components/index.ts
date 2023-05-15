@@ -1,7 +1,9 @@
+import '@webcomponents/webcomponentsjs/webcomponents-bundle'
 import { defineCustomElement } from 'vue'
 import ClientJoinedArticleActivity from './ClientJoinedArticleActivity.ce.vue'
 import ClientUserTrace from './ClientUserTrace.ce.vue'
 import ClientTagRadar from './ClientTagRadar.ce.vue'
+
 
 const CustomJoinedArticleActivity = defineCustomElement(ClientJoinedArticleActivity)
 const CustomUserTrace = defineCustomElement(ClientUserTrace)
