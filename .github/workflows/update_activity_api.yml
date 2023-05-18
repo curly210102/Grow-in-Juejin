@@ -49,24 +49,24 @@ jobs:
           cat topics.json
       - name: Install jq for Bash
         run: sudo apt-get update && sudo apt-get install -y jq
-      - name: Update Gitee File on main branch
-        if: github.ref == 'refs/heads/main'
+      - name: Update Gitee File
         env:
           GITEE_ACCESS_TOKEN: ${{ secrets.GITEE_ACCESS_TOKEN }}
-        run: sh ./sync_to_gitee.sh
-        shell: bash
-      - name: Update Gitee File on other branch
-        if: github.ref != 'refs/heads/main'
-        env:
-          GITEE_ACCESS_TOKEN: ${{ secrets.GITEE_ACCESS_TOKEN }}
-        run: sh ./sync_to_gitee.sh dev
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          git checkout $BRANCH_NAME
+          if [[ $BRANCH_NAME == "main" ]]; then
+            sh ./sync_to_gitee.sh
+          else
+            sh ./sync_to_gitee.sh $BRANCH_NAME
+          fi
         shell: bash
       - name: Commit and push if changed
         run: |-
           git diff
           git config --global user.email "curly230304@163.com"
           git config --global user.name "curly_bot"
-          git pull
+          git pull origin $BRANCH_NAME
           git add -A
           git commit -m "Update activity.json" || exit 0
-          git push
+          git push origin $BRANCH_NAME
