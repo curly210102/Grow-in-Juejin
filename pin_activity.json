@@ -118,41 +118,5 @@
             }
         ],
         "category": "沸点活动"
-    },
-    {
-        "key": "2023沸点-我的五一计划",
-        "startTimeStamp": 1682265600000,
-        "title": "我的五一计划清单",
-        "docLink": "https://juejin.cn/pin/7225525540248289338",
-        "endTimeStamp": 1683129600000,
-        "lastModifiedTime": 1682565887000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "rules": [
-            {
-                "topic": {
-                    "link": "https://juejin.cn/pin/topic/7091973867685543936",
-                    "text": "我的五一计划清单"
-                },
-                "theme": [],
-                "jcode": false,
-                "keywords": [
-                    "当然是选择出去旅游\n",
-                    "不出门旅游"
-                ],
-                "subStartTime": 0,
-                "subEndTime": 0,
-                "subLink": ""
-            }
-        ],
-        "category": "沸点活动"
     }
 ]
