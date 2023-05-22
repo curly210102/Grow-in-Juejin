@@ -52,6 +52,41 @@
         "category": "沸点活动"
     },
     {
+        "key": "人工智能迷惑行为大赏",
+        "startTimeStamp": 1684684800000,
+        "title": "人工智能迷惑行为大赏",
+        "docLink": "https://juejin.cn/pin/7235906879623348284",
+        "endTimeStamp": 1685289600000,
+        "lastModifiedTime": 1684748988000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/pin/topic/7235917193392128057",
+                    "text": "人工智能迷惑行为大赏"
+                },
+                "theme": [
+                    "AIGC交流圈"
+                ],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 1684684800000,
+                "subEndTime": 1685289600000,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "聊一聊AIGC",
         "startTimeStamp": 1684080000000,
         "title": "聊一聊 AIGC",
