@@ -2,7 +2,7 @@
 import { Ref, computed, inject, ref, toRefs } from "vue";
 import { IPinActivityRule, IPin, IPinActivity } from "../types";
 import PinActivityItem from "./PinActivityItem.vue";
-import { format } from "../utils/date";
+import { format, getCurrent } from "../utils/date";
 import { pinListInjectionKey } from "../utils/injectionKeys";
 
 const props = defineProps<{
@@ -13,11 +13,21 @@ const { activities } = toRefs(props);
 
 
 const pinActivities = computed(() => {
+    const today = getCurrent();
     return activities.value
         .sort(
-            (a1, a2) => a2.startTimeStamp - a1.startTimeStamp
+            (a1, a2) => {
+                if (a1.endTimeStamp < today) {
+                    return a2.endTimeStamp < today ? a2.endTimeStamp - a1.endTimeStamp : 1;
+                }
+                if (a1.startTimeStamp > today) {
+                    return a2.startTimeStamp > today ? a2.startTimeStamp - a1.startTimeStamp : 1;
+                }
+                return a2.startTimeStamp - a1.startTimeStamp
+            }
         )
 });
+
 
 const pinList = inject<Ref<IPin[]>>(pinListInjectionKey, ref([]))
 

@@ -74,3 +74,6 @@ export const nextMonth = (time: number) => {
 export const isStartOfDay = (time: number) => {
     return startOfDate(time).valueOf() === time;
 }
+export const diffOfDate = (from: number, to: number) => {
+    return (startOfDate(to) - startOfDate(from)) / MS_OF_DAY
+}
