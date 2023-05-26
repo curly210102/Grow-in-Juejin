@@ -58,7 +58,7 @@ jobs:
           if [[ $BRANCH_NAME == "main" ]]; then
             sh ./sync_to_gitee.sh
           else
-            sh ./sync_to_gitee.sh $BRANCH_NAME
+            sh ./sync_to_gitee.sh dev
           fi
         shell: bash
       - name: Commit and push if changed
