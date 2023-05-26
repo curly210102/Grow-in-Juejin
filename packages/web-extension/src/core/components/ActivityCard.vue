@@ -53,7 +53,7 @@ function calculateCountdown() {
 }
 </script>
 <template>
-    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-white">
+    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-white gij-group">
         <div>
             <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-2">
                 <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis"><a
@@ -61,7 +61,7 @@ function calculateCountdown() {
                             activity.title
                         }}</a>
                 </div>
-                <div class="gij-text-sm gij-font-semibold gij-text-slate-500 gij-group"
+                <div class="gij-text-sm gij-font-semibold gij-text-slate-500"
                     v-if="activity.startTimeStamp && activity.endTimeStamp">
                     <span class="group-hover:gij-hidden">{{ format(activity.startTimeStamp, "MM/DD") }} - {{
                         format(isStartOfDay(activity.endTimeStamp) ?
@@ -89,7 +89,7 @@ function calculateCountdown() {
             <div class="gij-space-y-3">
                 <div v-for="reward in activity.rewards" class="gij-space-y-1">
                     <Progress :steps="calculateProgress(reward)">
-                        <div class="gij-flex gij-gap-2 gij-px-1 gij-group gij-cursor-pointer">
+                        <div class="gij-flex gij-gap-2 gij-px-1 gij-cursor-pointer">
                             <div
                                 :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-slate/90" : "gij-text-white/90"]'>
                                 {{ Math.floor(calculateProgress(reward) *
