@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, inject, ref, toRef } from "vue";
 import { IPinActivity } from "../types";
-import { format, isStartOfDay, MS_OF_DAY } from "../utils/date";
+import { diffOfDate, format, getCurrent, isStartOfDay, MS_OF_DAY, startOfDate } from "../utils/date";
 import {
     FireIcon,
     NoSymbolIcon,
@@ -25,7 +25,6 @@ const activityStat = toRef(props, "activityStat");
 const { activity } = props;
 
 const topics = inject<IPinTopicInjectContentType>(pinTopicInjectionKey, ref({}));
-const topicList = computed(() => Object.keys(topics.value));
 
 enum ActivityStatus {
     "COMPLETE",
@@ -89,6 +88,16 @@ const activityRule = computed(() => {
         (rule) => rule.subStartTime <= Date.now() && rule.subEndTime >= Date.now()
     );
 });
+function calculateCountdown() {
+    const today = startOfDate(getCurrent());
+    if (today < activity.startTimeStamp) {
+        return `距离开始还有${diffOfDate(today, activity.startTimeStamp)}天`
+    } else if (today < activity.endTimeStamp) {
+        return `距离结束还有${diffOfDate(today, activity.endTimeStamp)}天`
+    } else {
+        return '已结束'
+    }
+}
 </script>
 <template>
     <div>
@@ -107,17 +116,20 @@ const activityRule = computed(() => {
                 <div class="gij-flex-1 gij-text-sm gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis">
                     {{ activity.title }}
                 </div>
-                <div class="gij-text-xs gij-font-semibold gij-text-slate-500"
+                <div class="gij-text-xs gij-font-semibold gij-text-slate-500 gij-group"
                     v-if="activity.startTimeStamp && activity.endTimeStamp">
-                    {{ format(activity.startTimeStamp, "MM/DD") }} -
-                    {{
-                        format(
-                            isStartOfDay(activity.endTimeStamp)
-                                ? activity.endTimeStamp - MS_OF_DAY
-                                : activity.endTimeStamp,
-                            "MM/DD"
-                        )
-                    }}
+                    <span class="group-hover:gij-hidden">{{ format(activity.startTimeStamp, "MM/DD") }} -
+                        {{
+                            format(
+                                isStartOfDay(activity.endTimeStamp)
+                                    ? activity.endTimeStamp - MS_OF_DAY
+                                    : activity.endTimeStamp,
+                                "MM/DD"
+                            )
+                        }}</span>
+                    <span class="group-hover:gij-block gij-hidden">
+                        {{ calculateCountdown() }}
+                    </span>
                 </div>
             </div>
             <div v-if="activityRule" class="gij-text-xs gij-text-slate-400 gij-space-y-2">

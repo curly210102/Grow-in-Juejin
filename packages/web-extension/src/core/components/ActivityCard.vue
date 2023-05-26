@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import Progress from '../base-components/Progress.vue';
 import { IArticleActivity, TypeInvalidSummary } from '../types'
-import { format, isStartOfDay, MS_OF_DAY } from "../utils/date";
+import { getCurrent, format, isStartOfDay, MS_OF_DAY, startOfDate, diffOfDate } from "../utils/date";
 import ActivityDetectResultModal from "./ActivityDetectResultModal.vue";
 
 export type ActivityStatus = Pick<IArticleActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title"> & {
@@ -40,6 +40,17 @@ function openDetectResultModal() {
 function calculateProgress(reward: ActivityStatus["rewards"][0]) {
     return Math.min(1, reward.count / Math.max(1, (reward.nextTarget ?? reward.count)))
 }
+
+function calculateCountdown() {
+    const today = startOfDate(getCurrent());
+    if (today < activity.startTimeStamp) {
+        return `距离开始还有${diffOfDate(today, activity.startTimeStamp)}天`
+    } else if (today < activity.endTimeStamp) {
+        return `距离结束还有${diffOfDate(today, activity.endTimeStamp)}天`
+    } else {
+        return '已结束'
+    }
+}
 </script>
 <template>
     <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-white">
@@ -50,10 +61,17 @@ function calculateProgress(reward: ActivityStatus["rewards"][0]) {
                             activity.title
                         }}</a>
                 </div>
-                <div class="gij-text-sm gij-font-semibold gij-text-slate-500"
+                <div class="gij-text-sm gij-font-semibold gij-text-slate-500 gij-group"
                     v-if="activity.startTimeStamp && activity.endTimeStamp">
-                    {{ format(activity.startTimeStamp, "MM/DD") }} - {{ format(isStartOfDay(activity.endTimeStamp) ?
-                        activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</div>
+                    <span class="group-hover:gij-hidden">{{ format(activity.startTimeStamp, "MM/DD") }} - {{
+                        format(isStartOfDay(activity.endTimeStamp) ?
+                            activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</span>
+                    <span class="gij-hidden group-hover:gij-block">
+                        {{
+                            calculateCountdown()
+                        }}
+                    </span>
+                </div>
             </div>
             <div class="gij-text-xs gij-text-slate-400 gij-mt-2 gij-whitespace-pre-wrap">
                 {{ activity.desc }}
@@ -71,7 +89,7 @@ function calculateProgress(reward: ActivityStatus["rewards"][0]) {
             <div class="gij-space-y-3">
                 <div v-for="reward in activity.rewards" class="gij-space-y-1">
                     <Progress :steps="calculateProgress(reward)">
-                        <div class="gij-flex gij-gap-2 gij-px-1 gij-group">
+                        <div class="gij-flex gij-gap-2 gij-px-1 gij-group gij-cursor-pointer">
                             <div
                                 :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-slate/90" : "gij-text-white/90"]'>
                                 {{ Math.floor(calculateProgress(reward) *

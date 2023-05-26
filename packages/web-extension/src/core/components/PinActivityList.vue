@@ -19,6 +19,7 @@ const pinActivities = computed(() => {
         )
 });
 
+
 const pinList = inject<Ref<IPin[]>>(pinListInjectionKey, ref([]))
 
 function isFitActivityRule(pin: IPin, rule?: IPinActivityRule) {
