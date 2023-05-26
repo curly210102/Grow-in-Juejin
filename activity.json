@@ -1,5 +1,50 @@
 [
     {
+        "key": "2023年6月更文",
+        "desc": "两个赛道：闯关赛道和博客搬家赛道",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76030d22539141078e33c0d1bbad4c82~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1685030400000,
+        "title": "日新计划｜6月更文挑战",
+        "docLink": "https://juejin.cn/post/7237369525969813541",
+        "category": "更文活动",
+        "endTimeStamp": 1688140800000,
+        "lastModifiedTime": 1685090635000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": [
+                    {
+                        "name": "第一关",
+                        "count": 7
+                    },
+                    {
+                        "name": "第二关",
+                        "count": 20
+                    },
+                    {
+                        "name": "第三关",
+                        "count": 30
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "博客搬家奖",
+                        "count": 35
+                    }
+                ]
+            }
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "500",
+        "theme": "6月日新计划更文活动"
+    },
+    {
         "key": "人工智能作者签约季",
         "desc": "本次主要招募深耕人工智能领域的图文创作者进行签约",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/80c7ce4fd58848df8c339464c954ac89~tplv-k3u1fbpfcp-zoom-1.png",
