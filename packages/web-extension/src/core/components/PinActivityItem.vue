@@ -171,7 +171,7 @@ function calculateCountdown() {
                     )
                         " type="simple">
                     </Progress>
-                    <div class="gij-absolute gij-border gij-border-blue-500 gij-bg-sky-50 gij-text-blue-800 gij-shadow gij-p-1 -gij-translate-x-1/2 gij-rounded-full gij-hidden group-hover:gij-block"
+                    <div class="gij-absolute gij-border gij-border-blue-500 gij-bg-sky-50 gij-text-blue-800 gij-shadow gij-p-1  gij-rounded-full gij-hidden group-hover:gij-block gij-whitespace-nowrap"
                         :style="{
                             left: `${Math.min(
                                 1,
@@ -179,6 +179,7 @@ function calculateCountdown() {
                                 Math.max(1, progress.nextCount ?? progress.count)
                             ) * 100
                                 }%`,
+                            transform: 'translateX(-50%)'
                         }">
                         {{ progress.count }}/{{ progress.nextCount ?? progress.count }}
                     </div>
