@@ -11,6 +11,7 @@ import { time, use } from "echarts/core";
 import { articleListInjectionKey, IArticleListInjectContentType } from "../utils/injectionKeys";
 import { CanvasRenderer } from "echarts/renderers";
 import { GraphicComponent, GridComponent, LegendComponent, TitleComponent, TooltipComponent } from "echarts/components";
+import useIsDarkMode from "../composables/useIsDarkMode";
 
 use([
     CanvasRenderer,
@@ -61,6 +62,8 @@ watch(unit, (value, oldValue) => {
         }
     }
 })
+
+const isDarkMode = useIsDarkMode();
 
 const data = computed(() => {
     const record: Record<number, number> = {};
@@ -203,15 +206,15 @@ const option = computed<Option>(() => ({
                     colorStops: [
                         {
                             offset: 0,
-                            color: colors.blue[500]
+                            color: isDarkMode.value ? colors.blue[900] : colors.blue[500]
                         },
                         {
                             offset: 0.8,
-                            color: colors.blue[200]
+                            color: isDarkMode.value ? colors.blue[700] : colors.blue[200]
                         },
                         {
                             offset: 1,
-                            color: colors.gray[100]
+                            color: isDarkMode.value ? colors.blue[500] : colors.gray[100]
                         }
                     ],
                     global: false // default is false

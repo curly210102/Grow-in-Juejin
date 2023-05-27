@@ -150,7 +150,7 @@ const echartsRange = computed(() => {
             <Select :items="rangeItems" v-model="selected" />
         </div>
     </SectionHeader>
-    <div class="gij-bg-white gij-shadow-card gij-rounded-lg">
+    <div class="gij-bg-layer-bg gij-shadow-card gij-rounded-lg">
         <div class="gij-p-3">
             <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index"
                 :loading="syncing" />

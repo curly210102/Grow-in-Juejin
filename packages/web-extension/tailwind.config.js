@@ -26,6 +26,7 @@ module.exports = {
       opacity: {
         mask: "var(--gij-opacity-mask)",
         "layer-hover": "var(--gij-opacity-layer-hover)",
+        widget: "var(--gij-opacity-widget)",
       },
     },
   },
