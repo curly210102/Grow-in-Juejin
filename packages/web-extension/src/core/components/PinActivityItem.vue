@@ -101,7 +101,7 @@ function calculateCountdown() {
 </script>
 <template>
     <div>
-        <a class="gij-px-2 gij-py-3 hover:gij-bg-blue-50/50 gij-rounded gij-space-y-4 gij-group gij-cursor-pointer gij-block"
+        <a class="gij-px-2 gij-py-3 hover:gij-bg-blue-50 hover:gij-bg-opacity-layer-hover gij-rounded gij-space-y-4 gij-group gij-cursor-pointer gij-block"
             :tabindex="-1" :href="activity.docLink" target="_blank">
             <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-1">
                 <CheckCircleIcon v-if="activityProgress.status === ActivityStatus.COMPLETE"
@@ -113,7 +113,8 @@ function calculateCountdown() {
                     v-else-if="activityProgress.status === ActivityStatus.IN_PROGRESS">
                 </FireIcon>
                 <ArrowRightCircleIcon v-else class="gij-w-5 gij-h-5 gij-text-slate-400"></ArrowRightCircleIcon>
-                <div class="gij-flex-1 gij-text-sm gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis">
+                <div
+                    class="gij-flex-1 gij-text-sm gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis gij-text-main-text/90 group-hover:gij-text-primary">
                     {{ activity.title }}
                 </div>
                 <div class="gij-text-xs gij-font-semibold gij-text-slate-500 gij-group"
@@ -142,7 +143,7 @@ function calculateCountdown() {
                 <div v-if="activityRule.theme.length" class="gij-inline-flex gij-gap-1 gij-flex-wrap gij-items-center">
                     圈子：
                     <div class="
-                        gij-rounded-full gij-text-xs gij-p-[2px] gij-px-2  gij-bg-blue-400 hover:gij-bg-blue-500"
+                        gij-rounded-full gij-text-xs gij-p-[2px] gij-px-2  gij-bg-blue-500/90 hover:gij-bg-blue-500"
                         v-for="theme of activityRule.theme ">
                         <a :href="`https://juejin.cn/pin/club/${topics[theme]}`" target="_blank" class="!gij-text-white"
                             :tabindex="- 1">

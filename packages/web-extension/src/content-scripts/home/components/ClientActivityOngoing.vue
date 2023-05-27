@@ -31,7 +31,7 @@ watch(open, (opened) => {
     <Modal :show="open" :customPanel="true" @close="open = false" panel-class="!gij-max-w-[712px]">
         <ActivityOngoing :hide-title="true" :activities="activities" />
     </Modal>
-    <div :class="['gij-bg-white gij-px-3 gij-py-3 gij-pr-7 gij-font-medium gij-rounded-l-[4px] gij-border gij-border-l-2 gij-border-r-0 gij-cursor-pointer gij-box-border hover:gij-text-[#1e80ff] hover:gij-translate-x-0 gij-transition-transform gij-border-l-[#7cb8ff]', open ? 'gij-translate-x-0 gij-text-[#1e80ff]' : 'gij-translate-x-2 gij-text-slate-500', $attrs.class]"
+    <div :class="['gij-bg-layer-bg gij-px-3 gij-py-3 gij-pr-7 gij-font-medium gij-rounded-l-[4px] gij-border-l-2 gij-border-r-0 gij-cursor-pointer gij-box-border hover:gij-translate-x-0 gij-transition-transform gij-border-l-[#7cb8ff]', open ? 'gij-translate-x-0 gij-text-main-text' : 'gij-translate-x-2 gij-text-main-text/80', $attrs.class]"
         style="writing-mode:vertical-lr;text-orientation:upright;letter-spacing:0.2em;box-shadow:0 2px 8px rgba(50,50,50,.04);"
         @click="open = true" v-if="activities.length">
         <div class="gij-relative">

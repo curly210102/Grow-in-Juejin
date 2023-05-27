@@ -34,8 +34,9 @@ const joinedActivities = useComputeJoinedArticleActivities(activities, articleLi
         <PinActivityList :activities="pinActivities" class="gij-card"></PinActivityList>
     </div>
     <div v-else
-        class="gij-border gij-rounded-md gij-border-gray-200/80 gij-bg-gray-100/50 gij-text-slate-400 gij-text-sm gij-text-center gij-p-4">
-        <a href="https://github.com/curly210102/grow-in-juejin/issues/new" target="_blank" class="gij-block">
+        class="gij-border gij-rounded-md gij-border-gray-1-2 gij-bg-layer-bg/80 gij-text-sm gij-text-center gij-p-4">
+        <a href="https://github.com/curly210102/grow-in-juejin/issues/new" target="_blank"
+            class="gij-block gij-text-primary hover:gij-text-primary-hover focus:gij-outline-none">
             未检测到正在参与的活动，如有差异请提交
             Issue
         </a>
