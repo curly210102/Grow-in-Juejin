@@ -6,7 +6,7 @@
           :href="`https://juejin.cn/post/${id}`" target="_blank">{{
             title
           }}</a>
-        <ul class="gij-space-y-1">
+        <ul class="gij-space-y-1 gij-text-main-text/75">
           <ol v-for="invalidStatus in status">
             {{ InvalidStatus2Text[invalidStatus] }}
           </ol>

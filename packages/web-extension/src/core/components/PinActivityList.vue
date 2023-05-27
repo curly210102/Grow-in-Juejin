@@ -101,9 +101,9 @@ const activityStats = computed(() => {
 
 </script>
 <template>
-    <div class="gij-bg-white">
+    <div class="gij-bg-layer-bg">
         <PinActivityItem v-for="activity of pinActivities" :activity="activity"
-            class="gij-py-2 first:gij-pt-0 last:gij-pb-0 gij-border-0 gij-border-t first:gij-border-t-0 gij-border-gray-100 gij-border-solid"
+            class="gij-py-2 first:gij-pt-0 last:gij-pb-0 gij-border-0 gij-border-t first:gij-border-t-0 gij-border-gray-1-2 gij-border-solid"
             :activityStat="activityStats[activity.key
             ]"></PinActivityItem>
     </div>

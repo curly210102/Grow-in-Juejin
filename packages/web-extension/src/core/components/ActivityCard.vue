@@ -53,15 +53,16 @@ function calculateCountdown() {
 }
 </script>
 <template>
-    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-white gij-group">
+    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-layer-bg gij-group">
         <div>
             <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-2">
                 <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-nowrap gij-text-ellipsis"><a
-                        :href="activity.docLink" target="_blank" :title="activity.title" :tabindex="-1">{{
+                        :href="activity.docLink" target="_blank" :title="activity.title" :tabindex="-1"
+                        class="gij-text-main-text/90 group-hover:gij-text-primary">{{
                             activity.title
                         }}</a>
                 </div>
-                <div class="gij-text-sm gij-font-semibold gij-text-slate-500"
+                <div class="gij-text-sm gij-font-semibold gij-text-main-text/80"
                     v-if="activity.startTimeStamp && activity.endTimeStamp">
                     <span class="group-hover:gij-hidden">{{ format(activity.startTimeStamp, "MM/DD") }} - {{
                         format(isStartOfDay(activity.endTimeStamp) ?
@@ -73,7 +74,7 @@ function calculateCountdown() {
                     </span>
                 </div>
             </div>
-            <div class="gij-text-xs gij-text-slate-400 gij-mt-2 gij-whitespace-pre-wrap">
+            <div class="gij-text-xs gij-text-main-text/75 gij-mt-2 gij-whitespace-pre-wrap">
                 {{ activity.desc }}
             </div>
         </div>
@@ -82,8 +83,8 @@ function calculateCountdown() {
             <div class="gij-flex gij-items-center gij-mb-3">
                 <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
                     class="gij-flex-1 gij-text-center gij-text-3xl gij-font-bold gij-font-mono">
-                    <span>{{ count }}</span>
-                    <span class="gij-text-slate-400 gij-text-xs">{{ unit }}</span>
+                    <span class="gij-text-main-text">{{ count }}</span>{{ " " }}
+                    <span class="gij-text-main-text/75 gij-text-xs">{{ unit }}</span>
                 </div>
             </div>
             <div class="gij-space-y-3">
@@ -91,18 +92,18 @@ function calculateCountdown() {
                     <Progress :steps="calculateProgress(reward)">
                         <div class="gij-flex gij-gap-2 gij-px-1 gij-cursor-pointer">
                             <div
-                                :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-slate/90" : "gij-text-white/90"]'>
+                                :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-main-text/90" : "gij-text-white/90"]'>
                                 {{ Math.floor(calculateProgress(reward) *
                                     100)
                                 }}%
                             </div>
-                            <div v-if="reward.currentLevel" class="gij-text-white/90 group-hover:gij-hidden">
+                            <div v-if="reward.currentLevel" class="gij-text-main-text/90 group-hover:gij-hidden">
                                 {{ reward.currentLevel }} 🎉
                             </div>
-                            <span class="gij-text-slate-800/60 gij-ml-auto">🎯 {{ reward.nextLevel }}</span>
+                            <span class="gij-text-main-text/60 gij-ml-auto">🎯 {{ reward.nextLevel }}</span>
                         </div>
                     </Progress>
-                    <div class="gij-text-slate-400 gij-font-light gij-text-right gij-text-xs gij-px-2"
+                    <div class="gij-text-main-text/60 gij-font-light gij-text-right gij-text-xs gij-px-2"
                         v-if="reward.nextTarget">
                         {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `${reward.categories ?
                             reward.categories.join("/") + "领域" : ""}累计投稿 ${reward.nextTarget} 篇` }}
@@ -114,17 +115,18 @@ function calculateCountdown() {
             <div class="gij-flex gij-gap-2 gij-flex-wrap gij-justify-between">
                 <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
                     class="gij-text-center gij-overflow-hidden">
-                    <div class="gij-text-xl gij-opacity-90 gij-font-mono gij- gij-truncate gij-text-ellipsis" :alt="count">
+                    <div class="gij-text-xl gij-text-main-text gij-font-mono gij- gij-truncate gij-text-ellipsis"
+                        :alt="count">
                         {{ count }}
                     </div>
-                    <div class="gij-text-slate-400 gij-text-sm gij-whitespace-nowrap">
+                    <div class="gij-text-main-text/75 gij-text-sm gij-whitespace-nowrap">
                         {{ label }}
                     </div>
                 </div>
             </div>
-            <div v-if="activity.invalid.length" class="gij-text-slate-400 gij-text-xs gij-mt-2">
+            <div v-if="activity.invalid.length" class="gij-text-main-text/75 gij-text-xs gij-mt-2">
                 ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a
-                    class="gij-text-blue-400 gij-cursor-pointer hover:gij-text-blue-500"
+                    class="gij-text-primary gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active"
                     @click="openDetectResultModal">查看</a>
             </div>
         </div>

@@ -28,7 +28,7 @@ const { title } = defineProps<{
             <TransitionChild as="template" enter="gij-duration-300 gij-ease-out" enter-from="gij-opacity-0"
                 enter-to="gij-opacity-100" leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100"
                 leave-to="opacity-0">
-                <div class="gij-fixed gij-inset-0 gij-bg-black gij-bg-opacity-25" />
+                <div class="gij-fixed gij-inset-0 gij-bg-black gij-bg-opacity-mask" />
             </TransitionChild>
 
             <div class="gij-fixed gij-inset-0 gij-overflow-y-auto">
@@ -41,17 +41,18 @@ const { title } = defineProps<{
                             <slot></slot>
                         </DialogPanel>
                         <DialogPanel v-else
-                            :class="['gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-white gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative gij-max-h-[calc(100vh-2rem)] gij-overflow-y-auto', panelClass]">
+                            :class="['gij-transform gij-overflow-hidden gij-rounded-2xl gij-bg-layer-bg gij-p-6 gij-text-left gij-align-middle gij-shadow-xl gij-transition-all gij-w-[560px] gij-max-w-full gij-relative gij-max-h-[calc(100vh-2rem)] gij-overflow-y-auto', panelClass]">
                             <XCircleIcon
-                                class="gij-h-6 gij-w-6 gij-text-slate-300 hover:gij-text-slate-400 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
+                                class="gij-h-6 gij-w-6 gij-text-main-text/70 hover:gij-text-main-text/75 gij-absolute gij-right-2 gij-top-2 gij-cursor-pointer"
                                 @click="emit('close')" />
 
                             <DialogTitle as="h3"
-                                class="gij-text-lg gij-font-medium gij-leading-6 gij-text-slate-800 gij-mb-2" v-if="title">
+                                class="gij-text-lg gij-font-medium gij-leading-6 gij-text-main-text/80 gij-mb-2"
+                                v-if="title">
                                 {{ title }}
                             </DialogTitle>
 
-                            <DialogDescription v-if="description" class="gij-text-sm gij-text-slate-400 gij-mb-2">
+                            <DialogDescription v-if="description" class="gij-text-sm gij-text-main-text/75 gij-mb-2">
                                 {{ description }}
                             </DialogDescription>
                             <slot></slot>
