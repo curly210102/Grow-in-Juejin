@@ -5,6 +5,7 @@ import { EChartsOption, color } from 'echarts';
 import { RadarSeriesOption } from 'echarts/charts';
 import VChart from "vue-echarts";
 import colors from 'tailwindcss/colors';
+import useIsDarkMode from '../composables/useIsDarkMode';
 
 const articleList = inject<IArticleListInjectContentType>
     (articleListInjectionKey, ref([]))
@@ -73,7 +74,7 @@ const tags = computed(() => {
     }
 })
 
-
+const isDarkMode = useIsDarkMode();
 const option = computed<Option>(() => {
     const indicator = tags.value.labels;
     const tagValues = tags.value.values;
@@ -84,7 +85,10 @@ const option = computed<Option>(() => {
             position: ['50%', '50%'],
             textStyle: {
                 fontSize: 10,
+                color: isDarkMode.value ? colors.white : colors.slate[600]
             },
+            backgroundColor: isDarkMode.value ? colors.zinc[900] : colors.white,
+            borderColor: isDarkMode.value ? colors.gray[700] : colors.gray[200],
             formatter() {
                 return indicator.filter(({ name }) => !!name).map(({ name }, i) => `${name}: ${Math.min(100, tagValues[i])}`).join("<br/>");
             }
@@ -104,6 +108,23 @@ const option = computed<Option>(() => {
                     }
                 }
             },
+            splitArea: isDarkMode.value ? {
+                areaStyle: {
+                    color: [colors.zinc[700], colors.zinc[800]],
+                    shadowColor: 'rgba(0, 0, 0, 0.2)',
+                    shadowBlur: 10
+                }
+            } : {},
+            axisLine: isDarkMode.value ? {
+                lineStyle: {
+                    color: colors.black
+                }
+            } : {},
+            splitLine: isDarkMode.value ? {
+                lineStyle: {
+                    color: colors.black
+                }
+            } : {},
             indicator,
             splitNumber: 8,
             axisLabel: {
@@ -153,10 +174,10 @@ const option = computed<Option>(() => {
                     color: colors.blue[300]
                 },
                 lineStyle: {
-                    color: colors.blue[300]
+                    color: isDarkMode.value ? colors.blue[500] : colors.blue[300]
                 },
                 itemStyle: {
-                    color: colors.blue[500]
+                    color: isDarkMode.value ? colors.blue[700] : colors.blue[500]
                 },
                 data: [
                     {

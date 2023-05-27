@@ -10,7 +10,7 @@
   /* ... */
   .juejin-card {
     border-radius: 2px;
-    background: #fff;
+    background: rgb(var(--gij-color-layer-bg));
     box-shadow: 0 1px 2px 0 rgb(0 0 0 / 5%);
   }
 }
@@ -27,6 +27,7 @@
   --gij-gray-1-2: rgba(228, 230, 235, 0.5);
   --gij-opacity-layer-hover: 0.65;
   --gij-opacity-mask: 0.25;
+  --gij-opacity-widget: 0.1;
 }
 
 :root [data-theme="dark"] {
@@ -41,4 +42,5 @@
   --gij-gray-1-2: rgb(255 255 255 / 10%);
   --gij-opacity-layer-hover: 0.05;
   --gij-opacity-mask: 0.65;
+  --gij-opacity-widget: 0.2;
 }

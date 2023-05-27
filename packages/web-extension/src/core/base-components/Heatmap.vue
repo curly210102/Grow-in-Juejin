@@ -13,6 +13,7 @@ import { computed, ref, toRef, watch } from "vue";
 import VChart from "vue-echarts";
 import { ECharts } from "echarts/core";
 import { daysOfMonth, getDate } from "../utils/date";
+import useIsDarkMode from "../composables/useIsDarkMode";
 
 type Option = EChartsOption & {
     series: HeatmapSeriesOption
@@ -36,6 +37,8 @@ const range = toRef(props, "range");
 const emit = defineEmits<{
     (e: "select", index: number): void
 }>()
+
+const isDarkMode = useIsDarkMode();
 
 const option = computed<Option>(() => {
     const rangeStartTime = chartTime.parse(range.value[0]);
@@ -80,7 +83,7 @@ const option = computed<Option>(() => {
             left: 'right',
             bottom: 0,
             inRange: {
-                color: [colors.slate[100], colors.blue[300], colors.blue[600]],
+                color: isDarkMode.value ? [colors.zinc[700], colors.blue[300], colors.blue[400], colors.blue[600], colors.blue[800]] : [colors.slate[100], colors.blue[300], colors.blue[600]],
             },
             controller: {
                 inRange: {
@@ -119,18 +122,19 @@ const option = computed<Option>(() => {
             cellSize: ['auto', 12],
             range: props.range,
             splitLine: {
-                show: false,
+                show: false
             },
-            itemStyle: {
+            itemStyle: isDarkMode.value ? {
+                borderWidth: 0
+            } : {
                 borderWidth: 2,
-                borderColor: "transparent",
+                borderColor: "transparent"
             },
             dayLabel: {
                 show: true,
                 nameMap: "ZH",
                 color: colors.slate[400],
                 fontSize: 10,
-
             },
             monthLabel: {
                 show: true,
@@ -160,8 +164,12 @@ const option = computed<Option>(() => {
                     borderWidth: 3
                 }
             },
-            itemStyle: {
+            itemStyle: isDarkMode.value ? {
                 borderRadius: 2,
+                borderWidth: 2,
+                borderColor: colors.black
+            } : {
+                borderRadius: 2
             },
             select: {
                 itemStyle: {

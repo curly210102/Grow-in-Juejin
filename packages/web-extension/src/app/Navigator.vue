@@ -8,7 +8,6 @@ onMounted(() => {
     }
     window.addEventListener('hashchange', onHashChange)
     onHashChange();
-
 });
 
 const { routes = [] } = defineProps<{
