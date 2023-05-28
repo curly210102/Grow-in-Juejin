@@ -28,7 +28,8 @@ const summary = computed(() => ([
       <div class="gij-py-2 gij-space-y-2">
         <div class="gij-flex gij-items-center">
           <strong class="gij-text-xl gij-tracking-wide gij-block gij-mr-2"><a
-              :href="`https://juejin.cn/user/${user.userId}`" target="_blank" class="gij-text-slate-800">{{ user.userName
+              :href="`https://juejin.cn/user/${user.userId}`" target="_blank" class="gij-text-main-text/80">{{
+                user.userName
               }}</a></strong>
           <slot name="status"></slot>
         </div>

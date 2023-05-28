@@ -31,7 +31,7 @@ watch(currentRoute, (v) => {
         <div
             class="gij-flex gij-space-x-1 gij-p-1 gij-text-center gij-rounded-xl gij-bg-blue-100/20 gij-text-xs md:gij-text-sm lg:gij-flex-col gij-shadow-inner lg:gij-p-2">
             <a v-for="({ category, path }) in routes" :href="`#${path}`"
-                :class="['gij-rounded-xl gij-px-6 gij-py-1', path === currentRoute ? 'gij-bg-white gij-shadow' : 'gij-text-slate-300 hover:gij-bg-white/[0.12] hover:gij-text-slate-400']">
+                :class="['gij-rounded-xl gij-px-6 gij-py-1', path === currentRoute ? 'gij-bg-main-bg gij-shadow' : 'gij-text-main-text/30 hover:gij-bg-gray-300 hover:gij-bg-opacity-widget hover:gij-text-main-text/50']">
                 {{ category }}
             </a>
         </div>

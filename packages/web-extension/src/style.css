@@ -4,7 +4,7 @@
   body {
     @apply gij-text-base;
     @apply gij-font-sans;
-    @apply gij-text-slate-700;
+    @apply gij-text-main-text/70;
     @apply gij-bg-main-bg;
   }
 

@@ -5,7 +5,7 @@
     @apply gij-bg-layer-bg gij-rounded-lg gij-p-3 gij-shadow-card;
   }
   .gij-describe {
-    @apply gij-text-xs gij-font-light gij-text-slate-500 sm:gij-text-sm;
+    @apply gij-text-xs gij-font-light gij-text-main-text/50 sm:gij-text-sm;
   }
   /* ... */
   .juejin-card {
@@ -28,7 +28,8 @@
   --gij-opacity-layer-hover: 0.65;
   --gij-opacity-mask: 0.25;
   --gij-opacity-widget: 0.1;
-  --gij-card-shadow: 0 0 20px rgb(95 132 255 / 15%);
+  --gij-color-card-shadow: rgb(95 132 255 / 15%);
+  --gij-color-inner-shadow: rgb(0 0 0 / 0.05);
 }
 
 :root [data-theme="dark"] {
@@ -44,5 +45,6 @@
   --gij-opacity-layer-hover: 0.05;
   --gij-opacity-mask: 0.65;
   --gij-opacity-widget: 0.2;
-  --gij-card-shadow: 0 0 20px rgb(0 0 0 / 68%);
+  --gij-color-card-shadow: rgb(0 0 0 / 68%);
+  --gij-color-inner-shadow: rgb(0 0 0 / 42%);
 }

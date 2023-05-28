@@ -9,7 +9,8 @@ module.exports = {
         "spin-slow": "spin 2s linear infinite",
       },
       boxShadow: {
-        card: "var(--gij-card-shadow)",
+        card: "rgb(0 0 0 / 0.05) var(--gij-color-card-shadow)",
+        inner: "inset 0 2px 4px 0 var(--gij-color-inner-shadow)",
       },
       colors: {
         "layer-bg": "rgb(var(--gij-color-layer-bg) / <alpha-value>)",

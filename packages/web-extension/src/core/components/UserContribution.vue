@@ -155,15 +155,15 @@ const echartsRange = computed(() => {
             <Heatmap :data="dailyContribution" :range="echartsRange" :onSelect="(index: number) => selectedIndex = index"
                 :loading="syncing" />
         </div>
-        <div class="gij-bg-gray-100 gij-border gij-border-t-0 gij-rounded-b-lg gij-shadow-inner gij-pb-5 gij-pt-4 gij-px-8"
+        <div class="gij-bg-layer-bg/50 gij-border gij-border-gray-1-2 gij-border-t-0 gij-rounded-b-lg gij-shadow-inner gij-pb-5 gij-pt-4 gij-px-8"
             v-if="dailyActionSummation && !hideSummation">
-            <p class="gij-text-sm gij-text-slate-500">
+            <p class="gij-text-sm gij-text-main-text/50">
                 {{ dailyActionSummation.dateText }}，产生 {{ dailyActionSummation.total }} 个贡献
                 <template v-if="dailyActionSummation.score">
                     ，活跃度 {{ dailyActionSummation.score }}
                 </template>
             </p>
-            <hr class="gij-divider gij-mt-2 gij-mb-3" />
+            <hr class="gij-divider gij-border-gray-1-2 gij-mt-2 gij-mb-3" />
             <div class="gij-grid gij-grid-cols-3 gij-gap-x-4 gij-gap-y-2 gij-text-sm">
                 <div>
                     🚀 发布 <strong>{{ dailyActionSummation.actions[ActionType.POST] ?? 0 }}</strong> 篇文章
