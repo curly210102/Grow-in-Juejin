@@ -24,7 +24,7 @@ const { title } = defineProps<{
 
 <template>
     <TransitionRoot appear as="template">
-        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] modal">
+        <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] modal" :initialFocus="null">
             <TransitionChild as="template" enter="gij-duration-300 gij-ease-out" enter-from="gij-opacity-0"
                 enter-to="gij-opacity-100" leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100"
                 leave-to="opacity-0">

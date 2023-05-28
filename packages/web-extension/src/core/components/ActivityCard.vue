@@ -92,7 +92,7 @@ function calculateCountdown() {
                     <Progress :steps="calculateProgress(reward)">
                         <div class="gij-flex gij-gap-2 gij-px-1 gij-cursor-pointer">
                             <div
-                                :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-main-text/90" : "gij-text-white/90"]'>
+                                :class='["gij-hidden group-hover:gij-block", calculateProgress(reward) < 0.18 ? "gij-text-main-text/70" : "gij-text-white/70"]'>
                                 {{ Math.floor(calculateProgress(reward) *
                                     100)
                                 }}%

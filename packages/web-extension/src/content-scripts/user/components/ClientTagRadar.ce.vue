@@ -6,6 +6,7 @@ import { articleListInjectionKey } from '@/core/utils/injectionKeys';
 import { loadLocalStorage } from '@/core/utils/storage';
 import { computed, getCurrentInstance, provide, Ref, ref, watch, watchEffect } from 'vue';
 import { PreferenceKey, PreferenceValue } from '@/core/types';
+import useThemeProvider from '@/core/composables/useThemeProvider';
 
 const articleList = ref<Ref<IArticle[]>>(ref([]));
 
@@ -41,6 +42,7 @@ watchEffect(() => {
 
 
 provide(articleListInjectionKey, articleList);
+useThemeProvider();
 
 </script>
 <template>

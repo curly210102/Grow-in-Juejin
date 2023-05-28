@@ -109,7 +109,8 @@ export enum StorageKey {
     "TOPICS" = "pinTopics",
     "PIN_LIST" = "pinList",
     "PREFERENCE" = "preference",
-    "PERSISTENCE_STATE" = "persistenceState"
+    "PERSISTENCE_STATE" = "persistenceState",
+    "THEME" = "theme"
 }
 
 export interface IArticle {
