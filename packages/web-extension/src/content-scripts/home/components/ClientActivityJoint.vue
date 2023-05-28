@@ -87,7 +87,7 @@ watch([userId, earliestArticleActivityTime, open], (value, oldValue) => {
 </script>
 <template>
     <template v-if="userId">
-        <Modal :show="open" @close="open = false" panel-class="!gij-bg-main-bg !gij-w-[712px] !gij-p-12">
+        <Modal :show="open" @close="open = false" panel-class="!gij-w-[712px] !gij-p-12">
             <ActivityJoined :hide-title="true" :activities="activities" :pinActivities="pinActivities" />
         </Modal>
         <div :class="['gij-bg-layer-bg gij-px-3 gij-py-3 gij-pr-7 gij-font-medium gij-rounded-l-[4px] gij-border-l-2 gij-border-r-0 gij-cursor-pointer gij-box-border hover:gij-translate-x-0 gij-transition-transform gij-border-l-[#ffac0c]', open ? 'gij-translate-x-0 gij-text-main-text' : 'gij-translate-x-2 gij-text-main-text/80', $attrs.class]"

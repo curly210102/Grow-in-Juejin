@@ -6,6 +6,7 @@ import { computed, provide, readonly, ref } from 'vue';
 import UserContribution from '@/core/components/UserContribution.vue';
 import useClientPreferences from '@/content-scripts/useClientPreferences';
 import ClientCollapseToggle from './ClientCollapseToggle.vue';
+import useThemeProvider from '@/core/composables/useThemeProvider';
 
 const { userId, inMyPage } = defineProps<{
     userId: string,
@@ -21,6 +22,7 @@ const pref = computed(() => ({
     contribution: preferences.value[inMyPage ? PreferenceKey.CONTRIBUTION_OF_MINE : PreferenceKey.CONTRIBUTION_OF_OTHERS],
     trending: preferences.value[inMyPage ? PreferenceKey.TRENDING_OF_MINE : PreferenceKey.TRENDING_OF_OTHERS]
 }))
+useThemeProvider();
 
 </script>
 <template>

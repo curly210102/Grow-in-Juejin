@@ -24,9 +24,11 @@ export type ISyncInjectContentType = {
     sync: () => () => void,
     completeSync: (_id: any) => void
 }
-
 export const defaultSyncInjectContent: ISyncInjectContentType = readonly({
     sync: () => () => { },
     startSyncWithStringId: () => { },
     completeSync: () => { }
 })
+
+export const themeInjectionKey = Symbol();
+export type IThemeInjectionContentType = "dark" | "light"

@@ -3,6 +3,7 @@ import useClientPreferences from '@/content-scripts/useClientPreferences';
 import ClientJoinedArticleActivity from './ClientJoinedArticleActivity.vue';
 import { computed } from 'vue';
 import { PreferenceKey, PreferenceValue } from '@/core/types';
+import useThemeProvider from '@/core/composables/useThemeProvider';
 
 
 const preferences = useClientPreferences();
@@ -11,6 +12,8 @@ const shouldRender = computed(() => (preferences.value[PreferenceKey.ACTIVITIES_
 const { userId } = defineProps<{
     userId: string
 }>();
+
+useThemeProvider();
 
 
 </script>

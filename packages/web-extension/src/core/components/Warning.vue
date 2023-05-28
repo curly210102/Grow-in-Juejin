@@ -38,21 +38,21 @@ watch(copyResult, (value) => {
 </script>
 <template>
     <div
-        class="gij-absolute gij-top-1/2 gij-left-1/2 -gij-translate-x-1/2 -gij-translate-y-1/2 gij-p-8 gij-min-w-[360px] gij-max-gij-gij-gij-w-full gij-bg-gray-200/20 gij-border gij-rounded-md gij-max-h-screen gij-overflow-auto">
+        class="gij-absolute gij-top-1/2 gij-left-1/2 -gij-translate-x-1/2 -gij-translate-y-1/2 gij-p-8 gij-min-w-[360px] gij-max-w-full gij-border gij-rounded-md gij-max-h-screen gij-overflow-auto gij-bg-layer-bg gij-border-gray-1-1  gij-text-main-text">
         <h1 class="gij-text-lg gij-mb-2">
             呀！出错了
         </h1>
-        <div v-if="errorInfo?.message === 'User Login'" class="gij-gij-space-y-4">
+        <div v-if="errorInfo?.message === 'User Login'" class="gij-space-y-4">
             <p>
                 要先去掘金登录哦～
             </p>
             <Button class="w-full">
-                <a href="https://juejin.cn" class="gij-gij-gij-block">
+                <a href="https://juejin.cn" class="gij-block">
                     去登录
                 </a>
             </Button>
         </div>
-        <div v-else class="space-y-4">
+        <div v-else class="gij-space-y-4 gij-space-x-4">
             <p>是一只没有被捕捉的错误，快去反馈吧！</p>
             <Button class="w-full">
                 <a href="https://github.com/curly210102/grow-in-juejin/issues/new" class="block" target="_blank">
