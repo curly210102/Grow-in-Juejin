@@ -85,40 +85,5 @@
             }
         ],
         "category": "沸点活动"
-    },
-    {
-        "key": "聊一聊AIGC",
-        "startTimeStamp": 1684080000000,
-        "title": "聊一聊 AIGC",
-        "docLink": "https://juejin.cn/pin/7233293144451956797",
-        "endTimeStamp": 1684684800000,
-        "lastModifiedTime": 1684163124000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "rules": [
-            {
-                "topic": {
-                    "link": "https://juejin.cn/pin/topic/7208019195810807845",
-                    "text": "聊一聊 AIGC"
-                },
-                "theme": [
-                    "AIGC交流圈"
-                ],
-                "jcode": false,
-                "keywords": [],
-                "subStartTime": 1684080000000,
-                "subEndTime": 1684684800000,
-                "subLink": ""
-            }
-        ],
-        "category": "沸点活动"
     }
 ]
