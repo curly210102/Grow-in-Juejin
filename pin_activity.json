@@ -52,6 +52,74 @@
         "category": "沸点活动"
     },
     {
+        "key": "WWDC2023即将开始",
+        "startTimeStamp": 1685376000000,
+        "title": "WWDC2023即将开始",
+        "docLink": "https://juejin.cn/pin/7238795712568918073",
+        "endTimeStamp": 1686499200000,
+        "lastModifiedTime": 1685495005000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/theme/detail/7104453306876952590",
+                    "text": "WWDC2023"
+                },
+                "theme": [],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 0,
+                "subEndTime": 0,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
+        "key": "202305新技术圈子上线",
+        "desc": "需要加入新圈子，并发布沸点哦",
+        "startTimeStamp": 1685376000000,
+        "title": "新圈子上线",
+        "docLink": "https://juejin.cn/pin/7238858544484810812",
+        "endTimeStamp": 1685894400000,
+        "lastModifiedTime": 1685495321000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": null,
+                "theme": [
+                    "服务端与架构",
+                    "客户端开发",
+                    "前端开发圈"
+                ],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 0,
+                "subEndTime": 0,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "人工智能迷惑行为大赏",
         "startTimeStamp": 1684684800000,
         "title": "人工智能迷惑行为大赏",
