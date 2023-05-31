@@ -120,6 +120,41 @@
         "category": "沸点活动"
     },
     {
+        "key": "我的小时候-六一儿童节",
+        "startTimeStamp": 1685462400000,
+        "title": "儿童节快乐",
+        "docLink": "https://juejin.cn/pin/7239187734417784888",
+        "endTimeStamp": 1685894400000,
+        "lastModifiedTime": 1685516158000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/pin/topic/7238900398164017210",
+                    "text": "我的小时候"
+                },
+                "theme": [
+                    "掘友请回答"
+                ],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 1685462400000,
+                "subEndTime": 1685894400000,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "人工智能迷惑行为大赏",
         "startTimeStamp": 1684684800000,
         "title": "人工智能迷惑行为大赏",
