@@ -45,6 +45,46 @@
         "theme": "6月日新计划更文活动"
     },
     {
+        "key": "2023金石计划第四期",
+        "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
+        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/34e2977ec52949bb8f56cdc9ca650a98~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
+        "startTimeStamp": 1685289600000,
+        "title": "金石计划第四期",
+        "docLink": "https://juejin.cn/post/7238403651021783077",
+        "category": "更文活动",
+        "endTimeStamp": 1688140800000,
+        "lastModifiedTime": 1685517102000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "瓜分 15000 元现金奖池",
+                        "count": 2
+                    },
+                    {
+                        "name": "叠加瓜分 12000元现金奖池",
+                        "count": 4
+                    },
+                    {
+                        "name": "叠加瓜分 11000 元现金奖池",
+                        "count": 6
+                    }
+                ]
+            }
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "650",
+        "theme": "金石计划征文活动"
+    },
+    {
         "key": "人工智能作者签约季",
         "desc": "本次主要招募深耕人工智能领域的图文创作者进行签约",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/80c7ce4fd58848df8c339464c954ac89~tplv-k3u1fbpfcp-zoom-1.png",
@@ -72,5 +112,32 @@
         "tagNames": [],
         "wordCount": "800",
         "theme": "人工智能创作者签约季"
+    },
+    {
+        "key": "WWDC2023 征文大赛",
+        "desc": "在活动评论区发布参赛文章标题才能参与成功哦",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/81ddb64919244e43a411258ef78ff822~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
+        "startTimeStamp": 1685980800000,
+        "title": "WWDC2023 征文大赛",
+        "docLink": "https://juejin.cn/post/7238794430965137468",
+        "category": "征文大赛",
+        "endTimeStamp": 1686758400000,
+        "lastModifiedTime": 1685501327000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "800",
+        "theme": "WWDC2023"
     }
 ]

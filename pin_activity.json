@@ -52,6 +52,109 @@
         "category": "沸点活动"
     },
     {
+        "key": "WWDC2023即将开始",
+        "startTimeStamp": 1685376000000,
+        "title": "WWDC2023即将开始",
+        "docLink": "https://juejin.cn/pin/7238795712568918073",
+        "endTimeStamp": 1686499200000,
+        "lastModifiedTime": 1685495005000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/theme/detail/7104453306876952590",
+                    "text": "WWDC2023"
+                },
+                "theme": [],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 0,
+                "subEndTime": 0,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
+        "key": "202305新技术圈子上线",
+        "desc": "需要加入新圈子，并发布沸点哦",
+        "startTimeStamp": 1685376000000,
+        "title": "新圈子上线",
+        "docLink": "https://juejin.cn/pin/7238858544484810812",
+        "endTimeStamp": 1685894400000,
+        "lastModifiedTime": 1685495321000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": null,
+                "theme": [
+                    "服务端与架构",
+                    "客户端开发",
+                    "前端开发圈"
+                ],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 0,
+                "subEndTime": 0,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
+        "key": "我的小时候-六一儿童节",
+        "startTimeStamp": 1685462400000,
+        "title": "儿童节快乐",
+        "docLink": "https://juejin.cn/pin/7239187734417784888",
+        "endTimeStamp": 1685894400000,
+        "lastModifiedTime": 1685516158000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/pin/topic/7238900398164017210",
+                    "text": "我的小时候"
+                },
+                "theme": [
+                    "掘友请回答"
+                ],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 1685462400000,
+                "subEndTime": 1685894400000,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "人工智能迷惑行为大赏",
         "startTimeStamp": 1684684800000,
         "title": "人工智能迷惑行为大赏",
@@ -81,41 +184,6 @@
                 "keywords": [],
                 "subStartTime": 1684684800000,
                 "subEndTime": 1685289600000,
-                "subLink": ""
-            }
-        ],
-        "category": "沸点活动"
-    },
-    {
-        "key": "聊一聊AIGC",
-        "startTimeStamp": 1684080000000,
-        "title": "聊一聊 AIGC",
-        "docLink": "https://juejin.cn/pin/7233293144451956797",
-        "endTimeStamp": 1684684800000,
-        "lastModifiedTime": 1684163124000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "rules": [
-            {
-                "topic": {
-                    "link": "https://juejin.cn/pin/topic/7208019195810807845",
-                    "text": "聊一聊 AIGC"
-                },
-                "theme": [
-                    "AIGC交流圈"
-                ],
-                "jcode": false,
-                "keywords": [],
-                "subStartTime": 1684080000000,
-                "subEndTime": 1684684800000,
                 "subLink": ""
             }
         ],
