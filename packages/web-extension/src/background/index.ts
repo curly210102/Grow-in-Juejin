@@ -1,14 +1,8 @@
-import { entryPath, extCode } from "@/constant"
+import { extCode } from "@/constant"
 import initArticleActivities from "@/core/clientRequests/initArticleActivities";
 import initOtherActivities from "@/core/clientRequests/initOtherActivities";
 import initPinActivities from "@/core/clientRequests/initPinActivities";
 import initTopics from "@/core/clientRequests/initTopics";
-chrome.action.onClicked.addListener(() => {
-    chrome.tabs.create({
-        url: chrome.runtime.getURL(entryPath),
-        active: true
-    })
-});
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id === chrome.runtime.id && sender.origin === "https://juejin.cn" && message?.to === "Grow in Juejin Background" && message?.code === extCode) {
