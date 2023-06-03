@@ -353,28 +353,3 @@ async function fetchDynamicsParallel(
         lastCursor: startCursor + requestTimes * oneSliceCount,
     };
 }
-
-async function fetchUntilDateTime(
-    userId: string,
-    untilDateTime: number,
-    cursor: number,
-    allList: DynamicList = []
-): Promise<DynamicList> {
-    const {
-        list,
-        lastDynamic,
-        hasMore,
-        cursor: nextCursor,
-    } = await fetchDynamics(userId, cursor);
-
-    if (!lastDynamic || lastDynamic.time * 1000 < untilDateTime || !hasMore) {
-        return allList.concat(list);
-    }
-
-    return await fetchUntilDateTime(
-        userId,
-        untilDateTime,
-        nextCursor,
-        allList.concat(list)
-    );
-}

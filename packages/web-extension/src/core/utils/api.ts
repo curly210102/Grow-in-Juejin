@@ -127,12 +127,15 @@ export const fetchOtherActivities = async (): Promise<Array<IArticleActivity>> =
     }
 };
 
-export const fetchTopics = async (): Promise<Array<IArticleActivity>> => {
+export const fetchTopics = async (): Promise<Array<Record<string, {
+    id: string,
+    description: string
+}>>> => {
     try {
         const res = await fetch(
             import.meta.env.DEV ?
-                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/topics.json" :
-                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/topics.json"
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/dev/topics_v2.json" :
+                "https://gitee.com/curlly-brackets/grow-in-juejin/raw/master/topics_v2.json"
         ).then((res) => res.json());
         return res;
     } catch (error) {

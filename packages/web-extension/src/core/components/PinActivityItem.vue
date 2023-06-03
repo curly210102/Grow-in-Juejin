@@ -9,7 +9,7 @@ import {
     ArrowRightCircleIcon,
 } from "@heroicons/vue/20/solid";
 import Progress from "../base-components/Progress.vue";
-import { IPinTopicInjectContentType, pinTopicInjectionKey } from "../utils/injectionKeys";
+import { IPinTopicInjectContentType, pinTopicIdInjectionKey } from "../utils/injectionKeys";
 
 export type PinActivityStat = {
     dayCount: number,
@@ -24,7 +24,7 @@ const props = defineProps<{
 const activityStat = toRef(props, "activityStat");
 const { activity } = props;
 
-const topics = inject<IPinTopicInjectContentType>(pinTopicInjectionKey, ref({}));
+const topics = inject<IPinTopicInjectContentType>(pinTopicIdInjectionKey, ref({}));
 
 enum ActivityStatus {
     "COMPLETE",

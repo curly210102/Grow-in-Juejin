@@ -7,6 +7,7 @@ def build_topic_json():
     headers = {'Content-Type': 'application/json'}
     data = {"limit": 100, "cursor": "0", "sort_type": 7}
     all_data = {}
+    all_data_v2 = {}
     has_more = True
 
     while (has_more):
@@ -14,6 +15,10 @@ def build_topic_json():
         response_data = response.json()
         for item in response_data['data']:
             all_data[item['topic']['title'].strip()] = item['topic_id']
+            all_data_v2[item['topic']['title'].strip()] = {
+                "id": item['topic_id'],
+                "description": item['topic']['description'].strip()
+            }
         has_more = response_data['has_more']
         data['cursor'] = response_data['cursor']
 
@@ -29,6 +34,9 @@ def build_topic_json():
 
     with open("topics.json", "w", encoding="utf-8") as outfile:
         json.dump(sorted_dict, outfile, indent=4, ensure_ascii=False)
+
+    with open("topics_v2.json", "w", encoding="utf-8") as outfile:
+        json.dump(all_data_v2, outfile, indent=4, ensure_ascii=False)
 
 
 if __name__ == '__main__':

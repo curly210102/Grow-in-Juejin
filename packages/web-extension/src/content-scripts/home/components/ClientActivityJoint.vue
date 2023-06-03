@@ -4,7 +4,7 @@ import { computed, provide, readonly, ref, toRefs, watch } from 'vue';
 import Modal from "@/core/base-components/Modal.vue"
 import ActivityJoined from '@/core/components/ActivityJoined.vue';
 import { loadLocalStorage } from '@/core/utils/storage';
-import { articleContentInjectionKey, articleListInjectionKey, pinListInjectionKey, pinTopicInjectionKey } from '@/core/utils/injectionKeys';
+import { articleContentInjectionKey, articleListInjectionKey, pinListInjectionKey, pinTopicIdInjectionKey } from '@/core/utils/injectionKeys';
 import { extCode } from '@/constant';
 import initUserPins from '@/core/clientRequests/initUserPins';
 import initUserArticles from '@/core/clientRequests/initUserArticles';
@@ -52,7 +52,7 @@ chrome.storage.local.onChanged.addListener((changes) => {
     }
 })
 
-provide(pinTopicInjectionKey, readonly(topicsRef));
+provide(pinTopicIdInjectionKey, readonly(topicsRef));
 provide(articleListInjectionKey, readonly(articleList));
 provide(articleContentInjectionKey, readonly(articleContent));
 provide(pinListInjectionKey, readonly(pinList));

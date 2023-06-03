@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Grow in 掘金",
   "short_name": "Grow",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "见证在掘金社区的每一步成长",
   "background": {
     "service_worker": "src/background/index.ts",
@@ -15,6 +15,12 @@
     "128": "src/logo/icon128.png"
   },
   "action": {
+    "default_icon": {
+      "16": "src/logo/icon16.png",
+      "32": "src/logo/icon32.png",
+      "48": "src/logo/icon48.png",
+      "128": "src/logo/icon128.png"
+    },
     "default_title": "配置 Grow in 掘金",
     "default_popup": "src/preferences/index.html"
   },

@@ -6,7 +6,7 @@ import PinActivityList from "@/core/components/PinActivityList.vue";
 import { loadLocalStorage } from "@/core/utils/storage";
 import {
     pinListInjectionKey,
-    pinTopicInjectionKey,
+    pinTopicIdInjectionKey,
 } from "@/core/utils/injectionKeys";
 import initUserPins from "@/core/clientRequests/initUserPins";
 
@@ -64,7 +64,7 @@ watch(
 );
 
 provide(pinListInjectionKey, readonly(pinList));
-provide(pinTopicInjectionKey, readonly(topicsRef));
+provide(pinTopicIdInjectionKey, readonly(topicsRef));
 </script>
 <template>
     <div>

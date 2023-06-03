@@ -9,7 +9,7 @@ export type IActivityInjectContentType = {
     other: Array<IActivity>
 }
 export const pinActivityInjectionKey = Symbol();
-export const pinTopicInjectionKey = Symbol();
+export const pinTopicIdInjectionKey = Symbol();
 export type IPinTopicInjectContentType = Ref<Record<string, string>>;
 export const pinListInjectionKey = Symbol();
 
