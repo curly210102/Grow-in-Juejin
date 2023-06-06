@@ -30,6 +30,19 @@ export async function initTopicIds() {
     }))
 }
 
-function isTopicObject(v: any): v is Record<"id", string> {
-    return Object.prototype.toString.call(v).slice(8, -1).toLowerCase() === "object" && v.hasOwnProperty("id")
+export async function initTopicDescriptions() {
+    const topics = await initTopics();
+    return Object.fromEntries(Object.entries(topics).map(([key, value]) => {
+        if (typeof value === "string") {
+            return [key, value];
+        } else if (isTopicObject(value)) {
+            return [key, value.description]
+        } else {
+            return [key, ""]
+        }
+    }))
+}
+
+function isTopicObject(v: any): v is Record<"id" | "description", string> {
+    return Object.prototype.toString.call(v).slice(8, -1).toLowerCase() === "object" && v.hasOwnProperty("id") && v.hasOwnProperty("description")
 }

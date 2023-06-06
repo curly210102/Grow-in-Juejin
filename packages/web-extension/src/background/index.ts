@@ -2,7 +2,7 @@ import { extCode } from "@/constant"
 import initArticleActivities from "@/core/clientRequests/initArticleActivities";
 import initOtherActivities from "@/core/clientRequests/initOtherActivities";
 import initPinActivities from "@/core/clientRequests/initPinActivities";
-import { initTopicIds } from "@/core/clientRequests/initTopics";
+import { initTopicDescriptions, initTopicIds } from "@/core/clientRequests/initTopics";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id === chrome.runtime.id && sender.origin === "https://juejin.cn" && message?.to === "Grow in Juejin Background" && message?.code === extCode) {
@@ -29,6 +29,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         if (message.content === "requestTopics") {
             initTopicIds().then(sendResponse);
+            // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.
+            return true;
+        }
+        if (message.content === "requestTopicDescriptions") {
+            initTopicDescriptions().then(sendResponse);
             // The callback of onMessage should return a literal true value (documentation) in order to keep the internal messaging channel open so that sendResponse can work asynchronously.
             return true;
         }
