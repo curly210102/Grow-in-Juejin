@@ -85,6 +85,36 @@
         "category": "沸点活动"
     },
     {
+        "key": "掘力计划沙龙直播",
+        "startTimeStamp": 1686067200000,
+        "title": "掘力计划沙龙直播-转发有奖",
+        "docLink": "https://juejin.cn/pin/7241395267797631033",
+        "endTimeStamp": 1686412800000,
+        "lastModifiedTime": 1686129545000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": null,
+                "theme": [],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 1686067200000,
+                "subEndTime": 1686412800000,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "202305新技术圈子上线",
         "desc": "需要加入新圈子，并发布沸点哦",
         "startTimeStamp": 1685376000000,
