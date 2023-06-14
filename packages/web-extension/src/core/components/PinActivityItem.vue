@@ -34,9 +34,11 @@ enum ActivityStatus {
 
 const activityProgress = computed(() => {
     if (activity.rewards.every(r => r.rewards.length === 0)) {
+        const haveReward = activityStat.value["messageCount"] > 0;
         return {
-            status: activityStat.value["messageCount"] > 0 ? ActivityStatus.COMPLETE : ActivityStatus.NOT_START,
-            progress: []
+            status: haveReward ? ActivityStatus.COMPLETE : ActivityStatus.NOT_START,
+            progress: [],
+            haveReward
         }
     }
 
@@ -73,6 +75,7 @@ const activityProgress = computed(() => {
     return {
         status,
         progress,
+        haveReward: progress.some(activity => activity.currentLevel)
     };
 });
 
@@ -106,11 +109,10 @@ function calculateCountdown() {
             :tabindex="-1" :href="activity.docLink" target="_blank">
             <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-1">
                 <CheckCircleIcon v-if="activityProgress.status === ActivityStatus.COMPLETE"
-                    class="gij-w-5 gij-h-5 gij-text-emerald-600">
+                    class="gij-w-5 gij-h-5 gij-text-emerald-400">
                 </CheckCircleIcon>
                 <template v-else-if="activity.endTimeStamp && activity.endTimeStamp <= Date.now()">
-                    <CheckCircleIcon v-if="activityProgress.progress.some(activity => activity.currentLevel)"
-                        class="gij-w-5 gij-h-5 gij-text-emerald-400">
+                    <CheckCircleIcon v-if="activityProgress.haveReward" class="gij-w-5 gij-h-5 gij-text-emerald-400">
                     </CheckCircleIcon>
                     <NoSymbolIcon v-else class="gij-w-5 gij-h-5 gij-text-rose-500"></NoSymbolIcon>
 
