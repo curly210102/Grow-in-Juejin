@@ -64,13 +64,14 @@ const activityProgress = computed(() => {
         }
     });
 
+    const status = (!progress.length || progress.some((p) => p.count > 0))
+        ? progress.some((p) => p.nextLevel)
+            ? ActivityStatus.IN_PROGRESS
+            : ActivityStatus.COMPLETE
+        : ActivityStatus.NOT_START;
+
     return {
-        status:
-            (!progress.length || progress.some((p) => p.count > 0))
-                ? progress.some((p) => p.nextLevel)
-                    ? ActivityStatus.IN_PROGRESS
-                    : ActivityStatus.COMPLETE
-                : ActivityStatus.NOT_START,
+        status,
         progress,
     };
 });
@@ -107,8 +108,13 @@ function calculateCountdown() {
                 <CheckCircleIcon v-if="activityProgress.status === ActivityStatus.COMPLETE"
                     class="gij-w-5 gij-h-5 gij-text-emerald-600">
                 </CheckCircleIcon>
-                <NoSymbolIcon class="gij-w-5 gij-h-5 gij-text-rose-500"
-                    v-else-if="activity.endTimeStamp && activity.endTimeStamp <= Date.now()"></NoSymbolIcon>
+                <template v-else-if="activity.endTimeStamp && activity.endTimeStamp <= Date.now()">
+                    <CheckCircleIcon v-if="activityProgress.progress.some(activity => activity.currentLevel)"
+                        class="gij-w-5 gij-h-5 gij-text-emerald-400">
+                    </CheckCircleIcon>
+                    <NoSymbolIcon v-else class="gij-w-5 gij-h-5 gij-text-rose-500"></NoSymbolIcon>
+
+                </template>
                 <FireIcon class="gij-w-5 gij-h-5 gij-text-amber-400"
                     v-else-if="activityProgress.status === ActivityStatus.IN_PROGRESS">
                 </FireIcon>

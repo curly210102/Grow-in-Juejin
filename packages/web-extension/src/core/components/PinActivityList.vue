@@ -31,18 +31,46 @@ const pinActivities = computed(() => {
 
 const pinList = inject<Ref<IPin[]>>(pinListInjectionKey, ref([]))
 
-function isFitActivityRule(pin: IPin, rule?: IPinActivityRule) {
+function calActivityRuleFitWeight(pin: IPin, rule?: IPinActivityRule) {
     if (!rule) {
-        return false;
+        return 0;
     }
-    const themeFit = !rule.topic || rule.topic.text === pin.theme.trim();
-    const topicFit = !rule.theme.length || rule.theme.includes(pin.topic.trim());
+    // 第一维度：话题和圈子，话题的优先级高于圈子
+    // 第二维度（辅助条件）：关键词和代码
+
+    // 1. 话题：活动有话题要求并且符合 +2
+    // 2. 圈子： 活动有圈子要求并且符合 +1 
+    // 3. 不符合活动的其中一个条件 =0
+
+    let weight = 0;
+
+    if (rule.topic) {
+        if (rule.topic.text === pin.theme.trim()) {
+            weight += 2;
+        } else {
+            return 0;
+        }
+    }
+
+    if (rule.theme.length) {
+        if (rule.theme.includes(pin.topic.trim())) {
+            weight += 1;
+        } else {
+            return 0;
+        }
+    }
     const jcodeFit = !rule.jcode || pin.jcode;
     const contentFit =
         !rule.keywords.length ||
         rule.keywords.some((keyword) => pin.content.includes(keyword));
-    return themeFit && topicFit && jcodeFit && contentFit;
+
+    if (!jcodeFit || !contentFit) {
+        return 0;
+    }
+
+    return weight;
 }
+
 function findTimeFitRule(pin: IPin, activity: IPinActivity) {
     const timeFit =
         pin.publishTime >= activity.startTimeStamp &&
@@ -77,14 +105,22 @@ const activityStats = computed(() => {
         ])
     );
     pinList.value.forEach((pin) => {
+        const maxWeightAndKey: [number, string] = [0, ""];
         for (const activity of pinActivities.value) {
-            if (isFitActivityRule(pin, findTimeFitRule(pin, activity))) {
-                activityStats[activity.key].dates.add(
-                    format(pin.publishTime, "YYYY-MM-DD")
-                );
-                activityStats[activity.key].count++;
-                break;
+            const rule = findTimeFitRule(pin, activity);
+            const weight = calActivityRuleFitWeight(pin, rule);
+            if (weight > maxWeightAndKey[0]) {
+                maxWeightAndKey[0] = weight;
+                maxWeightAndKey[1] = activity.key;
             }
+        }
+
+        if (maxWeightAndKey[0] > 0) {
+            const activityKey = maxWeightAndKey[1];
+            activityStats[activityKey].dates.add(
+                format(pin.publishTime, "YYYY-MM-DD")
+            );
+            activityStats[activityKey].count++;
         }
     });
 
