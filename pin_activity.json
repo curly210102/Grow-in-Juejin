@@ -1,48 +1,5 @@
 [
     {
-        "key": "稀土掘金 x A-SOUL好好生活计划2.0",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/aea8de0b1db44f9ab4b11be0c61e3341~tplv-k3u1fbpfcp-watermark.image",
-        "startTimeStamp": 1686758400000,
-        "title": "稀土掘金 x A-SOUL好好生活计划2.0",
-        "docLink": "https://juejin.cn/pin/7244734132323270715",
-        "endTimeStamp": 1690819200000,
-        "lastModifiedTime": 1686827998000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": [
-                    {
-                        "name": "夏日记忆明信片",
-                        "count": 15
-                    },
-                    {
-                        "name": "夏日记忆明信片+联名扇子",
-                        "count": 21
-                    }
-                ]
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "rules": [
-            {
-                "topic": {
-                    "link": "https://juejin.cn/pin/topic/7244474054189514808",
-                    "text": "与A-SOUL一起成为更好的自己"
-                },
-                "theme": [],
-                "jcode": false,
-                "keywords": [],
-                "subStartTime": 1686758400000,
-                "subEndTime": 1690819200000,
-                "subLink": ""
-            }
-        ],
-        "category": "沸点活动"
-    },
-    {
         "key": "沸点知识分享官",
         "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/1dc32c69cc534b5ab40e4ce9c795a5da~tplv-k3u1fbpfcp-zoom-crop-mark:1512:1512:1512:851.awebp?",
         "startTimeStamp": 1686499200000,
