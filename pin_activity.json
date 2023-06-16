@@ -49,6 +49,49 @@
         "category": "沸点活动"
     },
     {
+        "key": "好好生活计划2.0活动1",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/524967dad11046b7a1cc71445bd24a45~tplv-k3u1fbpfcp-watermark.image",
+        "startTimeStamp": 1687104000000,
+        "title": "好好生活计划2.0｜活动一",
+        "docLink": "https://juejin.cn/pin/7244734132323270715",
+        "endTimeStamp": 1688918400000,
+        "lastModifiedTime": 1686897379000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": [
+                    {
+                        "name": "夏日记忆明信片",
+                        "count": 15
+                    },
+                    {
+                        "name": "夏日记忆明信片+联名扇子",
+                        "count": 21
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "rules": [
+            {
+                "topic": {
+                    "link": "https://juejin.cn/pin/topic/7244474054189514808",
+                    "text": "与A-SOUL一起成为更好的自己"
+                },
+                "theme": [],
+                "jcode": false,
+                "keywords": [],
+                "subStartTime": 1687104000000,
+                "subEndTime": 1688918400000,
+                "subLink": ""
+            }
+        ],
+        "category": "沸点活动"
+    },
+    {
         "key": "第一届沸点圈主招募",
         "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9abdceb11d864601ae3b5136fe799718~tplv-k3u1fbpfcp-watermark.image?",
         "startTimeStamp": 1683820800000,
