@@ -19,7 +19,7 @@ export default function (userActions: UserActions) {
     // Lv1 —— 活跃度 [1, 20)
     // Lv2 —— 活跃度 [20, 60)
     // Lv3 —— 活跃度 [60, 80)
-    // Lv4 —— 活跃度 [80, 10)
+    // Lv4 —— 活跃度 [80, 115)
 
     return Math.min(score, 100);
 }
