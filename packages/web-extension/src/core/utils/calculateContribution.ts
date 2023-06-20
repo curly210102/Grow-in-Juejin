@@ -16,10 +16,10 @@ export default function (userActions: UserActions) {
 
     // 活跃度等级
     // Lv0 —— 活跃度 0
-    // Lv1 —— 活跃度 [1, 20)
-    // Lv2 —— 活跃度 [20, 60)
-    // Lv3 —— 活跃度 [60, 80)
-    // Lv4 —— 活跃度 [80, 115)
+    // Lv1 —— 活跃度 [1, 20]
+    // Lv2 —— 活跃度 [20, 60]
+    // Lv3 —— 活跃度 [60, 80]
+    // Lv4 —— 活跃度 [80, 115]
 
     return Math.min(score, 100);
 }
