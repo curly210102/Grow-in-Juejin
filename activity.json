@@ -83,32 +83,5 @@
         "tagNames": [],
         "wordCount": "650",
         "theme": "金石计划征文活动"
-    },
-    {
-        "key": "WWDC2023 征文大赛",
-        "desc": "在活动评论区发布参赛文章标题才能参与成功哦",
-        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/81ddb64919244e43a411258ef78ff822~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?",
-        "startTimeStamp": 1685980800000,
-        "title": "WWDC2023 征文大赛",
-        "docLink": "https://juejin.cn/post/7238794430965137468",
-        "category": "征文大赛",
-        "endTimeStamp": 1687104000000,
-        "lastModifiedTime": 1686653654000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "800",
-        "theme": "WWDC2023"
     }
 ]
