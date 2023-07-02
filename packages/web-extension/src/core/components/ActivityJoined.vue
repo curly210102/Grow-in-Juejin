@@ -28,7 +28,7 @@ const joinedActivities = useComputeJoinedArticleActivities(activities, articleLi
 <template>
     <SectionHeader title="正在参与的活动" v-if="!hideTitle">
     </SectionHeader>
-    <div class="gij-grid gij-gap-8 gij-grid-cols-2" v-if="joinedActivities.length">
+    <div class="gij-grid gij-gap-8 gij-grid-cols-2" v-if="joinedActivities.length || pinActivities.length">
         <ActivityCard v-for="activity in joinedActivities" class="gij-card" :activity="activity">
         </ActivityCard>
         <PinActivityList :activities="pinActivities" class="gij-card"></PinActivityList>
