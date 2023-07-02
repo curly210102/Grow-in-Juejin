@@ -49,28 +49,24 @@
         "category": "沸点活动"
     },
     {
-        "key": "第一届沸点圈主招募",
-        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9abdceb11d864601ae3b5136fe799718~tplv-k3u1fbpfcp-watermark.image?",
-        "startTimeStamp": 1683820800000,
-        "title": "第一届沸点圈主招募大赛",
-        "docLink": "https://juejin.cn/post/7231853294410612793",
-        "endTimeStamp": 1686499200000,
-        "lastModifiedTime": 1683805605000,
+        "key": "好好生活计划2.0活动1",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/524967dad11046b7a1cc71445bd24a45~tplv-k3u1fbpfcp-watermark.image",
+        "startTimeStamp": 1687104000000,
+        "title": "好好生活计划2.0｜活动一",
+        "docLink": "https://juejin.cn/pin/7244734132323270715",
+        "endTimeStamp": 1688918400000,
+        "lastModifiedTime": 1686897379000,
         "rewards": [
             {
                 "type": "days",
                 "rewards": [
                     {
-                        "name": "奥特曼小风扇",
+                        "name": "夏日记忆明信片",
                         "count": 15
                     },
                     {
-                        "name": "奥特曼小风扇+宇航员投影灯",
+                        "name": "夏日记忆明信片+联名扇子",
                         "count": 21
-                    },
-                    {
-                        "name": "圈主竞选资格",
-                        "count": 26
                     }
                 ]
             },
@@ -81,83 +77,15 @@
         ],
         "rules": [
             {
-                "topic": null,
-                "theme": [
-                    "打工人的日常",
-                    "下班去哪儿玩",
-                    "照片展览馆",
-                    "技术交流圈",
-                    "一起看片",
-                    "科技交流圈",
-                    "萌宠报道"
-                ],
-                "jcode": false,
-                "keywords": [],
-                "subStartTime": 1683820800000,
-                "subEndTime": 1686499200000,
-                "subLink": ""
-            }
-        ],
-        "category": "沸点活动"
-    },
-    {
-        "key": "WWDC2023即将开始",
-        "startTimeStamp": 1685376000000,
-        "title": "WWDC2023",
-        "docLink": "https://juejin.cn/pin/7238795712568918073",
-        "endTimeStamp": 1686499200000,
-        "lastModifiedTime": 1686018730000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "rules": [
-            {
                 "topic": {
-                    "link": "https://juejin.cn/theme/detail/7104453306876952590",
-                    "text": "WWDC2023"
+                    "link": "https://juejin.cn/pin/topic/7244474054189514808",
+                    "text": "与A-SOUL一起成为更好的自己"
                 },
                 "theme": [],
                 "jcode": false,
                 "keywords": [],
-                "subStartTime": 0,
-                "subEndTime": 0,
-                "subLink": ""
-            }
-        ],
-        "category": "沸点活动"
-    },
-    {
-        "key": "掘力计划沙龙直播",
-        "startTimeStamp": 1686067200000,
-        "title": "掘力计划沙龙直播-转发有奖",
-        "docLink": "https://juejin.cn/pin/7242198873867042873",
-        "endTimeStamp": 1686412800000,
-        "lastModifiedTime": 1686214670000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "rules": [
-            {
-                "topic": null,
-                "theme": [],
-                "jcode": false,
-                "keywords": [],
-                "subStartTime": 1686067200000,
-                "subEndTime": 1686412800000,
+                "subStartTime": 1687104000000,
+                "subEndTime": 1688918400000,
                 "subLink": ""
             }
         ],
