@@ -1,5 +1,50 @@
 [
     {
+        "key": "2023日新计划",
+        "desc": "活动开始时创作等级lv0-lv3的用户",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d44584125c2343d5a57bc8efae0238f5~tplv-k3u1fbpfcp-watermark.image?",
+        "startTimeStamp": 1691942400000,
+        "title": "日新计划｜更文挑战",
+        "docLink": "https://juejin.cn/post/7265365569217462313",
+        "category": "更文活动",
+        "endTimeStamp": 1695398400000,
+        "lastModifiedTime": 1691661673000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": [
+                    {
+                        "name": "第一关",
+                        "count": 6
+                    },
+                    {
+                        "name": "第二关",
+                        "count": 12
+                    },
+                    {
+                        "name": "第三关",
+                        "count": 24
+                    }
+                ]
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "博客搬家",
+                        "count": 28
+                    }
+                ]
+            }
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "600",
+        "theme": "日新计划更文活动"
+    },
+    {
         "key": "2023金石计划第五期",
         "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
         "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de7ccf7b77bf43be91ea000b69dd724b~tplv-k3u1fbpfcp-watermark.image",
