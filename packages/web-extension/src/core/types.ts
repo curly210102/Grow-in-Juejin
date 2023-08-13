@@ -17,6 +17,7 @@ export interface IArticleActivity extends IActivity {
             rewards: Array<{
                 name: string;
                 count: number;
+                recommend_count: number;
             }>;
             categories?: string[]
         },
@@ -25,6 +26,7 @@ export interface IArticleActivity extends IActivity {
             rewards: Array<{
                 name: string;
                 count: number;
+                recommend_count: number
             }>;
             categories?: string[];
         }

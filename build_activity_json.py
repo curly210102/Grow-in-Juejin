@@ -126,7 +126,7 @@ def parseActivityRecordsToList(records=[]):
 def parseActivityRewardToRewardList(records=[], fieldNames={}):
     rules = [{
         "type": "days",
-        "rewards": []
+        "rewards": [],
     }, {
         "type": "count",
         "rewards": []
@@ -149,7 +149,8 @@ def parseActivityRewardToRewardList(records=[], fieldNames={}):
                     rewards = customRule[key]["rewards"]
                 rewards.append({
                     "name": convertMultilineTextToString(fields.get(fieldNames["reward"])),
-                    "count": int(fields.get("最小天数"))
+                    "count": int(fields.get("最小天数")),
+                    "recommend_count": int(fields.get("文章被推荐数量"))
                 })
             elif fields.get("数量"):
                 rewards = rules[1]["rewards"]
@@ -162,7 +163,8 @@ def parseActivityRewardToRewardList(records=[], fieldNames={}):
                     rewards = customRule[key]["rewards"]
                 rewards.append({
                     "name": convertMultilineTextToString(fields.get(fieldNames["reward"])),
-                    "count": int(fields.get("数量"))
+                    "count": int(fields.get("数量")),
+                    "recommend_count": int(fields.get("文章被推荐数量"))
                 })
     rules.extend(customRule.values())
     for i, item in enumerate(rules):
@@ -207,7 +209,7 @@ async def fetchArticleActivitiesAndBuildList():
 
     activityRewardsTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblWGtMT5fgnRQ9s", "vewj8t6vAm", {
         "filter": f'CurrentValue.[所属活动]="{key}"',
-        "field_names": '["等级名", "最小天数", "数量", "指定分类"]'
+        "field_names": '["等级名", "最小天数", "数量", "指定分类", "文章被推荐数量"]'
     }) for key in relatedKeys])
 
     activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblawuUZtQTY7Tq4", "vewo5RWnaX", {
