@@ -133,7 +133,7 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
     const oldArticles = oldArticleList.filter(a => a.publishTime < createTime);
     return [...newArticleList.map(article => {
         const { article_id, article_info, category, tags } = article;
-        // 文章字数、内容、发布时间、评论、点赞、收藏、阅读数
+        // 文章字数、内容、发布时间、评论、点赞、收藏、阅读数、推荐情况
         const {
             ctime,
             mtime,
@@ -143,7 +143,8 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
             collect_count,
             digg_count,
             comment_count,
-            title
+            title,
+            status
         } = article_info;
         const { category_name } = category;
         const publishTime = new Date(+ctime * 1000).valueOf();
@@ -160,6 +161,7 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
             comment_count,
             title,
             tags,
+            status,
             verify:
                 verify_status === 0
                     ? 0

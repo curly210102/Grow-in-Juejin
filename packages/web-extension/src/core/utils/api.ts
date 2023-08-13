@@ -55,7 +55,8 @@ export const fetchUserArticles = async (
             collect_count: number,
             digg_count: number,
             comment_count: number,
-            title: string
+            title: string,
+            status: number
         },
         category: {
             category_name: string

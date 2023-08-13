@@ -34,7 +34,8 @@ const InvalidStatus2Text = {
   slogan_fit: "暗号文本不符",
   link_fit: "暗号链接不符",
   tag_fit: "未选择指定标签",
-  theme_fit: "未添加指定话题"
+  theme_fit: "未添加指定话题",
+  recommend_fit: "未被官方推荐"
 };
 
 

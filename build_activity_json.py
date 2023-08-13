@@ -178,7 +178,8 @@ def parseActivityRuleMap(records=[]):
         "signLink": "",
         "tagNames": [],
         "wordCount": 0,
-        "theme": ""
+        "theme": "",
+        "recommend": False
     }
     for record in records:
         fields = record["fields"]
@@ -189,6 +190,7 @@ def parseActivityRuleMap(records=[]):
         ruleMap["signSlogan"] = convertMultilineTextToString(
             fields.get("关键词"))
         ruleMap["signLink"] = extractLinkFromMultilineText(fields.get("关键词"))
+        ruleMap["recommend"] = fields.get("要求被官方推荐") or False
     return ruleMap
 
 
@@ -210,7 +212,7 @@ async def fetchArticleActivitiesAndBuildList():
 
     activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblawuUZtQTY7Tq4", "vewo5RWnaX", {
         "filter": f'CurrentValue.[所属活动]="{key}"',
-        "field_names": '["关键词", "分类", "字数", "标签", "话题"]'
+        "field_names": '["关键词", "分类", "字数", "标签", "话题", "要求被官方推荐"]'
     }) for key in relatedKeys])
 
     activityRewardsResp = await activityRewardsTasks

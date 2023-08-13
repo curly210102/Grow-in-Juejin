@@ -22,14 +22,14 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
 
         const sortedActivities = [...articleActivities.value].sort((a1, a2) => a1.endTimeStamp && a2.endTimeStamp ? a1.endTimeStamp - a2.endTimeStamp : (a1.endTimeStamp ? 1 : a2.endTimeStamp ? -1 : 0));
 
-        articleList.value.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id }) => {
+        articleList.value.forEach(({ view_count, tags, collect_count, comment_count, category, digg_count, publishTime, title, id, status }) => {
             const articleContentInfo = articleContentMap.value.get(id);
             if (articleContentInfo) {
                 const { count, fragment: articleFragment, themeNames } = articleContentInfo;
                 // hack: 删掉markdown语法
                 const fragment = articleFragment.replaceAll("**", "");
                 for (const activity of sortedActivities) {
-                    const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames, theme } = activity;
+                    const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames, theme, recommend } = activity;
 
                     const signSloganRegexp = new RegExp(signSlogan?.replace(/([()\[{*+.$^\\|?\]])|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, (match) => {
                         if (match.startsWith("http")) {
@@ -49,7 +49,8 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                         const tagFit = tagNames.length <= 0 || new Set(tags.filter(tag => tagNames.includes(tag.tag_name)).map(tag => tag.tag_id)).size === tagNames.length;
                         const themeFit = !theme || themeNames.includes(theme);
                         const activityStat = stats[activity.key];
-                        if (sloganFit && linkFit && wordCountFit && categoryFit && tagFit && themeFit) {
+                        const recommendFit = !recommend || status === 2
+                        if (sloganFit && linkFit && wordCountFit && categoryFit && tagFit && themeFit && recommendFit) {
                             activityStat.view += view_count;
                             activityStat.digg += digg_count;
                             activityStat.collect += collect_count;
@@ -89,6 +90,10 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
 
                             if (!themeFit) {
                                 summaries.status.push("theme_fit");
+                            }
+
+                            if (!recommendFit) {
+                                summaries.status.push("recommend_fit");
                             }
 
                             activityStat.invalidSummaries.push(summaries)

@@ -34,6 +34,7 @@ export interface IArticleActivity extends IActivity {
     signLink: string;
     tagNames: string[];
     wordCount: number;
+    recommend: boolean;
 }
 
 export interface IPinActivity extends IActivity {
@@ -127,7 +128,8 @@ export interface IArticle {
         tag_id: string;
         tag_name: string;
     }[],
-    verify: number
+    verify: number,
+    status: number
 }
 
 export interface IArticleContentItem {
@@ -148,7 +150,8 @@ export type TypeInvalidSummary = {
         | "slogan_fit"
         | "link_fit"
         | "tag_fit"
-        | "theme_fit">
+        | "theme_fit"
+        | "recommend_fit">
 };
 
 
