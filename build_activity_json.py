@@ -150,7 +150,7 @@ def parseActivityRewardToRewardList(records=[], fieldNames={}):
                 rewards.append({
                     "name": convertMultilineTextToString(fields.get(fieldNames["reward"])),
                     "count": int(fields.get("最小天数")),
-                    "recommend_count": int(fields.get("文章被推荐数量"))
+                    "recommend_count": int(fields.get("文章被推荐数量") or 0)
                 })
             elif fields.get("数量"):
                 rewards = rules[1]["rewards"]
@@ -164,7 +164,7 @@ def parseActivityRewardToRewardList(records=[], fieldNames={}):
                 rewards.append({
                     "name": convertMultilineTextToString(fields.get(fieldNames["reward"])),
                     "count": int(fields.get("数量")),
-                    "recommend_count": int(fields.get("文章被推荐数量"))
+                    "recommend_count": int(fields.get("文章被推荐数量") or 0)
                 })
     rules.extend(customRule.values())
     for i, item in enumerate(rules):
