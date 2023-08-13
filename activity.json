@@ -15,15 +15,18 @@
                 "rewards": [
                     {
                         "name": "第一关",
-                        "count": 6
+                        "count": 6,
+                        "recommend_count": 1
                     },
                     {
                         "name": "第二关",
-                        "count": 12
+                        "count": 12,
+                        "recommend_count": 2
                     },
                     {
                         "name": "第三关",
-                        "count": 24
+                        "count": 24,
+                        "recommend_count": 3
                     }
                 ]
             },
@@ -32,7 +35,8 @@
                 "rewards": [
                     {
                         "name": "博客搬家",
-                        "count": 28
+                        "count": 28,
+                        "recommend_count": 0
                     }
                 ]
             }
@@ -42,7 +46,8 @@
         "signLink": "",
         "tagNames": [],
         "wordCount": "600",
-        "theme": "日新计划更文活动"
+        "theme": "日新计划更文活动",
+        "recommend": false
     },
     {
         "key": "2023金石计划第五期",
@@ -52,8 +57,8 @@
         "title": "金石计划第五期",
         "docLink": "https://juejin.cn/post/7262228689806245947",
         "category": "金石计划",
-        "endTimeStamp": 1693497600000,
-        "lastModifiedTime": 1690955822000,
+        "endTimeStamp": 1694361600000,
+        "lastModifiedTime": 1691915114000,
         "rewards": [
             {
                 "type": "days",
@@ -64,19 +69,29 @@
                 "rewards": [
                     {
                         "name": "基础挑战",
-                        "count": 2
+                        "count": 2,
+                        "recommend_count": 0
                     },
                     {
                         "name": "进阶挑战①",
-                        "count": 4
+                        "count": 4,
+                        "recommend_count": 0
                     },
                     {
                         "name": "进阶挑战②",
-                        "count": 6
+                        "count": 6,
+                        "recommend_count": 0
                     }
                 ]
             }
-        ]
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "850",
+        "theme": "金石计划征文活动",
+        "recommend": true
     },
     {
         "key": "技术专题21期",
@@ -103,6 +118,7 @@
         "signLink": "",
         "tagNames": [],
         "wordCount": "800",
-        "theme": "聊聊工程化Docker"
+        "theme": "聊聊工程化Docker",
+        "recommend": false
     }
 ]
