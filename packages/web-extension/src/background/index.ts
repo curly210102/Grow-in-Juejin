@@ -3,6 +3,8 @@ import initArticleActivities from "@/core/clientRequests/initArticleActivities";
 import initOtherActivities from "@/core/clientRequests/initOtherActivities";
 import initPinActivities from "@/core/clientRequests/initPinActivities";
 import { initTopicDescriptions, initTopicIds } from "@/core/clientRequests/initTopics";
+import { batchSaveLocalStorage } from "@/core/utils/storage";
+import { StorageKey } from "@/core/types";
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (sender.id === chrome.runtime.id && sender.origin === "https://juejin.cn" && message?.to === "Grow in Juejin Background" && message?.code === extCode) {
@@ -41,7 +43,17 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 })
 
 chrome.runtime.onInstalled.addListener(function (details) {
-    if (details.reason == "update" && (details.previousVersion && details.previousVersion < "0.5.0")) {
-        chrome.storage.local.clear();
+    if (details.reason == "update" && details.previousVersion) {
+        if (details.previousVersion < "0.5.0") {
+            chrome.storage.local.clear();
+        } else if (details.previousVersion <= "0.7.0") {
+            // 文章数据增加 status 字段
+            batchSaveLocalStorage({
+                [StorageKey.ARTICLE_LIST]: {},
+                [StorageKey.ARTICLE_CONTENTS]: {},
+                [StorageKey.ARTICLE_CACHE]: {}
+            })
+        }
+
     }
 });
