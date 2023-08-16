@@ -1,6 +1,6 @@
 import { computed, Ref } from "vue"
 import { ActivityStatus } from "../components/ActivityCard.vue";
-import { IArticleActivity, ArticleContentMap, IArticle, TypeInvalidSummary } from "../types";
+import { IArticleActivity, ArticleContentMap, IArticle, TypeArticleStatusSummaryGroup } from "../types";
 import { format } from "../utils/date";
 
 export default function useComputeJoinedArticleActivities(articleActivities: Ref<IArticleActivity[]>, articleList: Ref<IArticle[]>, articleContentMap: Ref<ArticleContentMap>, options: {
@@ -16,8 +16,13 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
             comment: 0,
             dates: new Set<string>(),
             articleCount: 0,
-            invalidSummaries: [] as TypeInvalidSummary[],
-            countByCategory: {} as Record<string, number>
+            recommendCount: 0,
+            articleSummary: {
+                recommend: [],
+                valid: [],
+                invalid: []
+            } as TypeArticleStatusSummaryGroup,
+            countByCategory: {} as Record<string, { total: number, recommend: number }>
         }]))
 
         const sortedActivities = [...articleActivities.value].sort((a1, a2) => a1.endTimeStamp && a2.endTimeStamp ? a1.endTimeStamp - a2.endTimeStamp : (a1.endTimeStamp ? 1 : a2.endTimeStamp ? -1 : 0));
@@ -49,8 +54,13 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                         const tagFit = tagNames.length <= 0 || new Set(tags.filter(tag => tagNames.includes(tag.tag_name)).map(tag => tag.tag_id)).size === tagNames.length;
                         const themeFit = !theme || themeNames.includes(theme);
                         const activityStat = stats[activity.key];
-                        const recommendFit = !recommend || status === 2
+                        const isRecommended = status === 2;
+                        const recommendFit = !recommend || isRecommended;
                         if (sloganFit && linkFit && wordCountFit && categoryFit && tagFit && themeFit && recommendFit) {
+                            const summaries = {
+                                id,
+                                title
+                            }
                             activityStat.view += view_count;
                             activityStat.digg += digg_count;
                             activityStat.collect += collect_count;
@@ -58,46 +68,56 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                             activityStat.articleCount += 1;
                             activityStat.dates.add(format(publishTime, "YYYY-MM-DD"))
                             if (!activityStat.countByCategory[category]) {
-                                activityStat.countByCategory[category] = 0
+                                activityStat.countByCategory[category] = {
+                                    total: 0,
+                                    recommend: 0
+                                }
                             }
-                            activityStat.countByCategory[category]++;
+                            activityStat.countByCategory[category]["total"]++;
+                            if (isRecommended) {
+                                activityStat.countByCategory[category]["recommend"]++;
+                                activityStat.recommendCount += 1;
+                                activityStat.articleSummary["recommend"].push(summaries)
+
+                            } else {
+                                activityStat.articleSummary["valid"].push(summaries)
+                            }
                             break;
-                        } else if ((sloganFit || tagFit) || (signLink ? sloganFit : false)) {
-                            const summaries: TypeInvalidSummary = {
+                        } else if ((signSlogan && sloganFit) || (signLink && sloganFit) || themeFit) {
+                            const summaries: TypeArticleStatusSummaryGroup["invalid"][0] = {
                                 id,
                                 title,
-                                status: []
+                                invalid_status: []
                             }
                             if (!categoryFit) {
-                                summaries.status.push("category_range");
+                                summaries.invalid_status.push("category_range");
                             }
 
                             if (!wordCountFit) {
-                                summaries.status.push("word_count");
+                                summaries.invalid_status.push("word_count");
                             }
 
                             if (!sloganFit) {
-                                summaries.status.push("slogan_fit");
+                                summaries.invalid_status.push("slogan_fit");
                             }
 
                             if (!linkFit) {
-                                summaries.status.push("link_fit");
+                                summaries.invalid_status.push("link_fit");
                             }
 
                             if (!tagFit) {
-                                summaries.status.push("tag_fit");
+                                summaries.invalid_status.push("tag_fit");
                             }
 
                             if (!themeFit) {
-                                summaries.status.push("theme_fit");
+                                summaries.invalid_status.push("theme_fit");
                             }
 
                             if (!recommendFit) {
-                                summaries.status.push("recommend_fit");
+                                summaries.invalid_status.push("recommend_fit");
                             }
 
-                            activityStat.invalidSummaries.push(summaries)
-
+                            activityStat.articleSummary["invalid"].push(summaries)
                         }
 
                     }
@@ -109,7 +129,7 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
     })
 
     const joinedActivities = computed(() => {
-        return articleActivities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleCount > 0) || (options.includeOngoingActivity && endTimeStamp && endTimeStamp >= Date.now())).map(({
+        return articleActivities.value.filter(({ key, endTimeStamp }) => (activityStats.value[key]?.articleSummary.invalid.length > 0) || (activityStats.value[key]?.articleCount > 0) || (options.includeOngoingActivity && endTimeStamp && endTimeStamp >= Date.now())).map(({
             key,
             title,
             docLink,
@@ -132,15 +152,17 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                 comment: stat?.comment ?? 0,
                 dayCount: stat?.dates?.size ?? 0,
                 articleCount: stat?.articleCount ?? 0,
+                recommendCount: stat?.recommendCount ?? 0,
                 rewards: [],
-                invalid: stat?.invalidSummaries ?? []
+                articleSummary: stat?.articleSummary ?? []
             };
 
             rewards.forEach(({ type, rewards, categories }) => {
-                const count = categories ? categories.reduce((total, category) => total + (stat?.countByCategory[category] ?? 0), 0) : activityStatus[type === "days" ? "dayCount" : "articleCount"]
-                const nextRewardIndex = rewards.findIndex(reward => reward.count > count);
-                const currentReward = nextRewardIndex < 0 ? rewards.slice(-1)[0] : rewards[nextRewardIndex - 1];
-                const nextReward = rewards[nextRewardIndex];
+                const count = categories ? categories.reduce((total, category) => total + (stat?.countByCategory[category]["total"] ?? 0), 0) : activityStatus[type === "days" ? "dayCount" : "articleCount"]
+                const recommendCount = categories ? categories.reduce((total, category) => total + (stat?.countByCategory[category]["recommend"] ?? 0), 0) : activityStatus["recommendCount"];
+                const currentRewardIndex = rewards.findLastIndex((reward) => reward.count <= count && (reward.recommend_count ?? 0) <= recommendCount);
+                const currentReward = rewards[currentRewardIndex];
+                const nextReward = rewards[currentRewardIndex + 1];
 
                 if (currentReward || nextReward) {
                     activityStatus.rewards.push({
@@ -149,8 +171,10 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                         currentTarget: currentReward?.count,
                         nextTarget: nextReward?.count,
                         nextLevel: nextReward?.name,
+                        nextRecommend: nextReward?.recommend_count,
                         categories,
-                        count
+                        count,
+                        recommendCount
                     })
                 }
             })

@@ -1,31 +1,43 @@
 <template>
-  <Modal title="文章检测结果" description="仅做基础检查，最终结果以掘金官方统计为准">
-    <div class="gij-grid gij-grid-cols-[1fr,auto] gij-text-sm gij-mt-4 gij-gap-4">
-      <template v-for="{ id, title, status } in summaries">
-        <a class="gij-text-primary hover:gij-text-primary-hover active:gij-text-primary-active gij-cursor-pointer focus:gij-outline-0"
-          :href="`https://juejin.cn/post/${id}`" target="_blank">{{
-            title
-          }}</a>
-        <ul class="gij-space-y-1 gij-text-main-text/60">
-          <ol v-for="invalidStatus in status">
-            {{ InvalidStatus2Text[invalidStatus] }}
-          </ol>
-        </ul>
-      </template>
-    </div>
+  <Modal title="文章投稿状态" description="仅做基础检查，最终结果以掘金官方统计为准">
+    <section>
+      <h5>已参与活动({{ summaries['recommend'].length + summaries['valid'].length }})</h5>
+      <div class="gij-grid gij-grid-cols-[1fr,auto] gij-text-sm gij-mt-4 gij-gap-4">
+        <ActivitySummaryItem v-for="summary in summaries['recommend']" v-bind="summary">
+          已被官方推荐
+        </ActivitySummaryItem>
+        <ActivitySummaryItem v-for="summary in summaries['valid']" v-bind="summary">
+          未被官方推荐
+        </ActivitySummaryItem>
+      </div>
+    </section>
+    <section>
+      <h5>未参与活动({{ summaries['invalid'].length }})</h5>
+      <div class="gij-grid gij-grid-cols-[1fr,auto] gij-text-sm gij-mt-4 gij-gap-4">
+        <ActivitySummaryItem v-for="summary in summaries['invalid']" :title="summary.title" :id="summary.id">
+          <ul class="gij-space-y-1 ">
+            <ol v-for="status in summary.invalid_status">
+              {{ InvalidStatus2Text[status] }}
+            </ol>
+          </ul>
+        </ActivitySummaryItem>
+      </div>
+    </section>
+
   </Modal>
 </template>
   
-<script setup lang="ts">
+<script setup lang="tsx">
 import { toRef } from "vue";
 import Modal from "../base-components/Modal.vue"
-import { TypeInvalidSummary } from "../types";
+import { TypeArticleStatusSummaryGroup } from "../types";
+import ActivitySummaryItem from "./ActivitySummaryItem.vue";
 
 const props = defineProps<{
-  invalidSummaries: TypeInvalidSummary[]
+  summaries: TypeArticleStatusSummaryGroup
 }>()
 
-const summaries = toRef(props, "invalidSummaries");
+const summaries = toRef(props, "summaries");
 
 const InvalidStatus2Text = {
   time_range: "不在活动时间内",

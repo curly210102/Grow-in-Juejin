@@ -143,17 +143,24 @@ export interface IArticleContentItem {
 
 export type ArticleContentMap = Map<string, IArticleContentItem>
 
-export type TypeInvalidSummary = {
+export type TypeArticleStatusSummaryGroup = {
+    "recommend": TypeArticleStatusSummary[],
+    "valid": TypeArticleStatusSummary[],
+    "invalid": Array<TypeArticleStatusSummary & {
+        invalid_status: Array<"time_range"
+            | "category_range"
+            | "word_count"
+            | "slogan_fit"
+            | "link_fit"
+            | "tag_fit"
+            | "theme_fit"
+            | "recommend_fit">
+    }>
+}
+
+export type TypeArticleStatusSummary = {
     id: string;
     title: string;
-    status: Array<"time_range"
-        | "category_range"
-        | "word_count"
-        | "slogan_fit"
-        | "link_fit"
-        | "tag_fit"
-        | "theme_fit"
-        | "recommend_fit">
 };
 
 

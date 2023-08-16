@@ -1,7 +1,7 @@
 <script lang='ts' setup>
 import { ref } from 'vue';
 import Progress from '../base-components/Progress.vue';
-import { IArticleActivity, TypeInvalidSummary } from '../types'
+import { IArticleActivity, TypeArticleStatusSummaryGroup } from '../types'
 import { getCurrent, format, isStartOfDay, MS_OF_DAY, startOfDate, diffOfDate } from "../utils/date";
 import ActivityDetectResultModal from "./ActivityDetectResultModal.vue";
 
@@ -12,17 +12,20 @@ export type ActivityStatus = Pick<IArticleActivity, "key" | "docLink" | "startTi
     comment: number,
     dayCount: number,
     articleCount: number,
+    recommendCount: number,
     rewards: Array<{
         type: "days" | "count",
-        count: number
+        count: number,
+        recommendCount: number,
     } & Partial<{
         currentLevel: string,
         currentTarget: number,
         nextLevel: string,
         nextTarget: number,
+        nextRecommend: number,
         categories: string[]
     }>>,
-    invalid: Array<TypeInvalidSummary>
+    articleSummary: TypeArticleStatusSummaryGroup
 }
 
 const { activity } = defineProps<{ activity: ActivityStatus }>()
@@ -44,9 +47,9 @@ function calculateProgress(reward: ActivityStatus["rewards"][0]) {
 function calculateCountdown() {
     const today = startOfDate(getCurrent());
     if (today < activity.startTimeStamp) {
-        return `距离开始还有${diffOfDate(today, activity.startTimeStamp)}天`
+        return `${diffOfDate(today, activity.startTimeStamp)}天后开始`
     } else if (today < activity.endTimeStamp) {
-        return `距离结束还有${diffOfDate(today, activity.endTimeStamp)}天`
+        return `${diffOfDate(today, activity.endTimeStamp)}天后结束`
     } else {
         return '已结束'
     }
@@ -100,38 +103,45 @@ function calculateCountdown() {
                             <div v-if="reward.currentLevel" class="gij-text-main-text/90 group-hover:gij-hidden">
                                 {{ reward.currentLevel }} 🎉
                             </div>
-                            <span class="gij-text-main-text/60 gij-ml-auto">🎯 {{ reward.nextLevel }}</span>
+                            <span v-if="reward.nextLevel" class="gij-text-main-text/60 gij-ml-auto">🎯 {{ reward.nextLevel
+                            }}</span>
                         </div>
                     </Progress>
                     <div class="gij-text-main-text/60 gij-font-light gij-text-right gij-text-xs gij-px-2"
                         v-if="reward.nextTarget">
-                        {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `${reward.categories ?
+                        {{ reward.count >= reward.nextTarget ? "✅ " : "" }}
+                        {{ reward.type === "days" ? `更文 ${reward.nextTarget} 天` : `${reward.categories
+                            ?
                             reward.categories.join("/") + "领域" : ""}累计投稿 ${reward.nextTarget} 篇` }}
+                        <br />{{ reward.nextRecommend ? `${reward.nextRecommend <= reward.recommendCount ? "✅ " : ""}至少
+                                                    ${reward.nextRecommend} 篇文章被推荐` : '' }} </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div>
-            <div class="gij-flex gij-gap-2 gij-flex-wrap gij-justify-between">
-                <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
-                    class="gij-text-center gij-overflow-hidden">
-                    <div class="gij-text-xl gij-text-main-text gij-font-mono gij- gij-truncate gij-text-ellipsis"
-                        :alt="count">
-                        {{ count }}
-                    </div>
-                    <div class="gij-text-main-text/75 gij-text-sm gij-whitespace-nowrap">
-                        {{ label }}
+            <div>
+                <div class="gij-flex gij-gap-2 gij-flex-wrap gij-justify-between">
+                    <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
+                        class="gij-text-center gij-overflow-hidden">
+                        <div class="gij-text-xl gij-text-main-text gij-font-mono gij- gij-truncate gij-text-ellipsis"
+                            :alt="count">
+                            {{ count }}
+                        </div>
+                        <div class="gij-text-main-text/75 gij-text-sm gij-whitespace-nowrap">
+                            {{ label }}
+                        </div>
                     </div>
                 </div>
+                <div class="gij-text-main-text/50 gij-text-xs gij-mt-4">
+                    <span v-if="activity.articleSummary.invalid.length > 0">🚨 检测到 {{
+                        activity.articleSummary["invalid"].length }}
+                        篇文章未参与，</span>
+                    <span v-else>🔍 </span>
+                    <a class="gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active gij-underline"
+                        @click="openDetectResultModal">查看投稿状态</a>
+                </div>
             </div>
-            <div v-if="activity.invalid.length" class="gij-text-main-text/75 gij-text-xs gij-mt-2">
-                ⚠️ 检测到有 {{ activity.invalid.length }} 篇文章未参与活动，<a
-                    class="gij-text-primary gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active"
-                    @click="openDetectResultModal">查看</a>
-            </div>
+            <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModal"
+                :summaries="activity.articleSummary">
+            </ActivityDetectResultModal>
         </div>
-        <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModal"
-            :invalid-summaries="activity.invalid">
-        </ActivityDetectResultModal>
-    </div>
 </template>

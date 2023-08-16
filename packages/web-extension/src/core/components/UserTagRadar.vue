@@ -130,10 +130,8 @@ const option = computed<Option>(() => {
             axisLabel: {
                 show: true,
                 fontSize: 8,
-                textStyle: {
-                    color: colors.slate[400],
-                    align: "center"
-                },
+                color: colors.slate[400],
+                align: "center",
                 formatter(value, index, a) {
                     if (labelRenderSet.has(index)) {
                         return '';
