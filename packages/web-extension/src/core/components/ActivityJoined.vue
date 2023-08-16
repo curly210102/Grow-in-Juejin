@@ -31,7 +31,7 @@ const joinedActivities = useComputeJoinedArticleActivities(activities, articleLi
     <div class="gij-grid gij-gap-8 gij-grid-cols-2" v-if="joinedActivities.length || pinActivities.length">
         <ActivityCard v-for="activity in joinedActivities" class="gij-card" :activity="activity">
         </ActivityCard>
-        <PinActivityList :activities="pinActivities" class="gij-card"></PinActivityList>
+        <PinActivityList v-if="pinActivities.length > 0" :activities="pinActivities" class="gij-card"></PinActivityList>
     </div>
     <div v-else
         class="gij-border gij-rounded-md gij-border-gray-1-2 gij-bg-layer-bg/80 gij-text-sm gij-text-center gij-p-4">
