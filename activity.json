@@ -92,33 +92,5 @@
         "wordCount": "850",
         "theme": "金石计划征文活动",
         "recommend": true
-    },
-    {
-        "key": "技术专题21期",
-        "desc": "聊聊工程化docker的最新趋势以及最佳实验",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b4390159868d42709be080cdd6917636~tplv-k3u1fbpfcp-watermark.image?",
-        "startTimeStamp": 1689523200000,
-        "title": "聊聊工程化Docker的最佳实验",
-        "docLink": "https://juejin.cn/post/7256594892720226365",
-        "category": "技术专题",
-        "endTimeStamp": 1692374400000,
-        "lastModifiedTime": 1690950585000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "800",
-        "theme": "聊聊工程化Docker",
-        "recommend": false
     }
 ]
