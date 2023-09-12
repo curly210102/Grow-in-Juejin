@@ -1,5 +1,61 @@
 [
     {
+        "key": "创作者训练营",
+        "desc": "学习如何技术写作，建设个人影响力",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f97970d26d7743c5ba7173b2d63be439~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=780&h=360&s=119202&e=jpg&b=f3efe7",
+        "startTimeStamp": 1693929600000,
+        "title": "创作者训练营第二期",
+        "docLink": "https://juejin.cn/post/7275225666030026809?",
+        "category": "征文大赛",
+        "endTimeStamp": 1696089600000,
+        "lastModifiedTime": 1694522679000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "700",
+        "theme": "创作者训练营",
+        "recommend": false
+    },
+    {
+        "key": "中秋创意投稿大赛",
+        "desc": "快来参加中秋创意投稿大赛，让你的代码闪耀明月的光芒",
+        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/19a0a7e61c9642258e8fc4f3a459bf3d~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1303&h=734&s=602544&e=jpg&b=272c54",
+        "startTimeStamp": 1694448000000,
+        "title": "中秋创意投稿大赛",
+        "docLink": "https://juejin.cn/post/7277797749886009398",
+        "category": "中秋创意投稿大赛",
+        "endTimeStamp": 1695571200000,
+        "lastModifiedTime": 1694522725000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "700",
+        "theme": "中秋创意投稿大赛",
+        "recommend": true
+    },
+    {
         "key": "2023日新计划",
         "desc": "活动开始时创作等级lv0-lv3的用户",
         "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d44584125c2343d5a57bc8efae0238f5~tplv-k3u1fbpfcp-watermark.image?",
