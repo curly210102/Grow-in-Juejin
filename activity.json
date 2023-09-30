@@ -54,55 +54,5 @@
         "wordCount": "700",
         "theme": "中秋创意投稿大赛",
         "recommend": true
-    },
-    {
-        "key": "2023日新计划",
-        "desc": "活动开始时创作等级lv0-lv3的用户",
-        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d44584125c2343d5a57bc8efae0238f5~tplv-k3u1fbpfcp-watermark.image?",
-        "startTimeStamp": 1691942400000,
-        "title": "日新计划｜更文挑战",
-        "docLink": "https://juejin.cn/post/7265365569217462313",
-        "category": "更文活动",
-        "endTimeStamp": 1695398400000,
-        "lastModifiedTime": 1691661673000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": [
-                    {
-                        "name": "第一关",
-                        "count": 6,
-                        "recommend_count": 1
-                    },
-                    {
-                        "name": "第二关",
-                        "count": 12,
-                        "recommend_count": 2
-                    },
-                    {
-                        "name": "第三关",
-                        "count": 24,
-                        "recommend_count": 3
-                    }
-                ]
-            },
-            {
-                "type": "count",
-                "rewards": [
-                    {
-                        "name": "博客搬家",
-                        "count": 28,
-                        "recommend_count": 0
-                    }
-                ]
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "600",
-        "theme": "日新计划更文活动",
-        "recommend": false
     }
 ]
