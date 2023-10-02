@@ -26,33 +26,5 @@
         "wordCount": "700",
         "theme": "创作者训练营",
         "recommend": false
-    },
-    {
-        "key": "中秋创意投稿大赛",
-        "desc": "快来参加中秋创意投稿大赛，让你的代码闪耀明月的光芒",
-        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/19a0a7e61c9642258e8fc4f3a459bf3d~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=1303&h=734&s=602544&e=jpg&b=272c54",
-        "startTimeStamp": 1694448000000,
-        "title": "中秋创意投稿大赛",
-        "docLink": "https://juejin.cn/post/7277797749886009398",
-        "category": "中秋创意投稿大赛",
-        "endTimeStamp": 1695571200000,
-        "lastModifiedTime": 1694522725000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "700",
-        "theme": "中秋创意投稿大赛",
-        "recommend": true
     }
 ]
