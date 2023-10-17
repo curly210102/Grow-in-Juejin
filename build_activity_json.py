@@ -108,13 +108,13 @@ async def requestTableRecords(app_token, table_id, view_id=None, optionalParams=
 
 def parseActivityRecordsToList(records=[]):
     mapping_dict = {"关联键": "key", "备注": "desc", "开始时间": "startTimeStamp",
-                    "活动名": "title", "活动链接": "docLink", "类别": "category", "结束时间": "endTimeStamp", "头图": "figure"}
+                    "活动名": "title", "活动链接": "docLink", "类别": "category", "结束时间": "endTimeStamp", "头图": "figure", "附加链接": "addition"}
     list = []
 
     if records:
         for record in records:
             obj = {mapping_dict[k]: convertMultilineTextToString(
-                v) if isMultilineText(v) else v["link"] if isLink(v) else v for k, v in record["fields"].items()}
+                v) if isMultilineText(v) else v["link"] if (isLink(v) and k != "附加链接") else v for k, v in record["fields"].items()}
             if (obj.get("startTimeStamp") is None or obj.get("endTimeStamp") is None):
                 continue
             obj["endTimeStamp"] = endOfTheDay(obj["endTimeStamp"])
@@ -172,6 +172,26 @@ def parseActivityRewardToRewardList(records=[], fieldNames={}):
                                  key=lambda reward: reward.get("count"))
     return rules
 
+def parseActivityPointRulesToPointRuleList(records=[]):
+    rules = []
+
+    mapping_dict = {
+        "合格": "valid",
+        "推荐": "recommend",
+        "阅读达到指定数量": "view"
+    }
+    if records:
+        for record in records:
+            fields = record["fields"]
+            rule = {
+                "condition": mapping_dict[fields.get("条件")],
+                "point": int(fields.get("增加积分")),
+            }
+            if ("指定数量" in fields):
+                rule["amount"] = int(fields.get("指定数量"))
+
+            rules.append(rule)
+    return rules
 
 def parseActivityRuleMap(records=[]):
     ruleMap = {
@@ -212,19 +232,30 @@ async def fetchArticleActivitiesAndBuildList():
         "field_names": '["等级名", "最小天数", "数量", "指定分类", "文章被推荐数量"]'
     }) for key in relatedKeys])
 
+    pointActivityRewardsTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tbl00H2pySX4cFaK", "vewj8t6vAm", {
+        "filter": f'CurrentValue.[所属活动]="{key}"',
+        "field_names": '["增加积分", "条件", "指定数量"]'
+    }) for key in relatedKeys]) 
+
     activityRulesTasks = asyncio.gather(*[requestTableRecords(APP_TOKEN, "tblawuUZtQTY7Tq4", "vewo5RWnaX", {
         "filter": f'CurrentValue.[所属活动]="{key}"',
         "field_names": '["关键词", "分类", "字数", "标签", "话题", "要求被官方推荐"]'
     }) for key in relatedKeys])
 
     activityRewardsResp = await activityRewardsTasks
+    pointActivityRewardsResp = await pointActivityRewardsTasks
     activityRulesResp = await activityRulesTasks
+    
 
     for i, item in enumerate(list):
         if activityRewardsResp[i]:
             rewardList = parseActivityRewardToRewardList(
                 activityRewardsResp[i].get("items"), {"reward": "等级名"})
             item["rewards"] = rewardList
+        if pointActivityRewardsResp[i]:
+            pointRules = parseActivityPointRulesToPointRuleList(
+                pointActivityRewardsResp[i].get("items"))
+            item["pointRules"] = pointRules
         if activityRulesResp[i] and activityRulesResp[i].get("items"):
             ruleMap = parseActivityRuleMap(activityRulesResp[i].get("items"))
             item.update(ruleMap)

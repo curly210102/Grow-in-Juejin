@@ -1,44 +1,41 @@
 [
     {
-        "key": "2023日新计划",
-        "desc": "活动开始时创作等级lv0-lv3的用户",
-        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d44584125c2343d5a57bc8efae0238f5~tplv-k3u1fbpfcp-watermark.image?",
-        "startTimeStamp": 1691942400000,
-        "title": "日新计划｜更文挑战",
-        "docLink": "https://juejin.cn/post/7265365569217462313",
-        "category": "更文活动",
-        "endTimeStamp": 1695398400000,
-        "lastModifiedTime": 1691661673000,
+        "key": "2023创作者训练营第三期",
+        "desc": "探索技术写作进阶之旅（创作等级LV4以下用户）",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/36a92cc68f3f487286814048c5ea5121~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=780&h=360&s=119202&e=jpg&b=f3efe7",
+        "startTimeStamp": 1697126400000,
+        "title": "创作者训练营第三期",
+        "docLink": "https://juejin.cn/post/7289038122918150156",
+        "category": "积分更文",
+        "endTimeStamp": 1700236800000,
+        "addition": {
+            "link": "https://bytedance.feishu.cn/sheets/NLLmssL1EhvjhgtsgSccOusVnzc?sheet=ODjUnQ",
+            "text": "官方积分查询"
+        },
+        "lastModifiedTime": 1697515982000,
         "rewards": [
             {
                 "type": "days",
-                "rewards": [
-                    {
-                        "name": "第一关",
-                        "count": 6,
-                        "recommend_count": 1
-                    },
-                    {
-                        "name": "第二关",
-                        "count": 12,
-                        "recommend_count": 2
-                    },
-                    {
-                        "name": "第三关",
-                        "count": 24,
-                        "recommend_count": 3
-                    }
-                ]
+                "rewards": []
             },
             {
                 "type": "count",
-                "rewards": [
-                    {
-                        "name": "博客搬家",
-                        "count": 28,
-                        "recommend_count": 0
-                    }
-                ]
+                "rewards": []
+            }
+        ],
+        "pointRules": [
+            {
+                "condition": "valid",
+                "point": 1
+            },
+            {
+                "condition": "recommend",
+                "point": 10
+            },
+            {
+                "condition": "view",
+                "point": 10,
+                "amount": 1000
             }
         ],
         "categories": [],
@@ -46,19 +43,19 @@
         "signLink": "",
         "tagNames": [],
         "wordCount": "600",
-        "theme": "日新计划更文活动",
+        "theme": "创作者训练营",
         "recommend": false
     },
     {
-        "key": "2023金石计划第五期",
+        "key": "2023金石计划第六期",
         "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/de7ccf7b77bf43be91ea000b69dd724b~tplv-k3u1fbpfcp-watermark.image",
-        "startTimeStamp": 1690819200000,
-        "title": "金石计划第五期",
-        "docLink": "https://juejin.cn/post/7262228689806245947",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f50c664694104098ae7df660fb810c27~tplv-k3u1fbpfcp-watermark.image?",
+        "startTimeStamp": 1697040000000,
+        "title": "金石计划第六期",
+        "docLink": "https://juejin.cn/post/7288597328269115433",
         "category": "金石计划",
-        "endTimeStamp": 1694361600000,
-        "lastModifiedTime": 1691915114000,
+        "endTimeStamp": 1698768000000,
+        "lastModifiedTime": 1697511011000,
         "rewards": [
             {
                 "type": "days",
@@ -68,57 +65,30 @@
                 "type": "count",
                 "rewards": [
                     {
-                        "name": "基础挑战",
+                        "name": "瓜分15000元奖池",
                         "count": 2,
                         "recommend_count": 0
                     },
                     {
-                        "name": "进阶挑战①",
+                        "name": "叠加瓜分12000元",
                         "count": 4,
                         "recommend_count": 0
                     },
                     {
-                        "name": "进阶挑战②",
+                        "name": "叠加瓜分11000元",
                         "count": 6,
                         "recommend_count": 0
                     }
                 ]
             }
         ],
+        "pointRules": [],
         "categories": [],
         "signSlogan": "",
         "signLink": "",
         "tagNames": [],
-        "wordCount": "850",
+        "wordCount": "650",
         "theme": "金石计划征文活动",
         "recommend": true
-    },
-    {
-        "key": "技术专题21期",
-        "desc": "聊聊工程化docker的最新趋势以及最佳实验",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b4390159868d42709be080cdd6917636~tplv-k3u1fbpfcp-watermark.image?",
-        "startTimeStamp": 1689523200000,
-        "title": "聊聊工程化Docker的最佳实验",
-        "docLink": "https://juejin.cn/post/7256594892720226365",
-        "category": "技术专题",
-        "endTimeStamp": 1692374400000,
-        "lastModifiedTime": 1690950585000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "800",
-        "theme": "聊聊工程化Docker",
-        "recommend": false
     }
 ]
