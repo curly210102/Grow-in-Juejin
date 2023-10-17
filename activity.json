@@ -30,7 +30,7 @@
             },
             {
                 "condition": "recommend",
-                "point": 10
+                "point": 9
             },
             {
                 "condition": "view",
