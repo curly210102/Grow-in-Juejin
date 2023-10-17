@@ -170,7 +170,7 @@ export type TypeArticleStatusSummaryGroup = {
 export type TypeArticleStatusSummary = {
     id: string;
     title: string;
-    view_count: number
+    view_count?: number
 };
 
 

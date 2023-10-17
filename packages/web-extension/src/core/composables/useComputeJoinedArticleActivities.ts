@@ -93,7 +93,7 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                                     if (condition === "recommend" && isRecommended) {
                                         activityStat.point += point;
                                     }
-                                    if (condition === "view" && isRecommended && view_count > (amount ?? 0)) {
+                                    if (condition === "view" && isRecommended && view_count >= (amount ?? 0)) {
                                         activityStat.point += point;
                                     }
                                 })
