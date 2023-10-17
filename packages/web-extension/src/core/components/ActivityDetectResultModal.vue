@@ -4,10 +4,12 @@
       <h5>已参与活动({{ summaries['recommend'].length + summaries['valid'].length }})</h5>
       <div class="gij-grid gij-grid-cols-[1fr,auto] gij-text-sm gij-mt-4 gij-gap-4">
         <ActivitySummaryItem v-for="summary in summaries['recommend']" v-bind="summary">
-          已被官方推荐
+          已被官方推荐<br />
+          阅读量 {{ summary.view_count }}
         </ActivitySummaryItem>
         <ActivitySummaryItem v-for="summary in summaries['valid']" v-bind="summary">
-          未被官方推荐
+          未被官方推荐<br />
+          阅读量 {{ summary.view_count }}
         </ActivitySummaryItem>
       </div>
     </section>

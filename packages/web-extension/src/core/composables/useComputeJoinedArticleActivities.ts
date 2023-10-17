@@ -60,7 +60,8 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                         if (sloganFit && linkFit && wordCountFit && categoryFit && tagFit && themeFit && recommendFit) {
                             const summaries = {
                                 id,
-                                title
+                                title,
+                                view_count
                             }
                             activityStat.view += view_count;
                             activityStat.digg += digg_count;
