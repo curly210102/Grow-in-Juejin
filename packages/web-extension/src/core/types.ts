@@ -8,6 +8,10 @@ export interface IActivity {
     category: string;
     endTimeStamp: number;
     lastModifiedTime: number;
+    addition?: {
+        link: string;
+        text: string;
+    }
 }
 export interface IArticleActivity extends IActivity {
     theme: string;
@@ -31,6 +35,11 @@ export interface IArticleActivity extends IActivity {
             categories?: string[];
         }
     ];
+    pointRules?: {
+        condition: "valid" | "recommend" | "view",
+        point: number,
+        amount?: number
+    }[],
     categories: string[];
     signSlogan: string;
     signLink: string;

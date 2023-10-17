@@ -22,7 +22,8 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                 valid: [],
                 invalid: []
             } as TypeArticleStatusSummaryGroup,
-            countByCategory: {} as Record<string, { total: number, recommend: number }>
+            countByCategory: {} as Record<string, { total: number, recommend: number }>,
+            point: 0
         }]))
 
         const sortedActivities = [...articleActivities.value].sort((a1, a2) => a1.endTimeStamp && a2.endTimeStamp ? a1.endTimeStamp - a2.endTimeStamp : (a1.endTimeStamp ? 1 : a2.endTimeStamp ? -1 : 0));
@@ -34,7 +35,7 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                 // hack: 删掉markdown语法
                 const fragment = articleFragment.replaceAll("**", "");
                 for (const activity of sortedActivities) {
-                    const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames, theme, recommend } = activity;
+                    const { signLink, signSlogan, wordCount, startTimeStamp = 0, endTimeStamp = Infinity, categories, tagNames, theme, recommend, pointRules } = activity;
 
                     const signSloganRegexp = new RegExp(signSlogan?.replace(/([()\[{*+.$^\\|?\]])|(https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g, (match) => {
                         if (match.startsWith("http")) {
@@ -81,6 +82,20 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
 
                             } else {
                                 activityStat.articleSummary["valid"].push(summaries)
+                            }
+
+                            if (pointRules) {
+                                pointRules.forEach(({ condition, point, amount }) => {
+                                    if (condition === "valid") {
+                                        activityStat.point += point;
+                                    }
+                                    if (condition === "recommend" && isRecommended) {
+                                        activityStat.point += point;
+                                    }
+                                    if (condition === "view" && isRecommended && view_count > (amount ?? 0)) {
+                                        activityStat.point += point;
+                                    }
+                                })
                             }
                             break;
                         } else if ((signSlogan && sloganFit) || (signLink && sloganFit) || themeFit) {
@@ -136,7 +151,8 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
             startTimeStamp,
             endTimeStamp,
             desc,
-            rewards
+            rewards,
+            addition
         }) => {
             const stat = activityStats.value[key];
             const activityStatus: ActivityStatus = {
@@ -154,7 +170,9 @@ export default function useComputeJoinedArticleActivities(articleActivities: Ref
                 articleCount: stat?.articleCount ?? 0,
                 recommendCount: stat?.recommendCount ?? 0,
                 rewards: [],
-                articleSummary: stat?.articleSummary ?? []
+                point: stat?.point,
+                articleSummary: stat?.articleSummary ?? [],
+                addition
             };
 
             rewards.forEach(({ type, rewards, categories }) => {

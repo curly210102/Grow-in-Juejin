@@ -5,7 +5,7 @@ import { IArticleActivity, TypeArticleStatusSummaryGroup } from '../types'
 import { getCurrent, format, isStartOfDay, MS_OF_DAY, startOfDate, diffOfDate } from "../utils/date";
 import ActivityDetectResultModal from "./ActivityDetectResultModal.vue";
 
-export type ActivityStatus = Pick<IArticleActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title"> & {
+export type ActivityStatus = Pick<IArticleActivity, "key" | "docLink" | "startTimeStamp" | "endTimeStamp" | "desc" | "title" | "addition"> & {
     view: number,
     digg: number,
     collect: number,
@@ -13,6 +13,7 @@ export type ActivityStatus = Pick<IArticleActivity, "key" | "docLink" | "startTi
     dayCount: number,
     articleCount: number,
     recommendCount: number,
+    point?: number,
     rewards: Array<{
         type: "days" | "count",
         count: number,
@@ -84,7 +85,7 @@ function calculateCountdown() {
 
         <div>
             <div class="gij-flex gij-items-center gij-mb-3">
-                <div v-for='[count, unit] in [[activity.articleCount, "篇"], [activity.dayCount, "天"]]'
+                <div v-for='[count, unit] in [[activity.articleCount, "篇"], activity.point ? [activity.point, "积分"] : [activity.dayCount, "天"]]'
                     class="gij-flex-1 gij-text-center gij-text-3xl gij-font-bold gij-font-mono">
                     <span class="gij-text-main-text">{{ count }}</span>{{ " " }}
                     <span class="gij-text-main-text/75 gij-text-xs">{{ unit }}</span>
@@ -131,14 +132,22 @@ function calculateCountdown() {
                         </div>
                     </div>
                 </div>
-                <div class="gij-text-main-text/50 gij-text-xs gij-mt-4">
-                    <span v-if="activity.articleSummary.invalid.length > 0">🚨 检测到 {{
-                        activity.articleSummary["invalid"].length }}
-                        篇文章未参与，</span>
-                    <span v-else>🔍 </span>
-                    <a class="gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active gij-underline"
-                        @click="openDetectResultModal">查看投稿状态</a>
+                <div class="gij-text-main-text/50 gij-text-xs gij-mt-4 gij-space-x-4 gij-flex gij-flex-wrap">
+                    <div>
+                        <span v-if="activity.articleSummary.invalid.length > 0">🚨 检测到 {{
+                            activity.articleSummary["invalid"].length }}
+                            篇文章未参与，</span>
+                        <span v-else>🔍 </span>
+                        <a class="gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active gij-underline"
+                            @click="openDetectResultModal">查看投稿状态</a>
+                    </div>
+                    <div v-if="activity.addition">
+                        <span>🔗 </span>
+                        <a class="gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active gij-underline"
+                            target="_blank" :href="activity.addition?.link">{{ activity.addition?.text }}</a>
+                    </div>
                 </div>
+
             </div>
             <ActivityDetectResultModal :show="isDetectResultModalOpen" @close="closeDetectResultModal"
                 :summaries="activity.articleSummary">
