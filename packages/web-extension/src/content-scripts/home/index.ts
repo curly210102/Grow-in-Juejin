@@ -2,6 +2,9 @@ import observeTheme from "./observeTheme";
 import renderEntry from "./renderEntry"
 import renderGlobalComponent from "./renderGlobalComponent";
 
-renderEntry();
-renderGlobalComponent();
-observeTheme();
+if (!window.location.href.startsWith("https://juejin.cn/magic/eco/runtime/release")) {
+    renderEntry();
+    renderGlobalComponent();
+    observeTheme();
+}
+
