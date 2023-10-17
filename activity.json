@@ -1,94 +1,94 @@
 [
-    {
-        "key": "2023创作者训练营第三期",
-        "desc": "探索技术写作进阶之旅（创作等级LV4以下用户）",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/36a92cc68f3f487286814048c5ea5121~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=780&h=360&s=119202&e=jpg&b=f3efe7",
-        "startTimeStamp": 1697126400000,
-        "title": "创作者训练营第三期",
-        "docLink": "https://juejin.cn/post/7289038122918150156",
-        "category": "积分更文",
-        "endTimeStamp": 1700236800000,
-        "addition": {
-            "link": "https://bytedance.feishu.cn/sheets/NLLmssL1EhvjhgtsgSccOusVnzc?sheet=ODjUnQ",
-            "text": "官方积分查询"
-        },
-        "lastModifiedTime": 1697515982000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [
-            {
-                "condition": "valid",
-                "point": 1
-            },
-            {
-                "condition": "recommend",
-                "point": 10
-            },
-            {
-                "condition": "view",
-                "point": 10,
-                "amount": 1000
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "600",
-        "theme": "创作者训练营",
-        "recommend": false
+  {
+    "key": "2023创作者训练营第三期",
+    "desc": "探索技术写作进阶之旅（创作等级LV4以下用户）",
+    "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/36a92cc68f3f487286814048c5ea5121~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=780&h=360&s=119202&e=jpg&b=f3efe7",
+    "startTimeStamp": 1697126400000,
+    "title": "创作者训练营第三期",
+    "docLink": "https://juejin.cn/post/7289038122918150156",
+    "category": "积分更文",
+    "endTimeStamp": 1700236800000,
+    "addition": {
+      "link": "https://bytedance.feishu.cn/sheets/NLLmssL1EhvjhgtsgSccOusVnzc?sheet=ODjUnQ",
+      "text": "官方积分查询"
     },
-    {
-        "key": "2023金石计划第六期",
-        "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
-        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f50c664694104098ae7df660fb810c27~tplv-k3u1fbpfcp-watermark.image?",
-        "startTimeStamp": 1697040000000,
-        "title": "金石计划第六期",
-        "docLink": "https://juejin.cn/post/7288597328269115433",
-        "category": "金石计划",
-        "endTimeStamp": 1698768000000,
-        "lastModifiedTime": 1697511011000,
+    "lastModifiedTime": 1697515982000,
+    "rewards": [
+      {
+        "type": "days",
+        "rewards": []
+      },
+      {
+        "type": "count",
+        "rewards": []
+      }
+    ],
+    "pointRules": [
+      {
+        "condition": "valid",
+        "point": 1
+      },
+      {
+        "condition": "recommend",
+        "point": 10
+      },
+      {
+        "condition": "view",
+        "point": 10,
+        "amount": 1000
+      }
+    ],
+    "categories": [],
+    "signSlogan": "",
+    "signLink": "",
+    "tagNames": [],
+    "wordCount": "600",
+    "theme": "创作者训练营",
+    "recommend": false
+  },
+  {
+    "key": "2023金石计划第六期",
+    "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
+    "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f50c664694104098ae7df660fb810c27~tplv-k3u1fbpfcp-watermark.image?",
+    "startTimeStamp": 1697040000000,
+    "title": "金石计划第六期",
+    "docLink": "https://juejin.cn/post/7288597328269115433",
+    "category": "金石计划",
+    "endTimeStamp": 1698768000000,
+    "lastModifiedTime": 1697511011000,
+    "rewards": [
+      {
+        "type": "days",
+        "rewards": []
+      },
+      {
+        "type": "count",
         "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": [
-                    {
-                        "name": "瓜分15000元奖池",
-                        "count": 2,
-                        "recommend_count": 0
-                    },
-                    {
-                        "name": "叠加瓜分12000元",
-                        "count": 4,
-                        "recommend_count": 0
-                    },
-                    {
-                        "name": "叠加瓜分11000元",
-                        "count": 6,
-                        "recommend_count": 0
-                    }
-                ]
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "650",
-        "theme": "金石计划征文活动",
-        "recommend": true
-    }
+          {
+            "name": "瓜分15000元奖池",
+            "count": 2,
+            "recommend_count": 0
+          },
+          {
+            "name": "叠加瓜分12000元",
+            "count": 4,
+            "recommend_count": 0
+          },
+          {
+            "name": "叠加瓜分11000元",
+            "count": 6,
+            "recommend_count": 0
+          }
+        ]
+      }
+    ],
+    "pointRules": [],
+    "categories": [],
+    "signSlogan": "",
+    "signLink": "",
+    "tagNames": [],
+    "wordCount": "650",
+    "theme": "金石计划征文活动",
+    "recommend": true
+  }
 ]
