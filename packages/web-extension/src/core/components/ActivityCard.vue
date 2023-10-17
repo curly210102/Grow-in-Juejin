@@ -144,7 +144,7 @@ function calculateCountdown() {
                     <div v-if="activity.addition">
                         <span>🔗 </span>
                         <a class="gij-cursor-pointer hover:gij-text-primary-hover active:gij-text-primary-active gij-underline"
-                            target="_blank" :href="activity.addition?.link">{{ activity.addition?.text }}</a>
+                            target="_blank" :href="activity.addition?.link" :tabindex="-1">{{ activity.addition?.text }}</a>
                     </div>
                 </div>
 
