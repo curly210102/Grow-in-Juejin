@@ -1,13 +1,14 @@
 import { entryPath } from "@/constant";
 import { entryIcon } from "../icon";
 import onRouteChange from "../utils/onRouteChange";
+import onElementRendered from "../utils/onElementRendered";
 
-function addNavbarEntry() {
+async function addNavbarEntry() {
     const oldEntry = document.getElementById("entry-gij");
     if (oldEntry) {
         oldEntry.remove();
     }
-    const notificationEntry = document.querySelector("#juejin > div.view-container > div > header > div > nav > ul > ul > li.nav-item.notification") as HTMLElement;
+    const notificationEntry = await onElementRendered("#juejin > div.view-container > div > header > div > nav > ul > ul > li.nav-item.notification");
     if (notificationEntry) {
         const growingEntry = notificationEntry.cloneNode() as HTMLElement;
         growingEntry.id = "entry-gij"
