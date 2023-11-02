@@ -40,10 +40,11 @@
       "run_at": "document_start"
     }
   ],
-  "permissions": ["unlimitedStorage", "storage"],
+  "permissions": ["unlimitedStorage", "storage", "scripting"],
   "host_permissions": [
     "https://api.juejin.cn/*",
-    "https://gitee.com/curlly-brackets/grow-in-juejin/raw/*/activity.json"
+    "https://gitee.com/curlly-brackets/grow-in-juejin/raw/*/activity.json",
+    "https://juejin.cn/*"
   ],
   "author": "water.curly@outlook.com",
   "homepage_url": "https://grow-in-juejin.curlybrackets.space",

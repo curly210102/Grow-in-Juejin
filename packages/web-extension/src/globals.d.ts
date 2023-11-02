@@ -1,3 +1,3 @@
 interface Window {
-    __NUXT__: any;
+    $nuxt: any
 }
