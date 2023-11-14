@@ -74,5 +74,34 @@
         "wordCount": "600",
         "theme": "创作者训练营",
         "recommend": false
+    },
+    {
+        "key": "技术专题征文",
+        "desc": "聊技术专题，争技术先锋~本期技术专题带大家聊聊 “网络协议的研究与应用”",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76dc038b73c44db3b4c1723d40681dfd~tplv-k3u1fbpfcp-jj:3024:0:0:0:q75.awebp#?w=1303&h=734&s=783056&e=jpg&b=d8dffa",
+        "startTimeStamp": 1699977600000,
+        "title": "网络协议的研究与应用",
+        "docLink": "https://sourl.co/JxhtSS",
+        "category": "技术专题",
+        "endTimeStamp": 1699459200000,
+        "lastModifiedTime": 1699950734000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "650",
+        "theme": "网络协议的研究应用",
+        "recommend": false
     }
 ]
