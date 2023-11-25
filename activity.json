@@ -56,52 +56,5 @@
         "wordCount": "650",
         "theme": "金石计划征文活动",
         "recommend": true
-    },
-    {
-        "key": "2023创作者训练营第三期",
-        "desc": "探索技术写作进阶之旅（创作等级LV4以下用户）",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/36a92cc68f3f487286814048c5ea5121~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=780&h=360&s=119202&e=jpg&b=f3efe7",
-        "startTimeStamp": 1697126400000,
-        "title": "创作者训练营第三期",
-        "docLink": "https://juejin.cn/post/7289038122918150156",
-        "category": "创作者训练营",
-        "endTimeStamp": 1700236800000,
-        "addition": {
-            "link": "https://bytedance.feishu.cn/sheets/NLLmssL1EhvjhgtsgSccOusVnzc?sheet=ODjUnQ",
-            "text": "官方积分查询（每周一更新）"
-        },
-        "lastModifiedTime": 1697522712000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [
-            {
-                "condition": "valid",
-                "point": 1
-            },
-            {
-                "condition": "recommend",
-                "point": 9
-            },
-            {
-                "condition": "view",
-                "point": 10,
-                "amount": 1000
-            }
-        ],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "600",
-        "theme": "创作者训练营",
-        "recommend": false
     }
 ]
