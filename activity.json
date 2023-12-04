@@ -2,12 +2,13 @@
     {
         "key": "2023金石计划第八期",
         "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
+        "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/02956089f09e4b429b8931d39eb5b4d4~tplv-k3u1fbpfcp-jj:0:0:0:0:q75.image#?w=804&h=336&s=273489&e=jpg&b=297fe1",
         "startTimeStamp": 1701360000000,
         "title": "金石计划第八期",
         "docLink": "https://juejin.cn/post/7288597328269115433",
         "category": "金石计划",
         "endTimeStamp": 1703260800000,
-        "lastModifiedTime": 1701693575000,
+        "lastModifiedTime": 1701694759000,
         "rewards": [
             {
                 "type": "days",
