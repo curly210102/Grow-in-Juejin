@@ -1,5 +1,33 @@
 [
     {
+        "key": "2023金石计划第八期",
+        "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
+        "startTimeStamp": 1701360000000,
+        "title": "金石计划第八期",
+        "docLink": "https://juejin.cn/post/7288597328269115433",
+        "category": "金石计划",
+        "endTimeStamp": 1703260800000,
+        "lastModifiedTime": 1701693575000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "650",
+        "theme": "金石计划征文活动",
+        "recommend": true
+    },
+    {
         "key": "技术专题征文",
         "desc": "聊技术专题，争技术先锋~本期技术专题带大家聊聊 “网络协议的研究与应用”",
         "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/76dc038b73c44db3b4c1723d40681dfd~tplv-k3u1fbpfcp-jj:3024:0:0:0:q75.awebp#?w=1303&h=734&s=783056&e=jpg&b=d8dffa",
