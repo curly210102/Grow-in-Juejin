@@ -1,5 +1,33 @@
 [
     {
+        "key": "我的2023年度关键词",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/31cf2083857846b5b2e33a062e517fe9~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1303&h=734&s=719126&e=jpg&b=0b141b",
+        "startTimeStamp": 1701792000000,
+        "title": "2023年度关键词",
+        "docLink": "https://juejin.cn/post/7308899425149354035",
+        "category": "征文大赛",
+        "endTimeStamp": 1705766400000,
+        "lastModifiedTime": 1701848392000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "650",
+        "theme": "我的2023年度关键词",
+        "recommend": false
+    },
+    {
         "key": "2023金石计划第八期",
         "desc": "针对掘金社区创作者等级 lv4-lv8 的作者，征集优秀原创技术文章",
         "figure": "https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/02956089f09e4b429b8931d39eb5b4d4~tplv-k3u1fbpfcp-jj:0:0:0:0:q75.image#?w=804&h=336&s=273489&e=jpg&b=297fe1",
