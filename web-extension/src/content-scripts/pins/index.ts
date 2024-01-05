@@ -1,7 +1,7 @@
 import { extCode } from "@/constant";
 import onRouteChange from "../utils/onRouteChange";
 import { register, CustomPinActivities } from "./components";
-import { disconnect } from "echarts";
+import { StorageKey } from "@/core/types";
 
 register();
 main();
@@ -35,7 +35,10 @@ async function main() {
         currentRenderWork = renderWhenEnterPinsPage();
         observer = observeWhenEnterPinsPage();
     });
+    listenPinActivitiesChange();
 }
+
+
 
 function renderWhenEnterPinsPage() {
     if (/https:\/\/juejin\.cn\/pins(\/|$)/.test(window.location.href)) {
@@ -99,6 +102,23 @@ function renderFeatures() {
     }
 }
 
+const ACTIVITY_BLOCK_ID = "ce-gij-activity-block";
+function listenPinActivitiesChange() {
+    chrome.storage.local.onChanged.addListener((changes) => {
+        if (changes[StorageKey.PIN_ACTIVITIES]) {
+            const withoutActivity = changes[StorageKey.PIN_ACTIVITIES].newValue?.length === 0 ?? true;
+
+            const currentActivityBlock = document.getElementById(ACTIVITY_BLOCK_ID);
+
+            if (currentActivityBlock) {
+                withoutActivity ?
+                    currentActivityBlock.classList.add("gij-hidden") :
+                    currentActivityBlock.classList.remove("gij-hidden");
+            }
+        }
+    })
+}
+
 function renderCurrentActivities() {
     const userBlock = document.querySelector("#juejin > div.view-container.pin_container > main > main > div.sidebar > div.userbox");
     const listBlock = document.querySelector("#juejin > div.view-container.pin_container > main > main > div.sidebar > div.list_box.pin")
@@ -111,6 +131,7 @@ function renderCurrentActivities() {
         const activityBlock = listBlock.cloneNode(true) as HTMLDivElement;
         const titleBlock = activityBlock.querySelector(".title")
         const hotListBlock = activityBlock.querySelector(".hot_list");
+        activityBlock.id = ACTIVITY_BLOCK_ID;
         if (titleBlock && hotListBlock) {
             titleBlock.innerHTML = "沸点活动";
             hotListBlock.innerHTML = "";
