@@ -3,8 +3,8 @@ name: Update Activity API
 on:
   push:
     paths:
-      - "build_activity_json.py"
-      - "sync_to_gitee.sh"
+      - "scripts/build_activity_json.py"
+      - "scripts/sync_to_gitee.sh"
   workflow_dispatch:
   schedule:
     - cron: "0 */2 * * *"
@@ -13,6 +13,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./scripts
     environment: API
     steps:
       - name: Check out repo
@@ -37,7 +40,7 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
         run: |-
-          python build_activity_json.py
+          python ./build_activity_json.py
           cat activity.json
       - name: Update Topics JSON
         env:
@@ -45,7 +48,7 @@ jobs:
           APP_ID: ${{ secrets.APP_ID }}
           APP_SECRET: ${{ secrets.APP_SECRET }}
         run: |-
-          python build_topic_json.py
+          python ./build_topic_json.py
           cat topics.json
       - name: Install jq for Bash
         run: sudo apt-get update && sudo apt-get install -y jq

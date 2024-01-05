@@ -346,7 +346,7 @@ async def buildActivityJSON():
     list = sorted(
         aList, key=lambda x: x['endTimeStamp'], reverse=True)
     json_object = json.dumps(list, indent=4, ensure_ascii=False)
-    with open("activity.json", "w", encoding="utf-8") as outfile:
+    with open("./data/activity.json", "w", encoding="utf-8") as outfile:
         outfile.write(json_object)
 
 
@@ -355,7 +355,7 @@ async def buildPinActivityJSON():
     list = sorted(
         pList, key=lambda x: x['endTimeStamp'], reverse=True)
     json_object = json.dumps(list, indent=4, ensure_ascii=False)
-    with open("pin_activity.json", "w", encoding="utf-8") as outfile:
+    with open("./data/pin_activity.json", "w", encoding="utf-8") as outfile:
         outfile.write(json_object)
 
 
@@ -364,7 +364,7 @@ async def buildOtherActivityJSON():
     list = sorted(
         pList, key=lambda x: x['endTimeStamp'], reverse=True)
     json_object = json.dumps(list, indent=4, ensure_ascii=False)
-    with open("other_activity.json", "w", encoding="utf-8") as outfile:
+    with open("./data/other_activity.json", "w", encoding="utf-8") as outfile:
         outfile.write(json_object)
 
 

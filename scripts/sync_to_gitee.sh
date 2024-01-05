@@ -7,7 +7,7 @@ branch=${1:-master}
 access_token=$GITEE_ACCESS_TOKEN
 
 sync_file() {
-    path=$1
+    path="$1"
 
     # Get the operating system name
     os=$(uname -s)
@@ -20,7 +20,7 @@ sync_file() {
     fi
 
     # 读取activity.json的内容，进行base64编码得到encodedContent
-    encodedContent=$(cat "${path}" | base64 ${argument})
+    encodedContent=$(cat "./data/${path}" | base64 ${argument})
     
     # 请求https://gitee.com/api/v5/repos/{owner}/{repo}/contents/{path}?access_token={access_token}获取响应数据中的sha值
     response=$(curl -s -X GET "https://gitee.com/api/v5/repos/${owner}/${repo}/contents/${path}?access_token=${access_token}&ref=${branch}")

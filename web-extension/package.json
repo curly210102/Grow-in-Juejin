@@ -1,6 +1,5 @@
 {
-  "name": "web-extension",
-  "private": true,
+  "name": "grow-in-juejin",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -27,5 +26,7 @@
     "typescript": "^5.1.6",
     "vite": "^2.9.15",
     "vue-tsc": "^0.35.0"
-  }
+  },
+  "packageManager": "pnpm@7.27.0",
+  "author": "Curly Brackets"
 }

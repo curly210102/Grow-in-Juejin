@@ -32,10 +32,10 @@ def build_topic_json():
 
     sorted_dict = {k: v for k, v in sorted_items}
 
-    with open("topics.json", "w", encoding="utf-8") as outfile:
+    with open("./data/topics.json", "w", encoding="utf-8") as outfile:
         json.dump(sorted_dict, outfile, indent=4, ensure_ascii=False)
 
-    with open("topics_v2.json", "w", encoding="utf-8") as outfile:
+    with open("./data/topics_v2.json", "w", encoding="utf-8") as outfile:
         json.dump(all_data_v2, outfile, indent=4, ensure_ascii=False)
 
 
