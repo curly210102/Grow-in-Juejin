@@ -1,5 +1,5 @@
 import { entryPath } from "@/constant";
-import { entryIcon } from "../icon";
+import { entryIcon } from "@/icon";
 import onRouteChange from "../utils/onRouteChange";
 import onElementRendered from "../utils/onElementRendered";
 
@@ -14,7 +14,7 @@ async function addNavbarEntry() {
         growingEntry.id = "entry-gij"
         growingEntry.classList.remove("notification");
         growingEntry.style.padding = "0 0.5rem";
-        growingEntry.innerHTML = `<a href="${chrome.runtime.getURL(entryPath)}" target="__blank" title="Grow in Juejin" style="width: 22px; height: 22px; color: #8a919f">${entryIcon}</a>`;
+        growingEntry.innerHTML = `<a href="${chrome.runtime.getURL(entryPath)}" target="__blank" title="Grow in Juejin" style="width: 22px; height: 22px;">${entryIcon}</a>`;
         notificationEntry.insertAdjacentElement("beforebegin", growingEntry);
     }
 }
