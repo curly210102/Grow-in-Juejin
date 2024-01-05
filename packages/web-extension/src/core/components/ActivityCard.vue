@@ -57,28 +57,28 @@ function calculateCountdown() {
 }
 </script>
 <template>
-    <div class="gij-p-6 gij-space-y-5 gij-pb-10 gij-flex gij-flex-col gij-justify-between gij-bg-layer-bg gij-group">
+    <div class="gij-p-6 gij-space-y-5 gij-pb-8 gij-flex gij-flex-col gij-justify-between gij-bg-layer-bg gij-group">
         <div>
-            <div class="gij-flex gij-items-center gij-flex-wrap gij-gap-2">
-                <div class="gij-flex-1 gij-text-md gij-font-semibold gij-whitespace-pre-wrap gij-text-ellipsis"><a
+            <div class="gij-flex gij-whitespace-pre-wrap gij-justify-between gij-gap-2">
+                <div class="gij-flex-1 gij-text-md gij-font-semibold"><a
                         :href="activity.docLink" target="_blank" :title="activity.title" :tabindex="-1"
                         class="gij-text-main-text/90 group-hover:gij-text-primary">{{
                             activity.title
                         }}</a>
                 </div>
-                <div class="gij-text-sm gij-font-semibold gij-text-main-text/80"
+                <div class="gij-leading-6 gij-text-sm gij-font-semibold gij-text-main-text/80 gij-relative"
                     v-if="activity.startTimeStamp && activity.endTimeStamp">
-                    <span class="group-hover:gij-hidden">{{ format(activity.startTimeStamp, "MM/DD") }} - {{
+                    <span class="group-hover:gij-invisible">{{ format(activity.startTimeStamp, "MM/DD") }} - {{
                         format(isStartOfDay(activity.endTimeStamp) ?
                             activity.endTimeStamp - MS_OF_DAY : activity.endTimeStamp, "MM/DD") }}</span>
-                    <span class="gij-hidden group-hover:gij-block">
+                    <span class="gij-invisible group-hover:gij-visible gij-absolute gij-z-10 gij-right-0">
                         {{
                             calculateCountdown()
                         }}
                     </span>
                 </div>
             </div>
-            <div class="gij-text-xs gij-text-main-text/75 gij-mt-2 gij-whitespace-pre-wrap">
+            <div class="gij-text-xs gij-leading-normal gij-text-main-text/60 gij-mt-2 gij-whitespace-pre-wrap">
                 {{ activity.desc }}
             </div>
         </div>
@@ -120,19 +120,19 @@ function calculateCountdown() {
                 </div>
             </div>
             <div>
-                <div class="gij-flex gij-gap-2 gij-flex-wrap gij-justify-between">
+                <div class="gij-flex gij-gap-2 gij-flex-wrap gij-justify-between gij-mx-2">
                     <div v-for='[label, count] in [["阅读量", activity.view], ["点赞", activity.digg], ["评论量", activity.comment], ["收藏", activity.collect]]'
                         class="gij-text-center gij-overflow-hidden">
-                        <div class="gij-text-xl gij-text-main-text gij-font-mono gij- gij-truncate gij-text-ellipsis"
+                        <div class="gij-text-xl gij-text-main-text/75 gij-font-mono gij- gij-truncate gij-text-ellipsis"
                             :alt="count">
                             {{ count }}
                         </div>
-                        <div class="gij-text-main-text/75 gij-text-sm gij-whitespace-nowrap">
+                        <div class="gij-text-main-text/60 gij-text-sm gij-whitespace-nowrap">
                             {{ label }}
                         </div>
                     </div>
                 </div>
-                <div class="gij-text-main-text/50 gij-text-xs gij-mt-4 gij-space-x-4 gij-flex gij-flex-wrap">
+                <div class="gij-text-main-text/50 gij-text-xs gij-mt-5 gij-space-x-4 gij-flex gij-flex-wrap">
                     <div>
                         <span v-if="activity.articleSummary.invalid.length > 0">🚨 检测到 {{
                             activity.articleSummary["invalid"].length }}

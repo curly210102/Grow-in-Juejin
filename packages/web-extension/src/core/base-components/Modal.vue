@@ -52,7 +52,7 @@ const { title } = defineProps<{
                                 {{ title }}
                             </DialogTitle>
 
-                            <DialogDescription v-if="description" class="gij-text-sm gij-text-main-text/75 gij-mb-2">
+                            <DialogDescription v-if="description" class="gij-text-sm gij-text-main-text/60 gij-mb-2">
                                 {{ description }}
                             </DialogDescription>
                             <slot></slot>
