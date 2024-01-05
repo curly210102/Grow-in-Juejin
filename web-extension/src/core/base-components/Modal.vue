@@ -9,21 +9,34 @@ import {
     DialogDescription
 } from '@headlessui/vue'
 import { XCircleIcon } from '@heroicons/vue/20/solid'
+import { nextTick, toRefs, watch } from 'vue'
 const emit = defineEmits<{
     (e: "close"): void
 }>()
 
-const { title } = defineProps<{
+const props = defineProps<{
     title?: string,
     description?: string
     customPanel?: boolean
     panelClass?: string
+    show: boolean
 }>()
+
+const { title, show } = toRefs(props);
+
+watch(show, async (isOpen) => {
+    if (isOpen) {
+        await nextTick()
+        document.documentElement.style.paddingRight = "0px";
+        document.documentElement.style.overflow = "visible";
+    }
+
+})
 
 </script>
 
 <template>
-    <TransitionRoot appear as="template">
+    <TransitionRoot appear as="template" :show="show">
         <Dialog as="div" @close="emit('close')" class="gij-relative gij-z-[999] modal" :initialFocus="null">
             <TransitionChild as="template" enter="gij-duration-300 gij-ease-out" enter-from="gij-opacity-0"
                 enter-to="gij-opacity-100" leave="gij-duration-200 gij-ease-in" leave-from="gij-opacity-100"
