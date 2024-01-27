@@ -1,5 +1,34 @@
 [
     {
+        "key": "2024金石计划第一期",
+        "desc": "针对掘金社区创作者等级 lv3-lv8 的原创作者",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/39568e6d278240b2bf3366e921515f3d~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=804&h=336&s=363497&e=png&b=2978e1",
+        "startTimeStamp": 1706457600000,
+        "title": "24年第一期金石计划征文活动",
+        "docLink": "https://juejin.cn/post/7327892137882026038",
+        "category": "金石计划",
+        "endTimeStamp": 1709222400000,
+        "lastModifiedTime": 1706349628000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "750",
+        "theme": "金石计划征文活动",
+        "recommend": true
+    },
+    {
         "key": "2024春节创意投稿",
         "desc": "请用神奇的代码描绘出专属于开发者的新年气象吧~",
         "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/04c5777bf7ff41b9bd9c84a9276ffa9a~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=2600&h=1200&s=1060508&e=jpg&b=efecf3",
