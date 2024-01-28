@@ -85,34 +85,5 @@
         "wordCount": "1500",
         "theme": "2023 年度技术盘点",
         "recommend": false
-    },
-    {
-        "key": "我的2023年度关键词",
-        "desc": "年度技术盘点/预测、技术学习、工作职业成长、人生感悟、生活总结类文章等",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/31cf2083857846b5b2e33a062e517fe9~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1303&h=734&s=719126&e=jpg&b=0b141b",
-        "startTimeStamp": 1701792000000,
-        "title": "2023年度关键词",
-        "docLink": "https://juejin.cn/post/7308899425149354035",
-        "category": "征文大赛",
-        "endTimeStamp": 1705766400000,
-        "lastModifiedTime": 1701849315000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "650",
-        "theme": "我的2023年度关键词",
-        "recommend": false
     }
 ]
