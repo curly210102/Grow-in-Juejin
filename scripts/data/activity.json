@@ -56,34 +56,5 @@
         "wordCount": "650",
         "theme": "创意投稿大赛",
         "recommend": false
-    },
-    {
-        "key": "2023年度技术盘点",
-        "desc": "参与者必须选择一个技术或者一个技术领域进行总结和预测，不能是个人的成长学习经历。",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5b320de64e0c404d8eb7edcc624852d3~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1303&h=734&s=1399017&e=png&b=d7dff9",
-        "startTimeStamp": 1702569600000,
-        "title": "2023年度技术盘点-技术趋势总结和前沿技术预测",
-        "docLink": "https://juejin.cn/post/7312646198094069801",
-        "category": "技术专题",
-        "endTimeStamp": 1705852800000,
-        "lastModifiedTime": 1702980639000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "1500",
-        "theme": "2023 年度技术盘点",
-        "recommend": false
     }
 ]
