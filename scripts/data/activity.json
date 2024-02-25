@@ -1,5 +1,34 @@
 [
     {
+        "key": "Sora 技术探索",
+        "desc": "文生视频大模型 Sora 相关原创技术文章",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2d655dda022c4d658bd6dc32597b5e18~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1560&h=720&s=1368591&e=png&b=d8e0fa",
+        "startTimeStamp": 1708617600000,
+        "title": "Sora 技术探索",
+        "docLink": "https://juejin.cn/post/7338443551744802856",
+        "category": "技术专题",
+        "endTimeStamp": 1711296000000,
+        "lastModifiedTime": 1708829406000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "700",
+        "theme": "Sora 技术探索",
+        "recommend": false
+    },
+    {
         "key": "2024金石计划第一期",
         "desc": "针对掘金社区创作者等级 lv3-lv8 的原创作者",
         "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/39568e6d278240b2bf3366e921515f3d~tplv-k3u1fbpfcp-jj-mark:0:0:0:0:q75.image#?w=804&h=336&s=363497&e=png&b=2978e1",
