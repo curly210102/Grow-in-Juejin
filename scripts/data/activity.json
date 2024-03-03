@@ -125,34 +125,5 @@
         "wordCount": "650",
         "theme": "扣子（coze.cn）初体验",
         "recommend": false
-    },
-    {
-        "key": "2024春节创意投稿",
-        "desc": "请用神奇的代码描绘出专属于开发者的新年气象吧~",
-        "figure": "https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/04c5777bf7ff41b9bd9c84a9276ffa9a~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=2600&h=1200&s=1060508&e=jpg&b=efecf3",
-        "startTimeStamp": 1705507200000,
-        "title": "🐲真龙不怕火炼 | 春节创意投稿大赛",
-        "docLink": "https://juejin.cn/post/7324750302320869414",
-        "category": "创意投稿",
-        "endTimeStamp": 1708790400000,
-        "lastModifiedTime": 1705569846000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "650",
-        "theme": "创意投稿大赛",
-        "recommend": false
     }
 ]
