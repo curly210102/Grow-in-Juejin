@@ -1,1 +1,31 @@
-[]
+[
+    {
+        "key": "2024年4月金石计划",
+        "desc": "创作等级 Lv4-Lv8用户 (非掘友等级）",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be7cb4b513564e669a8a9f6be55e7a9b~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=9049&h=5098&s=1265664&e=png&b=a4ffc8",
+        "startTimeStamp": 1712419200000,
+        "title": "四月金石计划",
+        "docLink": "https://juejin.cn/post/7354940462060404777?utm_source=push&utm_medium=web&utm_campaign=jsjh2404",
+        "category": "金石计划",
+        "endTimeStamp": 1714579200000,
+        "lastModifiedTime": 1713435586000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "750",
+        "theme": "金石计划征文活动",
+        "recommend": true
+    }
+]

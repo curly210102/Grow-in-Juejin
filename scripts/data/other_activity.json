@@ -1,1 +1,20 @@
-[]
+[
+    {
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9fda14603c7d42bd99f4e1dd7cf80057~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1304&h=735&s=746975&e=png&b=010308",
+        "startTimeStamp": 1712592000000,
+        "title": "Code Infinity：AI Bot 技术挑战赛",
+        "docLink": "https://juejin.cn/post/7355439624100249635?utm_source=web&utm_medium=znx&utm_campaign=coze0409",
+        "category": "AI Bot",
+        "endTimeStamp": 1715529600000,
+        "lastModifiedTime": 1713435392000
+    },
+    {
+        "figure": "https://img.bagevent.com/resource/20240410/2035260402971445.jpg?imageView2/2/w/540/h/320/interlace/1/q/100&lazy=0",
+        "startTimeStamp": 1713369600000,
+        "title": "掘金 X 华为鸿蒙HarmoryOS动手实验室——上海站",
+        "docLink": "https://www.bagevent.com/event/8819409?bag_track=webbanner",
+        "category": "线下活动",
+        "endTimeStamp": 1713715200000,
+        "lastModifiedTime": 1713435973000
+    }
+]
