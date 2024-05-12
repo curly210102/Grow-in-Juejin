@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Grow in 掘金",
   "short_name": "Grow",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "见证在掘金社区的每一步成长",
   "background": {
     "service_worker": "src/background/index.ts",
@@ -46,7 +46,7 @@
     "https://gitee.com/curlly-brackets/grow-in-juejin/raw/*/activity.json",
     "https://juejin.cn/*"
   ],
-  "author": "water.curly@outlook.com",
+  "author": "curly_brackets@outlook.com",
   "homepage_url": "https://juejin.cn/post/7206628135004979259",
   "web_accessible_resources": [
     {

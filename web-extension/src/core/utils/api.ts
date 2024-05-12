@@ -57,6 +57,7 @@ export const fetchUserArticles = async (
             comment_count: number,
             title: string,
             status: number
+            homepage_top_status: number
         },
         category: {
             category_name: string

@@ -87,7 +87,7 @@ async function syncArticleList(userId: string, localArticleList: IArticle[] = []
         const tailOfResponse = batchArticles.slice(-1)[0];
         const lastArticle = newArticleList.slice(-1)[0];
 
-        if (!tailOfResponse || !tailOfResponse?.has_more || +lastArticle?.article_info.ctime * 1000 <= earliestTime) {
+        if (!tailOfResponse || !tailOfResponse?.has_more || (lastArticle?.article_info.homepage_top_status === 0 && +lastArticle?.article_info.ctime * 1000 <= earliestTime)) {
             cursorOfLastResponse = null;
         } else {
             cursorOfLastResponse = tailOfResponse.cursor
@@ -95,7 +95,7 @@ async function syncArticleList(userId: string, localArticleList: IArticle[] = []
     }
     // 存在用户删除文章的情况，这时上一步的差值不一定够，逐个请求到 earliestTime 为止
     const lastArticle = newArticleList.slice(-1)[0];
-    if (cursorOfLastResponse && lastArticle && +lastArticle.article_info.ctime * 1000 > earliestTime) {
+    if (cursorOfLastResponse && lastArticle && (lastArticle?.article_info.homepage_top_status !== 0 || +lastArticle.article_info.ctime * 1000 > earliestTime)) {
         await syncToEnd(userId, cursorOfLastResponse, newArticleList, earliestTime);
     }
 
@@ -117,7 +117,8 @@ async function syncToEnd(userId: string, cursor: string, list: ResponseArticle =
 
     list.push(...data);
 
-    if (has_more && +(data.slice(-1)[0]?.article_info.ctime ?? "0") * 1000 > earliestTime) {
+    const lastArticle = data.slice(-1)[0];
+    if (has_more && (+(lastArticle?.article_info.ctime ?? "0") * 1000 > earliestTime || lastArticle?.article_info.homepage_top_status !== 0)) {
         await syncToEnd(userId, nextCursor, list, earliestTime);
     }
 
@@ -129,8 +130,9 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
         return [];
     }
     const lastArticle = newArticleList.slice(-1)[0]
-    const createTime = +lastArticle.article_info.ctime * 1000;
-    const oldArticles = oldArticleList.filter(a => a.publishTime < createTime);
+    const createTime = lastArticle.article_info.homepage_top_status === 0 ?+lastArticle.article_info.ctime * 1000 : Infinity;
+    const newArticleIds = new Set(newArticleList.map(a => a.article_id))
+    const oldArticles = oldArticleList.filter(a => a.publishTime < createTime && !newArticleIds.has(a.id));
     return [...newArticleList.map(article => {
         const { article_id, article_info, category, tags } = article;
         // 文章字数、内容、发布时间、评论、点赞、收藏、阅读数、推荐情况
@@ -169,7 +171,7 @@ function mergeArticleList(oldArticleList: IArticle[], newArticleList: ResponseAr
                         ? 1
                         : 2
         }
-    }), ...oldArticles];
+    }), ...oldArticles].sort((a, b) => b.publishTime - a.publishTime);
 }
 
 async function syncArticleDetails(userId: string, articleList: IArticle[], localArticleContentMap: Map<string, IArticleContentItem>, earliestTime: number) {
