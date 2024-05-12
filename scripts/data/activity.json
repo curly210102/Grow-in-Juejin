@@ -1,14 +1,13 @@
 [
     {
-        "key": "2023年度技术盘点",
-        "desc": "参与者必须选择一个技术或者一个技术领域进行总结和预测，不能是个人的成长学习经历。",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5b320de64e0c404d8eb7edcc624852d3~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1303&h=734&s=1399017&e=png&b=d7dff9",
-        "startTimeStamp": 1702569600000,
-        "title": "2023年度技术盘点-技术趋势总结和前沿技术预测",
-        "docLink": "https://juejin.cn/post/7312646198094069801",
-        "category": "技术专题",
-        "endTimeStamp": 1705852800000,
-        "lastModifiedTime": 1702980639000,
+        "key": "2024年5月金石计划",
+        "desc": "创作等级 Lv4-Lv8用户 (非掘友等级）",
+        "startTimeStamp": 1715356800000,
+        "title": "五月金石计划",
+        "docLink": "https://juejin.cn/post/7367328756954791945",
+        "category": "金石计划",
+        "endTimeStamp": 1718553600000,
+        "lastModifiedTime": 1715494751000,
         "rewards": [
             {
                 "type": "days",
@@ -24,20 +23,60 @@
         "signSlogan": "",
         "signLink": "",
         "tagNames": [],
-        "wordCount": "1500",
-        "theme": "2023 年度技术盘点",
-        "recommend": false
+        "wordCount": "750",
+        "theme": "金石计划征文活动",
+        "recommend": true
     },
     {
-        "key": "我的2023年度关键词",
-        "desc": "年度技术盘点/预测、技术学习、工作职业成长、人生感悟、生活总结类文章等",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/31cf2083857846b5b2e33a062e517fe9~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1303&h=734&s=719126&e=jpg&b=0b141b",
-        "startTimeStamp": 1701792000000,
-        "title": "2023年度关键词",
-        "docLink": "https://juejin.cn/post/7308899425149354035",
-        "category": "征文大赛",
-        "endTimeStamp": 1705766400000,
-        "lastModifiedTime": 1701849315000,
+        "key": "创作者训练营",
+        "desc": "创作等级 Lv0-Lv3用户 (非掘友等级）",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/25319ce61dc04939a41350f6bd4e3447~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=5430&h=3059&s=951232&e=png&b=e5eafd",
+        "startTimeStamp": 1713974400000,
+        "title": "创作者训练营",
+        "docLink": "https://juejin.cn/post/7361274099107594303",
+        "category": "创作者训练营",
+        "endTimeStamp": 1717776000000,
+        "lastModifiedTime": 1714383538000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": [
+                    {
+                        "name": "阳关普照奖",
+                        "count": 2,
+                        "recommend_count": 0
+                    },
+                    {
+                        "name": "潜力新星奖",
+                        "count": 5,
+                        "recommend_count": 1
+                    }
+                ]
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "600",
+        "theme": "创作者训练营",
+        "recommend": true
+    },
+    {
+        "key": "2024年4月金石计划",
+        "desc": "创作等级 Lv4-Lv8用户 (非掘友等级）",
+        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be7cb4b513564e669a8a9f6be55e7a9b~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=9049&h=5098&s=1265664&e=png&b=a4ffc8",
+        "startTimeStamp": 1712419200000,
+        "title": "四月金石计划",
+        "docLink": "https://juejin.cn/post/7354940462060404777?utm_source=push&utm_medium=web&utm_campaign=jsjh2404",
+        "category": "金石计划",
+        "endTimeStamp": 1715356800000,
+        "lastModifiedTime": 1715156167000,
         "rewards": [
             {
                 "type": "days",
@@ -53,8 +92,8 @@
         "signSlogan": "",
         "signLink": "",
         "tagNames": [],
-        "wordCount": "650",
-        "theme": "我的2023年度关键词",
-        "recommend": false
+        "wordCount": "750",
+        "theme": "金石计划征文活动",
+        "recommend": true
     }
 ]
