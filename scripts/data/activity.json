@@ -1,5 +1,33 @@
 [
     {
+        "key": "技术专题25期 | 性能优化的实践与经验分享",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2807ec19afeb4c149bb65fec306a82f6~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1560&h=720&s=1372803&e=png&b=d8e0fa",
+        "startTimeStamp": 1715702400000,
+        "title": "性能优化的实践与经验分享",
+        "docLink": "https://juejin.cn/post/7368690450898354176",
+        "category": "技术专题",
+        "endTimeStamp": 1718640000000,
+        "lastModifiedTime": 1715760475000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "700",
+        "theme": "聊聊性能优化",
+        "recommend": false
+    },
+    {
         "key": "2024年5月金石计划",
         "desc": "创作等级 Lv4-Lv8用户 (非掘友等级）",
         "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3caec02df59479c8b1a37713fce4e27~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=5430&h=3059&s=1413810&e=png&b=a3fec8",
