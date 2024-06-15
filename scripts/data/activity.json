@@ -85,45 +85,5 @@
         "wordCount": "500",
         "theme": "华为鸿蒙有奖征文",
         "recommend": false
-    },
-    {
-        "key": "创作者训练营",
-        "desc": "创作等级 Lv0-Lv3用户 (非掘友等级）",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/25319ce61dc04939a41350f6bd4e3447~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=5430&h=3059&s=951232&e=png&b=e5eafd",
-        "startTimeStamp": 1713974400000,
-        "title": "创作者训练营",
-        "docLink": "https://juejin.cn/post/7361274099107594303",
-        "category": "创作者训练营",
-        "endTimeStamp": 1717776000000,
-        "lastModifiedTime": 1714383538000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": [
-                    {
-                        "name": "阳关普照奖",
-                        "count": 2,
-                        "recommend_count": 0
-                    },
-                    {
-                        "name": "潜力新星奖",
-                        "count": 5,
-                        "recommend_count": 1
-                    }
-                ]
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "600",
-        "theme": "创作者训练营",
-        "recommend": true
     }
 ]
