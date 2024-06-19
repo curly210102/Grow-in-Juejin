@@ -55,35 +55,5 @@
         "wordCount": "750",
         "theme": "金石计划征文活动",
         "recommend": true
-    },
-    {
-        "key": "华为HarmonyOS NEXT创意有奖征文",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/89c2eac439ad4ac981057f1a81795e27~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=2350&h=1001&s=600936&e=jpg&b=dfe9f6",
-        "startTimeStamp": 1715270400000,
-        "title": "华为鸿蒙有奖征文",
-        "docLink": "https://juejin.cn/post/7366945260792168486",
-        "category": "创意投稿",
-        "endTimeStamp": 1718121600000,
-        "lastModifiedTime": 1715501623000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "本文正在参加华为鸿蒙有奖征文征文活动",
-        "signLink": "",
-        "tagNames": [
-            "HarmonyOS"
-        ],
-        "wordCount": "500",
-        "theme": "华为鸿蒙有奖征文",
-        "recommend": false
     }
 ]
