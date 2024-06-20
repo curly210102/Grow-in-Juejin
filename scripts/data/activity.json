@@ -1,5 +1,34 @@
 [
     {
+        "key": "2024年6月金石计划",
+        "desc": "创作等级 Lv4-Lv8用户 (非掘友等级）",
+        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0a7bcf5ba8ae42f188e6dd30de607411~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=5276&h=4001&s=937919&e=png&b=a4ffc8",
+        "startTimeStamp": 1718726400000,
+        "title": "六月金石计划",
+        "docLink": "https://juejin.cn/post/7381784679907409983",
+        "category": "金石计划",
+        "endTimeStamp": 1721318400000,
+        "lastModifiedTime": 1718851064000,
+        "rewards": [
+            {
+                "type": "days",
+                "rewards": []
+            },
+            {
+                "type": "count",
+                "rewards": []
+            }
+        ],
+        "pointRules": [],
+        "categories": [],
+        "signSlogan": "",
+        "signLink": "",
+        "tagNames": [],
+        "wordCount": "750",
+        "theme": "金石计划征文活动",
+        "recommend": true
+    },
+    {
         "key": "技术专题25期 | 性能优化的实践与经验分享",
         "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2807ec19afeb4c149bb65fec306a82f6~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1560&h=720&s=1372803&e=png&b=d8e0fa",
         "startTimeStamp": 1715702400000,
