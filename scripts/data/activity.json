@@ -55,34 +55,5 @@
         "wordCount": "700",
         "theme": "聊聊性能优化",
         "recommend": false
-    },
-    {
-        "key": "2024年5月金石计划",
-        "desc": "创作等级 Lv4-Lv8用户 (非掘友等级）",
-        "figure": "https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b3caec02df59479c8b1a37713fce4e27~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=5430&h=3059&s=1413810&e=png&b=a3fec8",
-        "startTimeStamp": 1715356800000,
-        "title": "五月金石计划",
-        "docLink": "https://juejin.cn/post/7367328756954791945",
-        "category": "金石计划",
-        "endTimeStamp": 1718553600000,
-        "lastModifiedTime": 1715501415000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "750",
-        "theme": "金石计划征文活动",
-        "recommend": true
     }
 ]
