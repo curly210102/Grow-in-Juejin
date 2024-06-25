@@ -27,33 +27,5 @@
         "wordCount": "750",
         "theme": "金石计划征文活动",
         "recommend": true
-    },
-    {
-        "key": "技术专题25期 | 性能优化的实践与经验分享",
-        "figure": "https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2807ec19afeb4c149bb65fec306a82f6~tplv-k3u1fbpfcp-jj-mark:3024:0:0:0:q75.awebp#?w=1560&h=720&s=1372803&e=png&b=d8e0fa",
-        "startTimeStamp": 1715702400000,
-        "title": "性能优化的实践与经验分享",
-        "docLink": "https://juejin.cn/post/7368690450898354176",
-        "category": "技术专题",
-        "endTimeStamp": 1718640000000,
-        "lastModifiedTime": 1715760475000,
-        "rewards": [
-            {
-                "type": "days",
-                "rewards": []
-            },
-            {
-                "type": "count",
-                "rewards": []
-            }
-        ],
-        "pointRules": [],
-        "categories": [],
-        "signSlogan": "",
-        "signLink": "",
-        "tagNames": [],
-        "wordCount": "700",
-        "theme": "聊聊性能优化",
-        "recommend": false
     }
 ]
